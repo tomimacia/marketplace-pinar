@@ -7,7 +7,7 @@ import { UserProvider } from "../contexts/userContext";
 import { useRouterEvent } from "../items/customHooks/useRouterEvent";
 
 export default function App({ Component, pageProps }) {
-  const { loading } = useRouterEvent(1000)
+  const { loading } = useRouterEvent()
 
   return (
     <UserProvider>
@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
             h={2}
             colorScheme="blue"
             bg="transparent"
-            top="10vh"            
+            top="120px"            
             w="100%"            
             isIndeterminate
             position="absolute"

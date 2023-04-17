@@ -6,7 +6,7 @@ import { auth, firestore } from "../firebase/clientApp";
 export const context = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);  
   const [userRef, setUserRef] = useState(null);
 
   useEffect(() => {
@@ -18,16 +18,7 @@ export const UserProvider = ({ children }) => {
       findUser();
     }
   }, [user]);
-
-  useEffect(() => {
-    if (userRef !== null) {
-      const favs = userRef.favoritos;
-      sessionStorage.setItem(
-        "FAVORITOS_STORAGE_SESSION_CONTEXT",
-        JSON.stringify(favs)
-      );
-    }
-  }, [userRef]);
+ 
 
   return (
     <context.Provider value={userRef ? userRef : "offline"}>

@@ -3,16 +3,16 @@ import { motion } from "framer-motion";
 import Head from "next/head";
 import Footer from "./navigation/footer";
 import Navigation from "./navigation/Navigation";
+import { layoutA, layoutB } from "../chakra/bgColors";
 
-
-const Layout = (props) => {
-  const bgColors = [
-    "linear(to-b, blue.300, blue.100)",
-    "linear(to-b, gray.700, gray.600)",
-  ];
-  const [a, b] = bgColors;
-    
-
+const Layout = ({
+  children,
+  hiddenTitle,
+  title,
+  cartIndex,
+  mainTitle,
+  hasTransition,
+}) => {
   return (
     <Box
       pos="relative"
@@ -21,16 +21,17 @@ const Layout = (props) => {
       minH="100vh"
       maxH="100%"
       h="100%"
-      pb="4rem"      
-      bgGradient={useColorModeValue(a, b)}
+      pb="4rem"
+      overflowX="hidden"
+      bgGradient={useColorModeValue(layoutA, layoutB)}
     >
       <Head>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>El Pinar | {props.hiddenTitle || props.title}</title>
+        <title>El Pinar | {hiddenTitle || title}</title>
       </Head>
-      <Navigation carro={props.cartIndex} />
+      <Navigation carro={cartIndex} />
       <Flex pt={0} flexDir="column">
         <Heading
           animate={{
@@ -45,10 +46,10 @@ const Layout = (props) => {
           pt={10}
           align="center"
         >
-          {props.mainTitle}
+          {mainTitle}
         </Heading>
       </Flex>
-      {props.hasTransition && (
+      {hasTransition && (
         <Box
           as={motion.div}
           transitionDuration={"0.5s"}
@@ -56,10 +57,10 @@ const Layout = (props) => {
           animate={{ opacity: 1 }}
           pb="5rem"
         >
-          {props.children}
+          {children}
         </Box>
       )}
-      {!props.hasTransition && <Box>{props.children}</Box>}
+      {!hasTransition && <Box>{children}</Box>}
       <Footer />
     </Box>
   );
