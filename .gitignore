@@ -7,7 +7,7 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 # Variables de entorno
-.env
+.env.local
 # Directorios de instalación y caché
 /node_modules
 .sass-cache
