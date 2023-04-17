@@ -10,13 +10,13 @@ export const useCartListHandler = () => {
   function deleteProduct(prop) {
     setCartList(cartList.filter((prod) => prod !== prop));
   }
-  function minusOneProduct(prop) {
+  function minusOne(prop) {
     let indice = cartList.indexOf(prop);
     let arr = cartList;
     arr.splice(indice, 1);
     setCartList([...arr]);
   }
-  function plusOneProduct(prop) {
+  function plusOne(prop) {
     setCartList([...cartList, prop]);
   }
   const quantityTotal = (prd) => {
@@ -32,12 +32,15 @@ export const useCartListHandler = () => {
     }, 0);
     return sum;
   };
-  return {
-    cartList,
+  const actions = {
     deleteCart,
     deleteProduct,
-    minusOneProduct,
-    plusOneProduct,
-    quantityTotal
+    minusOne,
+    plusOne,
+  };
+  return {
+    cartList,
+    actions,
+    quantityTotal,
   };
 };

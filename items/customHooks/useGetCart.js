@@ -2,7 +2,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { firestore } from "../../firebase/clientApp";
 
-export const useGetCartProducts = (cartList) => {
+export const useGetCart = (cartList) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
