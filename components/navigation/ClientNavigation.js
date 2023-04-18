@@ -22,6 +22,7 @@ import { ProfileImage } from "./ProfileImage";
 import { Avatars } from "./avatars";
 import { ClientNavLink } from "./clientNavLink";
 import { linkTags, sellerTags } from "./clientNavTags";
+import { defaultProfile } from "../../public/images/avatars/exportAvatars";
 
 
 export const ClientNavigation = () => {  
@@ -96,7 +97,7 @@ export const ClientNavigation = () => {
                 img={user && ctx.Img}
                 user={user}
                 userPhoto={!loading && user.Img}
-                defaultProf={'images/avatars/default.jpg'}
+                defaultProf={defaultProfile}
               />
               <Flex cursor="auto" flexDir="column">
                 <span>Mi Usuario</span>

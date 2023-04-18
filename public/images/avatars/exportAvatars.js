@@ -45,7 +45,8 @@ import Profile13 from "./profileAvatars/128_13.png";
 import Profile14 from "./profileAvatars/128_14.png";
 import Profile15 from "./profileAvatars/128_15.png";
 import Profile16 from "./profileAvatars/128_16.png";
-
+import defProfile from "./default.jpg"
+export const defaultProfile = defProfile;
 export const dogs = [
   Dog_1,
   Dog_2,
@@ -96,3 +97,5 @@ export const profiles = [
   Profile15,
   Profile16,
 ];
+
+
