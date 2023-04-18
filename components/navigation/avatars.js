@@ -12,11 +12,13 @@ import { BeatLoader } from "react-spinners";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { doc, updateDoc } from "firebase/firestore";
-import { firestore } from "../../firebase/clientApp";
+import { auth, firestore } from "../../firebase/clientApp";
 import { dogs, profiles } from "../../public/images/avatars/exportAvatars";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-export const Avatars = ({ user, showClick }) => {
+export const Avatars = ({ showClick }) => {
   const [loadingImg, setLoadingImg] = useState(false);
+  const [user, loading, error] = useAuthState(auth);
   const toast = useToast();  
   const allAvatars = [...dogs,...profiles]
 
