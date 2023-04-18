@@ -92,13 +92,13 @@ export const ClientNavigation = () => {
           </MenuButton>
           <MenuList zIndex={15}>
             <MenuItem minH="48px">
-              <ProfileImage
+              {/* <ProfileImage
                 showFunction={() => setShow(true)}
                 img={user && ctx.Img}
                 user={user}
                 userPhoto={!loading && user.Img}
                 defaultProf={defaultProfile}
-              />
+              /> */}
               <Flex cursor="auto" flexDir="column">
                 <span>Mi Usuario</span>
                 <Text fontSize={13}>{user && user.email}</Text>
