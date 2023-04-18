@@ -93,9 +93,9 @@ export const ClientNavigation = () => {
             <MenuItem minH="48px">
               <ProfileImage
                 showFunction={() => setShow(true)}
-                img={user && ctx.Img}
+                img={ctx !== "offline" && ctx.Img}
                 user={user}
-                userPhoto={!loading && user.Img}
+                userPhoto={!loading && user && user.photoURL}
                 defaultProf={defaultProfile}
               />
               <Flex cursor="auto" flexDir="column">
