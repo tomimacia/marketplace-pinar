@@ -103,7 +103,7 @@ export const ClientNavigation = () => {
                 <Text fontSize={13}>{user && user.email}</Text>
               </Flex>
             </MenuItem>
-            {linkTags(loading,user).map((lnk) => {
+            {linkTags(user).map((lnk) => {
               return <ClientNavLink key={lnk[0]} title={lnk[0]} end={lnk[1]} />;
             })}
             {ctx.isAdmin && (

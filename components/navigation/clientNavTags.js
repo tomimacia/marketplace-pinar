@@ -1,4 +1,4 @@
-export const linkTags =(loading,user)=> {
+export const linkTags =(user)=> {
     return[
         ["Mi Cuenta", "/clientPages/miCuenta"],
         ["Ajustes", "/clientPages/configuracion"],
