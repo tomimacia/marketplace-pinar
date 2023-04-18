@@ -2,7 +2,7 @@ export const linkTags =(loading,user)=> {
     return[
         ["Mi Cuenta", "/clientPages/miCuenta"],
         ["Ajustes", "/clientPages/configuracion"],
-        ["Favoritos", `/clientPages/favoritos?cd=${!loading ? user.uid : "noUser"}`],
+        ["Favoritos", `/clientPages/favoritos?cd=${user ? user.uid : "noUser"}`],
         ["Mis Compras", "/clientPages/misCompras"],
         ["Ayuda", "/ayuda"],
       ];

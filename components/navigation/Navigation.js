@@ -87,7 +87,7 @@ const Navigation = ({ carro = 0 }) => {
         >
           {pages.map((page) => {
             return (
-              <BreadcrumbItem>
+              <BreadcrumbItem key={page[0]}>
                 <NavItem href={`/${page[1]}`}>{page[0]}</NavItem>
               </BreadcrumbItem>
             );

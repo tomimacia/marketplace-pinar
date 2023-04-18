@@ -104,7 +104,7 @@ export const ClientNavigation = () => {
               </Flex>
             </MenuItem>
             {linkTags(loading,user).map((lnk) => {
-              return <ClientNavLink title={lnk[0]} end={lnk[1]} />;
+              return <ClientNavLink key={lnk[0]} title={lnk[0]} end={lnk[1]} />;
             })}
             {ctx.isAdmin && (
               <ClientNavLink
@@ -115,7 +115,7 @@ export const ClientNavigation = () => {
             )}
             {ctx.isSeller &&
               sellerTags(loading,user).map((lnk) => {
-                return <ClientNavLink title={lnk[0]} end={lnk[1]} isSeller />;
+                return <ClientNavLink key={lnk[0]} title={lnk[0]} end={lnk[1]} isSeller />;
               })}
 
             <MenuItem
