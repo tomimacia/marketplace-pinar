@@ -7,17 +7,19 @@ import {
   Image,
   useToast,
 } from "@chakra-ui/react";
+
 import { BeatLoader } from "react-spinners";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { doc, updateDoc } from "firebase/firestore";
 import { firestore } from "../../firebase/clientApp";
 import { dogs, profiles } from "../../public/images/avatars/exportAvatars";
+
 export const Avatars = ({ user, showClick }) => {
+  const [loadingImg, setLoadingImg] = useState(false);
   const toast = useToast();  
   const allAvatars = [...dogs,...profiles]
 
-  const [loadingImg, setLoadingImg] = useState(false);
   const handleImg = async (prop) => {
     if (user) {
       setLoadingImg(true);

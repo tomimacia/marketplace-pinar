@@ -7,7 +7,7 @@ export const context = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, loading, error] = useAuthState(auth);
-  const [userRef, setUserRef] = useState(null);
+  const [userRef, setUserRef] = useState("offline");
 
   useEffect(() => {
     if (user) {
@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
   }, [userRef]);
 
   return (
-    <context.Provider value={userRef ? userRef : "offline"}>
+    <context.Provider value={userRef || "offline"}>
       {children}
     </context.Provider>
   );
