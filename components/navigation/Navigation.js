@@ -41,9 +41,9 @@ const Navigation = ({ carro = 0 }) => {
   const [searchInputValue, setSearchInputvalue] = useState("");
   const pages = [
     ["Home", "/"],
-    ["Productos", "productPages/productInterface"],
-    ["Nosotros", "about"],
-    ["Contacto", "contact"],
+    ["Productos", "/productPages/productInterface"],
+    ["Nosotros", "/about"],
+    ["Contacto", "/contact"],
   ];
   useEffect(() => {
     setCartCount(carro);
@@ -88,7 +88,7 @@ const Navigation = ({ carro = 0 }) => {
           {pages.map((page) => {
             return (
               <BreadcrumbItem key={page[0]}>
-                <NavItem href={`/${page[1]}`}>{page[0]}</NavItem>
+                <NavItem href={`${page[1]}`}>{page[0]}</NavItem>
               </BreadcrumbItem>
             );
           })}
