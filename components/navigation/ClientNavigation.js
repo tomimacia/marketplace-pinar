@@ -93,7 +93,7 @@ export const ClientNavigation = () => {
             <MenuItem minH="48px">
               <ProfileImage
                 showFunction={() => setShow(true)}
-                img={ctx.Img}
+                img={"someimg"}
                 user={user}
                 userPhoto={!loading && user.photoURL}
                 defaultProf={'images/avatars/default.jpg'}
