@@ -3,7 +3,6 @@ import { Box, Image } from "@chakra-ui/react";
 export const ProfileImage = ({
   showFunction,
   img,
-  user,
   userPhoto,
   defaultProf,
 }) => {
@@ -22,7 +21,7 @@ export const ProfileImage = ({
       boxSize="4rem"
       borderRadius="full"
       onClick={showFunction}
-      src={user && userPhoto ? userPhoto : defaultProf}
+      src={userPhoto || defaultProf}
       mr="12px"
       _hover={{ opacity: "0.8" }}
     />}

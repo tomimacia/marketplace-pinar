@@ -95,7 +95,7 @@ export const ClientNavigation = () => {
                 showFunction={() => setShow(true)}
                 img={ctx !== "offline" && ctx.Img}
                 user={user}
-                userPhoto={!loading && user && user.photoURL}
+                userPhoto={user && user.photoURL}
                 defaultProf={defaultProfile}
               />
               <Flex cursor="auto" flexDir="column">
