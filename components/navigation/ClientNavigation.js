@@ -93,9 +93,9 @@ export const ClientNavigation = () => {
             <MenuItem minH="48px">
               <ProfileImage
                 showFunction={() => setShow(true)}
-                img={"!loading && ctx.Img"}
+                img={user && ctx.Img}
                 user={user}
-                userPhoto={"!loading && user.Img"}
+                userPhoto={!loading && user.Img}
                 defaultProf={'images/avatars/default.jpg'}
               />
               <Flex cursor="auto" flexDir="column">
