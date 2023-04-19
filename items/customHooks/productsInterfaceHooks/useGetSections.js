@@ -2,9 +2,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { useLocalStorage } from "../useLocalStorage";
 import { firestore } from "../../../firebase/clientApp";
+import { useCategoria } from "../../../contexts/productsContext";
 
-export const useGetSections = (categoria) => {
-  const [secciones, setSecciones] = useState([]);
+export const useGetSections = () => {
+  const categoria = useCategoria()
+  const [sections, setSections] = useState([]);
   const [categorias, setCategorias] = useLocalStorage(
     "CATEGORIAS_STORAGE_SESSION_CONTEXT",
     []
@@ -39,8 +41,8 @@ export const useGetSections = (categoria) => {
   useEffect(() => {
     if (categoria && categorias.length > 0) {
       const catSel = categorias.filter((cat) => categoria === cat.id);
-      setSecciones(catSel[0]?.SubCat1);
+      setSections(catSel[0]?.SubCat1);
     }
-  }, [categoria]);
-  return { secciones, sectionError };
+  }, [categoria]);  
+  return { sections, sectionError };
 };

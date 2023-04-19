@@ -1,28 +1,24 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, IconButton, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import {
+  useCategoria,
+  useSearchInputValue,
+  useSetSearchInputValue,
+  useSubCat1,
+} from "../../contexts/productsContext";
 import { ProductTopChildren } from "./productTopChildren";
 
+const ProductTopComp = () => {
+  const categoria = useCategoria()
+  const subCat1 = useSubCat1()
+  const searchInputValue = useSearchInputValue();
+  const setSearchInputValue = useSetSearchInputValue();
+  
 
-const ProductTopComp = ({
-  title,
-  searchInputProp,
-  searchInputClean,
-  category,
-  sections,
-  setSubCat1,
-  subCat1,
-  setProductOrder,  
-}) => {
   return (
-    <Flex flexDir='column'>      
-        <ProductTopChildren
-        category={category}
-        sections={sections}
-        setSubCat1={setSubCat1}
-        subCat1={subCat1}
-        setProductOrder={setProductOrder}
-        />      
+    <Flex flexDir="column">
+      <ProductTopChildren />
       <Box pt={2} pr={[1, 3, 5, 7]} pl={[1, 3, 5, 7]}>
         <Box p={1} borderBottom="1px solid black">
           <Heading
@@ -31,20 +27,24 @@ const ProductTopComp = ({
             animate={{ x: 0 }}
             size={["xs", "xs", "sm", "sm"]}
           >
-            {title}
+            {categoria
+              ? `${categoria} ${subCat1 ? ` > ${subCat1}` : ""}`
+              : "Productos"}
           </Heading>
         </Box>
-        <Flex flexDir={["column", "column", "row", "row"]}>          
-          {searchInputProp && (
+        <Flex flexDir={["column", "column", "row", "row"]}>
+          {searchInputValue.length > 0 && (
             <Flex
               mt={2}
               maxW={["100%", "100%", "50%", "50%"]}
               flexGrow={1}
               justifyContent="space-between"
             >
-              <Text align="center">{`Resultados para: "${searchInputProp}"`}</Text>
+              <Text align="center">{`Resultados para: "${searchInputValue.join(
+                " "
+              )}"`}</Text>
               <IconButton
-                onClick={searchInputClean}
+                onClick={() => setSearchInputValue(null)}
                 size="xs"
                 icon={<CloseIcon />}
                 color="blackAlpha.700"

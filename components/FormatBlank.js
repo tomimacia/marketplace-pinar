@@ -2,8 +2,7 @@ import Layout from "./Layout";
 import { Flex, Heading, Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-const FormatBlank = ({
-  cartIndex,
+const FormatBlank = ({  
   hiddenTitle,
   mainTitle,
   title,
@@ -11,8 +10,7 @@ const FormatBlank = ({
   size,
 }) => {
   return (
-    <Layout
-      cartIndex={cartIndex}
+    <Layout      
       hiddenTitle={hiddenTitle}
       mainTitle={mainTitle}
       title={title}

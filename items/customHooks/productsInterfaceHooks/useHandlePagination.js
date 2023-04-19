@@ -19,6 +19,6 @@ export const useHandlePagination = (products) => {
       setPagesTotal(Math.ceil(products.length / 10));
     }
   }, [products]);
-
-  return { page, pagesTotal, setPlusPage, setMinusPage, handlePagination };
+  const pageActions = {setPlusPage, setMinusPage, handlePagination}
+  return { page, pagesTotal, pageActions };
 };

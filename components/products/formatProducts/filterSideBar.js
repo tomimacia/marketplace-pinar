@@ -1,20 +1,23 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-export const ProductSideBar = ({ loader, children }) => {
+import { FilterDiscounts } from "./filterBarItems/filterDiscounts";
+import { FilterMarcas } from "./filterBarItems/filterMarcas";
+import { FilterMinMax } from "./filterBarItems/filterMinMax";
+export const FilterSideBar = ({ loader }) => {
   const matches = useMediaQuery("(min-width: 780px)");
   const [show, setShow] = useState(false);
 
   const variants = {
     open: {
       minW: "60vw",
-      transitionDuration:"0.7s",
+      transitionDuration: "0.7s",
     },
     close: {
       w: "10vw",
-      transitionDuration:"0.7s",
+      transitionDuration: "0.7s",
     },
     rotated: {
       rotate: 90,
@@ -24,10 +27,10 @@ export const ProductSideBar = ({ loader, children }) => {
     openNav: {
       display: "flex",
       opacity: 1,
-      transitionDuration:"0.1s",
+      transitionDuration: "0.1s",
     },
     closeNav: {
-      transitionDuration:"0.1s",
+      transitionDuration: "0.1s",
       display: "none",
       opacity: 0,
     },
@@ -41,6 +44,11 @@ export const ProductSideBar = ({ loader, children }) => {
   const handleClick = () => {
     setShow(!show);
   };
+  const onClickCleanValues = () => {    
+    // sliderThumbRef.current.style.left = "calc(0% - 6.99219px)";
+    // filledTrackRef.current.style.width = "0%";    
+    
+  };
 
   return (
     <Flex
@@ -52,23 +60,23 @@ export const ProductSideBar = ({ loader, children }) => {
       zIndex={10}
       top={0}
       bg="gray.300"
-      maxH='501px'      
+      maxH="501px"
       flexDir="column"
       flexGrow={1}
-      borderRadius='5px'
+      borderRadius="5px"
     >
       <Flex flexGrow={5} flexDir="column">
         <Flex
           _hover={[
-            {bg:"none"},
-            {bg:"none"},
-            {bg:"none"},
+            { bg: "none" },
+            { bg: "none" },
+            { bg: "none" },
             { bg: "blue.300", borderRadius: "5px" },
           ]}
           align="center"
           h="60px"
           cursor="pointer"
-          maxW='200px'
+          maxW="200px"
           onClick={handleClick}
           borderBottom="1px solid #7D7D7D"
         >
@@ -78,16 +86,16 @@ export const ProductSideBar = ({ loader, children }) => {
               animate={show ? "open" : "closed"}
               display={show ? "flex" : "none"}
               justify="center"
-              w='100%'
+              w="100%"
               fontWeight="medium"
             >
               Filtrar por
             </Text>
-            <Flex w="20%" m='auto' justify={show ? "flex-end" : "center"}>
+            <Flex w="20%" m="auto" justify={show ? "flex-end" : "center"}>
               <Box
                 as={motion.div}
                 variants={variants}
-                animate={show ? "rotated" : "none"}                
+                animate={show ? "rotated" : "none"}
               >
                 <HamburgerIcon fontSize={20} />
               </Box>
@@ -99,11 +107,23 @@ export const ProductSideBar = ({ loader, children }) => {
           variants={variants}
           animate={show ? "openNav" : "closeNav"}
           flexGrow={5}
-          flexDir="column"          
+          flexDir="column"
         >
-          {children}         
+          <FilterMinMax/>
+          <FilterMarcas/>
+          <FilterDiscounts/>          
+            <Button
+              boxShadow="0 1px 5px"
+              m={2}
+              size="xs"
+              bg="gray.300"
+              w="70%"
+              onClick={onClickCleanValues}
+            >
+              Limpiar filtros
+            </Button>
+          
         </Flex>
-        
       </Flex>
     </Flex>
   );

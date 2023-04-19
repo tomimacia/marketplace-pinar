@@ -1,33 +1,43 @@
 import { getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import {
+  useCategoria,
+  useSearchInputValue,
+  useSetMarcas,
+} from "../../../contexts/productsContext";
 
-export const useGetProducts = (categoria, searchInputValue, queryArr) => {
+export const useGetProducts = (queryArr) => {
+  const categoria = useCategoria();
+  const [productsError, setProductsError] = useState(null);
+  const searchInputValue = useSearchInputValue();
   const [loadedProducts, setLoadedProducts] = useState(false);
-  const [marcas, setMarcas] = useState({});
-  const [products, setProducts] = useState([]);
+  const setMarcas = useSetMarcas();
 
+  const [products, setProducts] = useState([]);
   // getProducts
   useEffect(() => {
     if (categoria || searchInputValue.length > 0) {
       const getProducts = async () => {
         setLoadedProducts(false);
-        const prevData = await getDocs(query(...queryArr));
-        const data = prevData.docs.map((product) => ({
-          ...product.data(),
-          id: product.id,
-        }));
-        setProducts(data);
-        setLoadedProducts(true);
-        console.log("render");
+        try {
+          const prevData = await getDocs(query(...queryArr));
+          const data = prevData.docs.map((product) => ({
+            ...product.data(),
+            id: product.id,
+          }));
+          setProducts(data);
+          filtrarMarcas(data);
+          console.log("render");
+        } catch (e) {
+          setProductsError(e);
+        } finally {
+          setLoadedProducts(true);
+        }
       };
 
       getProducts();
     }
   }, [queryArr]);
-
-  useEffect(() => {
-    filtrarMarcas(products);
-  }, [products]);
 
   const filtrarMarcas = (prop) => {
     const currentMarcas = prop.reduce(
@@ -37,7 +47,8 @@ export const useGetProducts = (categoria, searchInputValue, queryArr) => {
           : { ...acc },
       {}
     );
+
     setMarcas(currentMarcas);
   };
-  return { products, setProducts, marcas, setMarcas, loadedProducts };
+  return { products, setProducts, productsError, loadedProducts };
 };

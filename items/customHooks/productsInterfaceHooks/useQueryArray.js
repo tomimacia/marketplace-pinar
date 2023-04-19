@@ -1,11 +1,16 @@
 import { collection, limit, orderBy, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useCategoria, usePriceMinMax, useSearchInputValue, useSubCat1 } from "../../../contexts/productsContext";
 import { firestore } from "../../../firebase/clientApp";
 
-export const useQueryArray = (searchInputValue, categoria, subCat1) => {
+export const useQueryArray = () => {
+  const categoria = useCategoria()
+  const searchInputValue = useSearchInputValue()
+  const subCat1 = useSubCat1()
+  const priceMinMax = usePriceMinMax()
   const productsCollectionRef = collection(firestore, "Productos");
   const [queryArr, setQueryArr] = useState([productsCollectionRef, limit(1)]);
-  const [priceMinMax, setPriceMinMax] = useState({ min: 0, max: Infinity });
+  
   const [productOrder, setProductOrder] = useState();
 
   useEffect(() => {
@@ -34,6 +39,6 @@ export const useQueryArray = (searchInputValue, categoria, subCat1) => {
       ]);
       console.log("queryArr");
     }
-  }, [searchInputValue, categoria, subCat1, priceMinMax, productOrder]);
-  return { queryArr, priceMinMax, setPriceMinMax,productOrder, setProductOrder };
+  }, [searchInputValue,subCat1, categoria, priceMinMax, productOrder]);
+  return { queryArr,productOrder, setProductOrder };
 };

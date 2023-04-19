@@ -8,8 +8,7 @@ import { layoutA, layoutB } from "../chakra/bgColors";
 const Layout = ({
   children,
   hiddenTitle,
-  title,
-  cartIndex,
+  title,  
   mainTitle,
   hasTransition,
 }) => {
@@ -31,7 +30,7 @@ const Layout = ({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>El Pinar | {hiddenTitle || title}</title>
       </Head>
-      <Navigation carro={cartIndex} />
+      <Navigation />
       <Flex pt={0} flexDir="column">
         <Heading
           animate={{

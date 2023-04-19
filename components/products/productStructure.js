@@ -10,12 +10,8 @@ import { ProductPrice } from "./productPrice";
 
 export const ProductStructure = ({
   i,
-  page,
-  id,
-  nombre,
-  precio,
-  descuento,
-  img,
+  page,  
+  product,  
   favoriteList,
   cartList,
   onClickCarrito,
@@ -42,7 +38,7 @@ export const ProductStructure = ({
           ml={["10px", "20px", "35px", "40px"]}
           mr={["10px", "20px", "35px", "40px"]}
         >
-          <Link href={`/productPages/productos/${id}`}>
+          <Link href={`/productPages/productos/${product.id}`}>
             <Image
               cursor="pointer"
               border={[
@@ -57,7 +53,7 @@ export const ProductStructure = ({
               borderRadius="5px"
               m="auto"
               bg="gray.300"
-              src={img}
+              src={product.Img[0]}
             />
           </Link>
         </Flex>
@@ -69,23 +65,23 @@ export const ProductStructure = ({
           flexGrow={1}
         >
           <Flex flexGrow={4}>
-            <Link href={`/productPages/productos/${id}`}>
+            <Link href={`/productPages/productos/${product.id}`}>
               <Text
                 cursor="pointer"
                 fontSize={[12, 14, 17, 17]}
                 fontWeight="bold"
               >
-                {nombre}
+                {product.Nombre}
               </Text>
             </Link>
           </Flex>
-          <ProductPrice precio={precio} descuento={descuento} />
+          <ProductPrice precio={product.Precio} descuento={product.Descuento} />
         </Flex>
 
         <Flex flexDir="column" align="flex-end" justifyContent="space-between">
           {!isSpinner && favoriteList ? (
             <Icon
-              as={favoriteList.includes(id) ? AiFillHeart : AiOutlineHeart}
+              as={favoriteList.includes(product.id) ? AiFillHeart : AiOutlineHeart}
               cursor="pointer"
               _hover={{ opacity: "0.4" }}
               color="blue.800"
@@ -97,11 +93,11 @@ export const ProductStructure = ({
             <Spinner color="blue.500" />
           )}
           <Flex>
-            {cartList.includes(id) && (
+            {cartList.includes(product.id) && (
               <Text fontSize={[12, 15, 18, 18]} opacity="0.7" fontWeight="bold">
                 (
                 {cartList.reduce((acc, prod) => {
-                  return prod === id ? acc + 1 : acc;
+                  return prod === product.id ? acc + 1 : acc;
                 }, 0)}
                 )
               </Text>
@@ -110,9 +106,9 @@ export const ProductStructure = ({
               as={AiOutlineShoppingCart}
               cursor="pointer"
               _hover={
-                !cartList.includes(id) ? { opacity: "1" } : { opacity: "0.7" }
+                !cartList.includes(product.id) ? { opacity: "1" } : { opacity: "0.7" }
               }
-              opacity={cartList.includes(id) ? "1" : "0.3"}
+              opacity={cartList.includes(product.id) ? "1" : "0.3"}
               color="blue"
               fontSize={[20, 25, 30, 30]}
               onClick={onClickCarrito}

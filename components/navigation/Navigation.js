@@ -30,8 +30,16 @@ import NavItem from "../../items/navItem";
 import { ClientNavigation } from "./ClientNavigation";
 
 import { ProductsNav } from "./ProductsNav";
+import { MobileNav } from "./mainNav/mobileNav";
 
-const Navigation = ({ carro = 0 }) => {
+const pages = [
+  ["Home", "/"],
+  ["Productos", "/productPages/productInterface"],
+  ["Nosotros", "/about"],
+  ["Contacto", "/contact"],
+];
+
+const Navigation = () => {
   const searchInputNav = useRef(null);
   const router = useRouter();
   const toast = useToast();
@@ -39,15 +47,8 @@ const Navigation = ({ carro = 0 }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [display, changeDisplay] = useState("none");
   const [searchInputValue, setSearchInputvalue] = useState("");
-  const pages = [
-    ["Home", "/"],
-    ["Productos", "/productPages/productInterface"],
-    ["Nosotros", "/about"],
-    ["Contacto", "/contact"],
-  ];
-  useEffect(() => {
-    setCartCount(carro);
-  }, [carro]);
+
+
   const handleEnter = () => {
     if (document.activeElement === searchInputNav.current) {
       if (searchInputValue.length <= 1 || searchInputValue.length > 50)
@@ -210,72 +211,10 @@ const Navigation = ({ carro = 0 }) => {
         </Flex>
       </Flex>
 
-      <Flex
-        w="100vw"
-        bgColor="gray.50"
-        zIndex={20}
-        height="100vh"
-        pos="fixed"
-        top="0"
-        left="0"
-        overflowY="auto"
-        flexDir="column"
+      <MobileNav
         display={display}
-      >
-        <Flex justify="flex-end">
-          <IconButton
-            onClick={() => changeDisplay("none")}
-            mt={2}
-            mr={2}
-            aria-label="Close Menu"
-            size="lg"
-            icon={<CloseIcon />}
-            color="blackAlpha.700"
-          />
-        </Flex>
-        <Flex flexDir="column" align="center" p={5}>
-          <Button
-            onClick={() => changeDisplay("none")}
-            w="100vw"
-            color="blackAlpha.700"
-            colorScheme="blue.300"
-            variant="outline"
-            outlineColor="blackAlpha.500"
-          >
-            <NavItem href="/">Home</NavItem>
-          </Button>
-          <Button
-            onClick={() => changeDisplay("none")}
-            w="100vw"
-            color="blackAlpha.700"
-            colorScheme="blue.300"
-            variant="outline"
-            outlineColor="blackAlpha.500"
-          >
-            <NavItem href="/productPages/productInterface">Products</NavItem>
-          </Button>
-          <Button
-            onClick={() => changeDisplay("none")}
-            w="100vw"
-            color="blackAlpha.700"
-            colorScheme="blue.300"
-            variant="outline"
-            outlineColor="blackAlpha.500"
-          >
-            <NavItem href="/about">About</NavItem>
-          </Button>
-          <Button
-            onClick={() => changeDisplay("none")}
-            w="100vw"
-            color="blackAlpha.700"
-            colorScheme="blue.300"
-            variant="outline"
-            outlineColor="blackAlpha.500"
-          >
-            <NavItem href="/contact">Contact</NavItem>
-          </Button>
-        </Flex>
-      </Flex>
+        changeDisplay={() => changeDisplay("none")}
+      />
     </Box>
   );
 };

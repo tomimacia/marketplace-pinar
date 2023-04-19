@@ -1,12 +1,12 @@
 import { Flex, Select, Text } from "@chakra-ui/react";
+import { useCategoria, useSetSubCat1, useSubCat1 } from "../../contexts/productsContext";
+import { useGetSections } from "../../items/customHooks/productsInterfaceHooks/useGetSections";
 
-export const ProductTopChildren = ({
-  category,
-  sections,
-  setSubCat1,
-  subCat1,
-  setProductOrder,
-}) => {
+export const ProductTopChildren = () => {
+  const { sections, sectionError } = useGetSections();
+  const categoria = useCategoria()
+  const subCat1 = useSubCat1();
+  const setSubCat1 = useSetSubCat1();
   return (
     <>
       <Flex
@@ -15,7 +15,7 @@ export const ProductTopChildren = ({
         flexGrow={1}
       >
         <Flex w={["100%", "100%", "100%", "30%"]}>
-          {category && (
+          {categoria && (
             <Select
               size={["xs", "sm"]}
               placeholder="Secciones"
@@ -67,7 +67,7 @@ export const ProductTopChildren = ({
           _hover={{ color: "blue.600" }}
           cursor="pointer"
           onClick={() => setSubCat1()}
-        >{`Buscar en "${category}"`}</Text>
+        >{`Buscar en "${categoria}"`}</Text>
       )}
     </>
   );
