@@ -76,7 +76,7 @@ const addProducts = () => {
   const ValorCRef = useRef(null);
   const PropiedadORef = useRef(null);
   const catCollectionRef = collection(firestore, "Categorias");
-  
+
   const prepareSearchValue = (str) => {
     const firstArr = str
       .toLowerCase()
@@ -184,8 +184,8 @@ const addProducts = () => {
       });
       setFormKey(formKey + 1);
       setImages([]);
-      setCarateristicas([])
-      setOtros([])
+      setCarateristicas([]);
+      setOtros([]);
       setForm({
         Nombre: "",
         Categoria: "",
@@ -452,8 +452,8 @@ const addProducts = () => {
             <FormLabel htmlFor="file">
               <Flex>
                 <Text
-                  cursor="pointer"                  
-                  p={2}                  
+                  cursor="pointer"
+                  p={2}
                   borderRadius="10px"
                   bgColor="gray.300"
                   _hover={{ color: "white", bgColor: "blue.300" }}
@@ -468,7 +468,7 @@ const addProducts = () => {
                 accept="image/*"
                 type="file"
                 multiple
-                onChange={onChangeImg}                
+                onChange={onChangeImg}
                 name="Img"
               />
             </FormLabel>
@@ -517,7 +517,7 @@ const addProducts = () => {
                           objectFit="cover"
                         />
                         {i === 0 && (
-                          <Text align='center' fontWeight="bold">
+                          <Text align="center" fontWeight="bold">
                             Portada
                           </Text>
                         )}
@@ -692,11 +692,11 @@ const addProducts = () => {
                           <Td
                             w="48%"
                             bg={i % 2 === 0 && "#c0cbff"}
-                            borderRadius='5px'
+                            borderRadius="5px"
                           >
                             {car.Propiedad}
                           </Td>
-                          <Td w="48%">{" "}: {car.Valor}</Td>
+                          <Td w="48%"> : {car.Valor}</Td>
 
                           <Td>
                             <Icon
@@ -788,7 +788,7 @@ const addProducts = () => {
             <Flex m={5} border="1px solid #c7c7c7" borderRadius="8px">
               <TableContainer w="100%">
                 <Table size="xl" variant="simple">
-                  <Tbody >
+                  <Tbody>
                     {otros.map((otro, i) => {
                       return (
                         <Tr key={i}>
@@ -800,10 +800,10 @@ const addProducts = () => {
                             {otro.Propiedad}
                           </Td>
                           <Td w="30%"> : {otro.Valor ? "Si" : "No"}</Td>
-                          <Td >
-                            <Icon                                                           
+                          <Td>
+                            <Icon
                               as={AiOutlineMinusCircle}
-                              cursor="pointer"                              
+                              cursor="pointer"
                               fontSize="30px"
                               borderRadius="10px"
                               _hover={{ color: "blue.200" }}

@@ -1,5 +1,5 @@
 import { Flex, Select, Text } from "@chakra-ui/react";
-import { useCategoria, useSetSubCat1, useSubCat1 } from "../../contexts/productsContext";
+import { useCategoria, useSetProductOrder, useSetSubCat1, useSubCat1 } from "../../contexts/productsContext";
 import { useGetSections } from "../../items/customHooks/productsInterfaceHooks/useGetSections";
 
 export const ProductTopChildren = () => {
@@ -7,6 +7,7 @@ export const ProductTopChildren = () => {
   const categoria = useCategoria()
   const subCat1 = useSubCat1();
   const setSubCat1 = useSetSubCat1();
+  const setProductOrder = useSetProductOrder();
   return (
     <>
       <Flex

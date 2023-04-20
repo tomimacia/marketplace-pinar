@@ -18,14 +18,20 @@ import {
 } from "@chakra-ui/react";
 import { collection, getDocs } from "firebase/firestore";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import {
+  useCategoria,
+  useSetCategoria,
+  useSetSubCat1,
+} from "../../contexts/productsContext";
 import { firestore } from "../../firebase/clientApp";
 import { useOnKeyPress } from "../../items/customHooks/useOnKey";
 
 export const BusquedaGeneral = () => {
   const searchInputNav2 = useRef(null);
+  const setSubCat1 = useSetSubCat1();
+  const setCategory = useSetCategoria();
   const router = useRouter();
   const toast = useToast();
   const [categorias, setCategorias] = useState([]);
@@ -86,7 +92,11 @@ export const BusquedaGeneral = () => {
       );
     }
   };
-  
+  const onClickFunction = (cat, subCat) => {
+    setCategory(cat);
+    if (subCat) setSubCat1(subCat);
+    router.push(`/productPages/productInterface`, "productsInterfaceRedirect");
+  };
   return (
     <Flex
       as={motion.div}
@@ -144,33 +154,29 @@ export const BusquedaGeneral = () => {
                       </AccordionButton>
                     </h2>
                     <AccordionPanel pb={4}>
-                      <Link
-                        href={`/productPages/productInterface?categoria=${cat.id}`}
+                      <Heading
+                        mb={2}
+                        _hover={{ color: "blackAlpha.700" }}
+                        cursor="pointer"
+                        fontWeight="light"
+                        fontSize={14}
+                        onClick={() => onClickFunction(cat.id)}
                       >
-                        <Heading
-                          mb={2}
-                          _hover={{ color: "blackAlpha.700" }}
-                          cursor="pointer"
-                          fontWeight="light"
-                          fontSize={14}
-                        >
-                          {`Buscar en ${cat.id}`}
-                        </Heading>
-                      </Link>
+                        {`Buscar en ${cat.id}`}
+                      </Heading>
                       <UnorderedList>
-                        {cat.SubCat1.map((thisCat) => {
+                        {cat.SubCat1.map((thisSubCat) => {
                           return (
-                            <Link
-                              href={`/productPages/productInterface?categoria=${cat.id}&SubCat1=${thisCat}`}
-                              key={thisCat}
+                            <ListItem
+                              key={thisSubCat}
+                              _hover={{ color: "blackAlpha.700" }}
+                              cursor="pointer"
+                              onClick={() =>
+                                onClickFunction(cat.id, thisSubCat)
+                              }
                             >
-                              <ListItem
-                                _hover={{ color: "blackAlpha.700" }}
-                                cursor="pointer"
-                              >
-                                {thisCat}
-                              </ListItem>
-                            </Link>
+                              {thisSubCat}
+                            </ListItem>
                           );
                         })}
                       </UnorderedList>

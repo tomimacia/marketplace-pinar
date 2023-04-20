@@ -1,24 +1,16 @@
-import {
-  Flex,
-  Heading
-} from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import Layout from "../Layout";
 import { FilterSideBar } from "./formatProducts/filterSideBar";
 import { useMemo } from "react";
 import { useCategoria, useSubCat1 } from "../../contexts/productsContext";
-export const FormatProduct = ({
-  loader,  
-  children,      
-}) => {
-  const categoria = useCategoria()
-  const subCat1 = useSubCat1()
+export const FormatProduct = ({ loader, children, showFilterBar }) => {
+  const categoria = useCategoria();
+  const subCat1 = useSubCat1();
 
-  const FormatProductTitle = useMemo(()=>{
-    categoria
-    ? `${categoria} ${subCat1 ? ` - ${subCat1}` : ""}`
-    : "Productos";
-  },[categoria, subCat1])
-  
+  const FormatProductTitle = useMemo(() => {
+    categoria ? `${categoria} ${subCat1 ? ` - ${subCat1}` : ""}` : "Productos";
+  }, [categoria, subCat1]);
+
   return (
     <Layout hiddenTitle={FormatProductTitle}>
       <Flex
@@ -34,13 +26,11 @@ export const FormatProduct = ({
           minW={["28px", "32px", "35px", "35px"]}
           maxW={["28px", "32px", "35px", "100%"]}
         >
-          <FilterSideBar loader={loader}/>            
-          
+          {showFilterBar && <FilterSideBar loader={loader} />}
         </Flex>
         <Flex flexGrow={10}>
           <Flex flexGrow={1} flexDir="column" minH="80%" h="100%" bg="gray.200">
-                         
-                {children}            
+            {children}
           </Flex>
         </Flex>
         <Flex flexGrow={1} bgGradient="linear(to-r, teal.400, teal.300)"></Flex>

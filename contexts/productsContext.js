@@ -1,25 +1,35 @@
 import { create } from "zustand";
 
-const useProduct = create((set) => ({
+const initialState = {
+  products: [],
   categoria: null,
-  setCategoria: (newCategoria) => set(() => ({ categoria: newCategoria })),
   marcas: {},
-  setMarcas: (newMarcas) => set(() => ({ marcas: newMarcas })),
   priceMinMax: { min: 0, max: Infinity },
-  setPriceMinMax: (newMinMax) => set(() => ({ priceMinMax: newMinMax })),
   marcasPicked: [],
-  setMarcasPicked: () => set((state) => state.marcasPicked),
   descuento: 0,
-  setDescuento: () => set((state) => state.descuento),
   subCat1: null,
-  setSubCat1: (newSubCat1) => set(() => ({ subCat1: newSubCat1 })),
   searchInputValue: [],
-  setSearchInputValue: () => set((state) => state.searchInputValue),
-  productOrder: "none",
-  setProductOrder: () => set((state) => state.productOrder),
+  productOrder: "",
+};
+
+const useProduct = create((set) => ({
+  ...initialState,
+  setProducts: (newProducts) => set(() => ({ categoria: newProducts })),
+  setCategoria: (newCategoria) => set(() => ({ categoria: newCategoria })),
+  setMarcas: (newMarcas) => set(() => ({ marcas: newMarcas })),
+  setPriceMinMax: (newMinMax) => set(() => ({ priceMinMax: newMinMax })),
+  setMarcasPicked: (newMarcasP) => set(() => ({marcasPicked:newMarcasP})),
+  setDescuento: (newDescuento) => set(() => ({descuento:newDescuento})),
+  setSubCat1: (newSubCat1) => set(() => ({ subCat1: newSubCat1 })),
+  setSearchInputValue: (newSearchIV) => set(() => ({searchInputValue:newSearchIV})),
+  setProductOrder: (newProductsOrder) => set(() => ({productOrder:newProductsOrder})),
+  reset: () => {
+    set(initialState);
+  },
 }));
 
-
+export const useProducts = () => useProduct((state) => state.products);
+export const useSetProducts = () => useProduct((state) => state.setProducts);
 export const useCategoria = () => useProduct((state) => state.categoria);
 export const useSetCategoria = () => useProduct((state) => state.setCategoria);
 export const useMarcas = () => useProduct((state) => state.marcas);
@@ -28,7 +38,7 @@ export const useDescuento = () => useProduct((state) => state.descuento);
 export const useSetDescuento = () => useProduct((state) => state.setDescuento);
 export const usePriceMinMax = () => useProduct((state) => state.priceMinMax);
 export const useSetPriceMinMax = () =>
-  useProduct((state) => state.setPriceMinMax);
+useProduct((state) => state.setPriceMinMax);
 export const useMarcasPicked = () => useProduct((state) => state.marcasPicked);
 export const useSetMarcasPicked = () =>
   useProduct((state) => state.setMarcasPicked);
@@ -41,3 +51,4 @@ export const useSetSearchInputValue = () =>
 export const useProductOrder = () => useProduct((state) => state.productOrder);
 export const useSetProductOrder = () =>
   useProduct((state) => state.setProductOrder);
+export const useReset = () => useProduct((state) => state.reset);

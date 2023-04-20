@@ -5,7 +5,9 @@ export const ProductsPagination = ({
   paginasTotales,
   handleAnterior,
   handleSiguiente,
+  condition
 }) => {
+  if(condition)
   return (
     <Flex w="100%">
       <Button

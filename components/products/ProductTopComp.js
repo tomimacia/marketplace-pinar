@@ -10,11 +10,10 @@ import {
 import { ProductTopChildren } from "./productTopChildren";
 
 const ProductTopComp = () => {
-  const categoria = useCategoria()
-  const subCat1 = useSubCat1()
+  const categoria = useCategoria();
+  const subCat1 = useSubCat1();
   const searchInputValue = useSearchInputValue();
   const setSearchInputValue = useSetSearchInputValue();
-  
 
   return (
     <Flex flexDir="column">
@@ -40,9 +39,7 @@ const ProductTopComp = () => {
               flexGrow={1}
               justifyContent="space-between"
             >
-              <Text align="center">{`Resultados para: "${searchInputValue.join(
-                " "
-              )}"`}</Text>
+              <Text align="center">{`Resultados para: "${searchInputValue.join()}"`}</Text>
               <IconButton
                 onClick={() => setSearchInputValue(null)}
                 size="xs"

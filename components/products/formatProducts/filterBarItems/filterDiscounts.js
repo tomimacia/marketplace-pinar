@@ -8,8 +8,8 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
-import { ProductSideBarItem } from "./productSideBarItem";
 import { useSetDescuento } from "../../../../contexts/productsContext";
+import { ProductSideBarItem } from "./productSideBarItem";
 
 export const FilterDiscounts = () => {
   const setDescuento = useSetDescuento();

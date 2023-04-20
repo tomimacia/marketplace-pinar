@@ -34,7 +34,7 @@ import { MobileNav } from "./mainNav/mobileNav";
 
 const pages = [
   ["Home", "/"],
-  ["Productos", "/productPages/productInterface"],
+  ["Productos", "/productPages/busquedaProducts"],
   ["Nosotros", "/about"],
   ["Contacto", "/contact"],
 ];

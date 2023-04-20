@@ -1,54 +1,41 @@
-import { getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import {
   useCategoria,
   useSearchInputValue,
   useSetMarcas,
 } from "../../../contexts/productsContext";
+import { getProducts } from "../../../services/serviceProducts";
+import { useQueryArray } from "./useQueryArray";
 
-export const useGetProducts = (queryArr) => {
+export const useGetProducts = () => {
   const categoria = useCategoria();
-  const [productsError, setProductsError] = useState(null);
   const searchInputValue = useSearchInputValue();
-  const [loadedProducts, setLoadedProducts] = useState(false);
   const setMarcas = useSetMarcas();
-
+  const { queryArr } = useQueryArray();
+  const [loadingProducts, setLoadingProducts] = useState(false);
   const [products, setProducts] = useState([]);
-  // getProducts
-  useEffect(() => {
-    if (categoria || searchInputValue.length > 0) {
-      const getProducts = async () => {
-        setLoadedProducts(false);
-        try {
-          const prevData = await getDocs(query(...queryArr));
-          const data = prevData.docs.map((product) => ({
-            ...product.data(),
-            id: product.id,
-          }));
-          setProducts(data);
-          filtrarMarcas(data);
-          console.log("render");
-        } catch (e) {
-          setProductsError(e);
-        } finally {
-          setLoadedProducts(true);
-        }
-      };
 
-      getProducts();
+  useEffect(() => {
+    if (queryArr.length > 2) {
+      setLoadingProducts(true);
+      getProducts(queryArr)
+        .then((response) => {
+          setProducts(response);
+          const currentMarcas = response.reduce(
+            (acc, prod) =>
+              prod.Marca !== "Otro"
+                ? { ...acc, [prod.Marca]: acc[prod.Marca] + 1 || 1 }
+                : { ...acc },
+            {}
+          );      
+          setMarcas(currentMarcas);
+        })
+        .catch((e) => {
+          setProdError(e);
+        })
+        .finally(() => setLoadingProducts(false));
     }
   }, [queryArr]);
-
-  const filtrarMarcas = (prop) => {
-    const currentMarcas = prop.reduce(
-      (acc, prod) =>
-        prod.Marca !== "Otro"
-          ? { ...acc, [prod.Marca]: acc[prod.Marca] + 1 || 1 }
-          : { ...acc },
-      {}
-    );
-
-    setMarcas(currentMarcas);
-  };
-  return { products, setProducts, productsError, loadedProducts };
+  
+  return { products, setProducts, loadingProducts };
 };
