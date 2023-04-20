@@ -1,24 +1,16 @@
 import { Flex, Input, Text } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
-import { usePriceMinMax, useSetPriceMinMax } from "../../../../contexts/productsContext";
+import { useSetPriceMinMax } from "../../../../contexts/productsContext";
 import { useOnKeyPress } from "../../../../items/customHooks/useOnKey";
 import { ProductSideBarItem } from "./productSideBarItem";
+import { useEnter } from "../../../../items/customHooks/useEnter";
 
 export const FilterMinMax = () => {
-  const priceMinMax = usePriceMinMax()
-  const setPriceMinMax = useSetPriceMinMax()
+  const setPriceMinMax = useSetPriceMinMax();
   const [maxMin, setMaxMin] = useState({ min: 0, max: Infinity });
   const searchInputNavMin = useRef(null);
   const searchInputNavMax = useRef(null);
 
-  const handleEnter = () => {
-    if (
-      document.activeElement === searchInputNavMin.current ||
-      document.activeElement === searchInputNavMax.current
-    ) {
-      applyRangeChanges();
-    }
-  };
   const applyRangeChanges = () => {
     if (maxMin.min > 1 || maxMin.max < Infinity) setPriceMinMax(maxMin);
   };
@@ -44,7 +36,7 @@ export const FilterMinMax = () => {
               }}
               borderColor="blackAlpha.500"
               ref={searchInputNavMin}
-              onKeyDown={useOnKeyPress("Enter", handleEnter)}
+              onKeyDown={useEnter(searchInputNavMin.current, applyRangeChanges)}
               bg="white"
               color="black"
               w="80%"
@@ -66,12 +58,12 @@ export const FilterMinMax = () => {
                   setMaxMin({
                     ...maxMin,
                     max: Infinity,
-                  });
+                  });27000
                 }
               }}
               borderColor="blackAlpha.500"
               ref={searchInputNavMax}
-              onKeyDown={useOnKeyPress("Enter", handleEnter)}
+              onKeyDown={useEnter(searchInputNavMax.current, applyRangeChanges)}
               bg="white"
               color="black"
               w="80%"

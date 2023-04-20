@@ -40,7 +40,7 @@ export async function getServerSideProps({ query }) {
 
 const Favoritos = ({ favData }) => {  
   const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
-  const { favoriteList, selectedProd, showSpinner, handleFavorito } =
+  const { favoriteList, selectedProd, favLoading, handleFavorito } =
   useHandleFav();
   const products = useFavProducts(favData,favoriteList)    
   const { page, pagesTotal, setPlusPage, setMinusPage, handlePagination } =
@@ -122,7 +122,7 @@ const Favoritos = ({ favData }) => {
                         as={AiFillHeart}
                         cursor="pointer"
                         display={
-                          !showSpinner || selectedProd !== i + 1
+                          !favLoading || selectedProd !== i + 1
                             ? "flex"
                             : "none"
                         }
@@ -133,7 +133,7 @@ const Favoritos = ({ favData }) => {
                       />
                       <Spinner
                         display={
-                          showSpinner && selectedProd === i + 1
+                          favLoading && selectedProd === i + 1
                             ? "flex"
                             : "none"
                         }

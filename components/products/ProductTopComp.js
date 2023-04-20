@@ -8,13 +8,18 @@ import {
   useSubCat1,
 } from "../../contexts/productsContext";
 import { ProductTopChildren } from "./productTopChildren";
+import { useRouter } from "next/router";
 
 const ProductTopComp = () => {
+  const router = useRouter();
   const categoria = useCategoria();
   const subCat1 = useSubCat1();
   const searchInputValue = useSearchInputValue();
   const setSearchInputValue = useSetSearchInputValue();
-
+  const crossClick = () => {
+    setSearchInputValue([]);
+    if (!categoria) router.push("/productPages/busquedaProducts");
+  };
   return (
     <Flex flexDir="column">
       <ProductTopChildren />
@@ -39,9 +44,11 @@ const ProductTopComp = () => {
               flexGrow={1}
               justifyContent="space-between"
             >
-              <Text align="center">{`Resultados para: "${searchInputValue.join()}"`}</Text>
+              <Text align="center">{`Resultados para: "${searchInputValue.join(
+                " "
+              )}"`}</Text>
               <IconButton
-                onClick={() => setSearchInputValue(null)}
+                onClick={crossClick}
                 size="xs"
                 icon={<CloseIcon />}
                 color="blackAlpha.700"

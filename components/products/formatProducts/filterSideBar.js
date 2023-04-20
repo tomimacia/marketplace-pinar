@@ -1,15 +1,24 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { FilterDiscounts } from "./filterBarItems/filterDiscounts";
 import { FilterMarcas } from "./filterBarItems/filterMarcas";
 import { FilterMinMax } from "./filterBarItems/filterMinMax";
+import {
+  usePriceMinMax,
+  useResetFilters,
+  useSetDescuento,
+  useSetMarcasPicked,
+} from "../../../contexts/productsContext";
 export const FilterSideBar = ({ loader }) => {
   const matches = useMediaQuery("(min-width: 780px)");
   const [show, setShow] = useState(false);
-
+  const resetFilters = useResetFilters();
+  const priceMinMax = usePriceMinMax();
+  const setDescuento = useSetDescuento();
+  const setMarcasPicked = useSetMarcasPicked();
   const variants = {
     open: {
       minW: "60vw",
@@ -44,10 +53,15 @@ export const FilterSideBar = ({ loader }) => {
   const handleClick = () => {
     setShow(!show);
   };
-  const onClickCleanValues = () => {    
+  const onClickCleanValues = () => {
+    // removeDcRefs() => pass this to filterDiscount
     // sliderThumbRef.current.style.left = "calc(0% - 6.99219px)";
-    // filledTrackRef.current.style.width = "0%";    
-    
+    // filledTrackRef.current.style.width = "0%";
+    if (priceMinMax.min > 0 && priceMinMax.max < Infinity) resetFilters();
+    else {
+      setDescuento(0);
+      setMarcasPicked([]);
+    }
   };
 
   return (
@@ -109,20 +123,19 @@ export const FilterSideBar = ({ loader }) => {
           flexGrow={5}
           flexDir="column"
         >
-          <FilterMinMax/>
-          <FilterMarcas/>
-          <FilterDiscounts/>          
-            <Button
-              boxShadow="0 1px 5px"
-              m={2}
-              size="xs"
-              bg="gray.300"
-              w="70%"
-              onClick={onClickCleanValues}
-            >
-              Limpiar filtros
-            </Button>
-          
+          <FilterMinMax />
+          <FilterMarcas />
+          <FilterDiscounts />
+          <Button
+            boxShadow="0 1px 5px"
+            m={2}
+            size="xs"
+            bg="gray.300"
+            w="70%"
+            onClick={onClickCleanValues}
+          >
+            Limpiar filtros
+          </Button>
         </Flex>
       </Flex>
     </Flex>

@@ -11,7 +11,11 @@ const initialState = {
   searchInputValue: [],
   productOrder: "",
 };
-
+const initialFilters = {
+  descuento: 0,
+  marcasPicked: [],
+  priceMinMax: { min: 0, max: Infinity }
+}
 const useProduct = create((set) => ({
   ...initialState,
   setProducts: (newProducts) => set(() => ({ categoria: newProducts })),
@@ -26,6 +30,10 @@ const useProduct = create((set) => ({
   reset: () => {
     set(initialState);
   },
+  resetFilters: () => {
+    set(initialFilters);
+  },
+  
 }));
 
 export const useProducts = () => useProduct((state) => state.products);
@@ -52,3 +60,4 @@ export const useProductOrder = () => useProduct((state) => state.productOrder);
 export const useSetProductOrder = () =>
   useProduct((state) => state.setProductOrder);
 export const useReset = () => useProduct((state) => state.reset);
+export const useResetFilters = () => useProduct((state) => state.resetFilters);

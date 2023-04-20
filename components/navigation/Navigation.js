@@ -31,6 +31,8 @@ import { ClientNavigation } from "./ClientNavigation";
 
 import { ProductsNav } from "./ProductsNav";
 import { MobileNav } from "./mainNav/mobileNav";
+import { useEnter } from "../../items/customHooks/useEnter";
+import { useSetSearchInputValue } from "../../contexts/productsContext";
 
 const pages = [
   ["Home", "/"],
@@ -41,27 +43,27 @@ const pages = [
 
 const Navigation = () => {
   const searchInputNav = useRef(null);
+  const setSearchInputProp = useSetSearchInputValue()
   const router = useRouter();
   const toast = useToast();
   const [cartCount, setCartCount] = useState(0);
   const { colorMode, toggleColorMode } = useColorMode();
   const [display, changeDisplay] = useState("none");
   const [searchInputValue, setSearchInputvalue] = useState("");
-
-
-  const handleEnter = () => {
-    if (document.activeElement === searchInputNav.current) {
-      if (searchInputValue.length <= 1 || searchInputValue.length > 50)
-        toast({
-          title: `Ingresa una busqueda entre 2 y 50 caracteres`,
-          status: "error",
-          isClosable: true,
-        });
-      else {
-        router.push(
-          `/productPages/productInterface?searchInput=${searchInputValue.toLocaleLowerCase()}`
-        );
-      }
+  
+  const setSearch = () => {
+    if (searchInputValue.length <= 1 || searchInputValue.length > 50)
+      toast({
+        title: `Ingresa una busqueda entre 2 y 50 caracteres`,
+        status: "error",
+        isClosable: true,
+      });
+    else {
+      setSearchInputProp(searchInputValue.split(" "));
+      router.push(
+        `/productPages/productInterface`,
+        "productsInterfaceRedirect"
+      );
     }
   };
   const handleSearchClick = () => {
@@ -112,7 +114,7 @@ const Navigation = () => {
                 flexGrow={1}
                 ref={searchInputNav}
                 maxW={600}
-                onKeyDown={useOnKeyPress("Enter", handleEnter)}
+                onKeyDown={useEnter(searchInputNav.current, setSearch)}
                 placeholder="Search products"
                 onChange={(e) => setSearchInputvalue(e.target.value)}
                 bg={useColorModeValue("white", "gray.500")}

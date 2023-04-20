@@ -24,8 +24,7 @@ import {
   addDoc,
   collection,
   doc,
-  getDocs,
-  updateDoc,
+  updateDoc
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { motion } from "framer-motion";
@@ -38,8 +37,9 @@ import FormatBlank from "../../../components/FormatBlank";
 import { context } from "../../../contexts/userContext";
 import { auth, firestore, storage } from "../../../firebase/clientApp";
 import { AddPrdInput } from "../../../items/addPrdInput";
+import { useCategories } from "../../../items/customHooks/useCategories";
 const addProducts = () => {
-  const [categorias, setCategorias] = useState([]);
+  const { categories, loadingCategories, categoriesError } = useCategories();
   const [user, loading, error] = useAuthState(auth);
   const [subCategorias, setSubcategorias] = useState([]);
   const [modelos, setModelos] = useState([]);
@@ -75,7 +75,6 @@ const addProducts = () => {
   const PropiedadCRef = useRef(null);
   const ValorCRef = useRef(null);
   const PropiedadORef = useRef(null);
-  const catCollectionRef = collection(firestore, "Categorias");
 
   const prepareSearchValue = (str) => {
     const firstArr = str
@@ -135,13 +134,7 @@ const addProducts = () => {
       alert(error.message);
     }
   };
-  useEffect(() => {
-    const getCategorias = async () => {
-      const data = await getDocs(catCollectionRef);
-      setCategorias(data.docs.map((cat) => ({ ...cat.data(), id: cat.id })));
-    };
-    getCategorias();
-  }, []);
+  
   const onChange = (e) => {
     setForm((prev) => ({
       ...prev,
@@ -201,7 +194,7 @@ const addProducts = () => {
   useEffect(() => {
     const obj =
       form.Categoria &&
-      categorias.filter((cat) => cat.id === form.Categoria)[0];
+      categories.filter((cat) => cat.id === form.Categoria)[0];
     obj.SubCat1 && setSubcategorias(obj.SubCat1);
     obj.Marcas && setMarcas(obj.Marcas);
     obj.Modelos && setModelos(obj.Modelos);

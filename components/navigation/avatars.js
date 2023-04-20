@@ -23,7 +23,7 @@ export const Avatars = ({ showClick }) => {
   const allAvatars = [...dogs,...profiles]
 
   const handleImg = async (prop) => {
-    if (user) {
+    if (!loading && user) {
       setLoadingImg(true);
       await updateDoc(doc(firestore, "users", user.uid), {
         Img: prop,

@@ -16,70 +16,30 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { collection, getDocs } from "firebase/firestore";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import {
-  useCategoria,
+  useSearchInputValue,
   useSetCategoria,
+  useSetSearchInputValue,
   useSetSubCat1,
 } from "../../contexts/productsContext";
-import { firestore } from "../../firebase/clientApp";
-import { useOnKeyPress } from "../../items/customHooks/useOnKey";
+import { useCategories } from "../../items/customHooks/useCategories";
+import { useEnter } from "../../items/customHooks/useEnter";
 
 export const BusquedaGeneral = () => {
   const searchInputNav2 = useRef(null);
   const setSubCat1 = useSetSubCat1();
   const setCategory = useSetCategoria();
+  const searchInputprop = useSearchInputValue();
+  const setSearchInputProp = useSetSearchInputValue();
+  const [searchInputValue, setSearchInputValue] = useState("");
   const router = useRouter();
   const toast = useToast();
-  const [categorias, setCategorias] = useState([]);
-  const [searchInputValue, setSearchInputvalue] = useState("");
-  const catCollectionRef = collection(firestore, "Categorias");
-  const catStorageRef = useRef(false);
+  const { categories, loadingCategories, categoriesError } = useCategories();
 
-  useEffect(() => {
-    const catArray = sessionStorage.getItem(
-      "CATEGORIAS_STORAGE_SESSION_CONTEXT"
-    );
-    if (catArray) {
-      setCategorias(JSON.parse(catArray));
-      catStorageRef.current = true;
-    } else {
-      const getCategorias = async () => {
-        const data = await getDocs(catCollectionRef);
-        const catFetched = data.docs.map((cat) => ({
-          ...cat.data(),
-          id: cat.id,
-        }));
-        sessionStorage.setItem(
-          "CATEGORIAS_STORAGE_SESSION_CONTEXT",
-          JSON.stringify(catFetched)
-        );
-        setCategorias(catFetched);
-        console.log("rendered categorias");
-      };
-      getCategorias();
-      catStorageRef.current = true;
-    }
-  }, []);
-  const handleEnter = () => {
-    if (document.activeElement === searchInputNav2.current) {
-      if (searchInputValue.length <= 1 || searchInputValue.length > 50)
-        toast({
-          title: `Ingresa una busqueda entre 2 y 50 caracteres`,
-          status: "error",
-          isClosable: true,
-        });
-      else {
-        router.push(
-          `/productPages/productInterface?searchInput=${searchInputValue.toLocaleLowerCase()}`
-        );
-      }
-    }
-  };
-  const handleSearchClick = () => {
+  const setSearch = () => {
     if (searchInputValue.length <= 1 || searchInputValue.length > 50)
       toast({
         title: `Ingresa una busqueda entre 2 y 50 caracteres`,
@@ -87,11 +47,13 @@ export const BusquedaGeneral = () => {
         isClosable: true,
       });
     else {
+      setSearchInputProp(searchInputValue.split(" "));
       router.push(
-        `/productPages/productInterface?searchInput=${searchInputValue.toLocaleLowerCase()}`
+        `/productPages/productInterface`,
+        "productsInterfaceRedirect"
       );
     }
-  };
+  };  
   const onClickFunction = (cat, subCat) => {
     setCategory(cat);
     if (subCat) setSubCat1(subCat);
@@ -117,8 +79,8 @@ export const BusquedaGeneral = () => {
           borderColor="blackAlpha.300"
           type="text"
           ref={searchInputNav2}
-          onKeyDown={useOnKeyPress("Enter", handleEnter)}
-          onChange={(e) => setSearchInputvalue(e.target.value)}
+          onKeyDown={useEnter(searchInputNav2.current, setSearch)}
+          onChange={(e) => setSearchInputValue(e.target.value)}
           bg={useColorModeValue("white", "gray.500")}
           color={useColorModeValue("blackAlpha.600", "white")}
         />
@@ -126,7 +88,7 @@ export const BusquedaGeneral = () => {
           <Search2Icon
             mt={5}
             cursor="pointer"
-            onClick={() => handleSearchClick()}
+            onClick={setSearch}
           />
         </InputRightElement>
       </InputGroup>
@@ -140,9 +102,10 @@ export const BusquedaGeneral = () => {
           o selecciona una categoria
         </Heading>
         <Flex mt={4}>
-          {catStorageRef.current && (
+          {loadingCategories && <Flex>Loading...</Flex>}
+          {!loadingCategories && (
             <Accordion ml="2%" minW="90%" allowToggle>
-              {categorias.map((cat) => {
+              {categories.map((cat) => {
                 return (
                   <AccordionItem key={cat.id}>
                     <h2>

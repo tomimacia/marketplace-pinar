@@ -6,7 +6,7 @@ import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 
 export const useHandleFav = () => {
-  const [showSpinner, setShowSpinner] = useState(false);
+  const [favLoading, setFavLoading] = useState(false);
   const [selectedProd, setSelectedProd] = useState(0);
   const [favoriteList, setFavoritelist] = useSessionStorage(
     "FAVORITOS_STORAGE_SESSION_CONTEXT",
@@ -17,7 +17,7 @@ export const useHandleFav = () => {
   const toast = useToast();
 
   const handleFavorito = async (prop, numProp) => {
-    if(showSpinner) return
+    if(favLoading) return
     if(!user) {
       toast({
         title: `Log in to add favorites`,
@@ -26,7 +26,7 @@ export const useHandleFav = () => {
       });
       return
     }
-    setShowSpinner(true);
+    setFavLoading(true);
     setSelectedProd(numProp);
     const ind = favoriteList.indexOf(prop);
     let newArr = [];
@@ -47,8 +47,8 @@ export const useHandleFav = () => {
       status: "success",
       isClosable: true,
     });
-    setShowSpinner(false);
+    setFavLoading(false);
     setSelectedProd(0);
   };
-  return { favoriteList, selectedProd, showSpinner, handleFavorito };
+  return { favoriteList, selectedProd, favLoading, handleFavorito };
 };

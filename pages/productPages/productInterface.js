@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { BeatLoader } from "react-spinners";
 import { FormatProduct } from "../../components/products/FormatProducts";
 import ProductTopComp from "../../components/products/ProductTopComp";
-import { BusquedaGeneral } from "../../components/products/busquedaGeneral";
 import { ProductStructure } from "../../components/products/productStructure";
 import { ProductsPagination } from "../../components/products/productsPagination";
 import {
@@ -15,14 +15,13 @@ import {
 } from "../../items/customHooks/productsInterfaceHooks/productsInterfaceHooks";
 import { useHandleFav } from "../../items/customHooks/useHandleFav";
 import { useLocalStorage } from "../../items/customHooks/useLocalStorage";
-import { BeatLoader } from "react-spinners";
 
 const productos = () => {
   const categoria = useCategoria();
   const setCategoria = useSetCategoria();
 
   const searchInputValue = useSearchInputValue();
-  const { favoriteList, selectedProd, showSpinner, handleFavorito } =
+  const { favoriteList, selectedProd, favLoading, handleFavorito } =
     useHandleFav();
   const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
   const { products, loadingProducts } = useGetProducts();
@@ -58,7 +57,7 @@ const productos = () => {
                     }
                     onClickFavorito={() => handleFavorito(product.id, i)}
                     key={product.id}
-                    isSpinner={showSpinner && selectedProd === i}
+                    isSpinner={favLoading && selectedProd === i}
                   />
                 );
             })
@@ -108,7 +107,7 @@ export default productos;
                     }
                     onClickFavorito={() => handleFavorito(product.id, i)}
                     key={product.id}
-                    isSpinner={showSpinner && selectedProd === i}
+                    isSpinner={favLoading && selectedProd === i}
                   />
                 );
             })

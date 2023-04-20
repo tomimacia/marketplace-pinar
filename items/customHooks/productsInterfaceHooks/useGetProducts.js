@@ -4,8 +4,9 @@ import {
   useSearchInputValue,
   useSetMarcas,
 } from "../../../contexts/productsContext";
-import { getProducts } from "../../../services/serviceProducts";
 import { useQueryArray } from "./useQueryArray";
+import {getProducts} from "../../../firebase/services/serviceProducts"
+
 
 export const useGetProducts = () => {
   const categoria = useCategoria();
@@ -16,7 +17,7 @@ export const useGetProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    if (queryArr.length > 2) {
+    if (queryArr.length > 2 && (searchInputValue.length || categoria)) {
       setLoadingProducts(true);
       getProducts(queryArr)
         .then((response) => {
