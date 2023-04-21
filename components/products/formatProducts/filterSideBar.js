@@ -15,6 +15,7 @@ import {
 export const FilterSideBar = ({ loader }) => {
   const matches = useMediaQuery("(min-width: 780px)");
   const [show, setShow] = useState(false);
+  const [prepareMarcas, setPrepareMarcas] = useState([]);
   const resetFilters = useResetFilters();
   const priceMinMax = usePriceMinMax();
   const setDescuento = useSetDescuento();
@@ -57,6 +58,7 @@ export const FilterSideBar = ({ loader }) => {
     // removeDcRefs() => pass this to filterDiscount
     // sliderThumbRef.current.style.left = "calc(0% - 6.99219px)";
     // filledTrackRef.current.style.width = "0%";
+    setPrepareMarcas([]);
     if (priceMinMax.min > 0 && priceMinMax.max < Infinity) resetFilters();
     else {
       setDescuento(0);
@@ -73,11 +75,11 @@ export const FilterSideBar = ({ loader }) => {
       position="sticky"
       zIndex={10}
       top={0}
-      bg="gray.300"
-      maxH="501px"
+      bg={show ? "blackAlpha.300" : "blue.500"}
       flexDir="column"
+      minH={'100%'}
       flexGrow={1}
-      borderRadius="5px"
+      borderRadius="10px"
     >
       <Flex flexGrow={5} flexDir="column">
         <Flex
@@ -93,14 +95,15 @@ export const FilterSideBar = ({ loader }) => {
           maxW="200px"
           onClick={handleClick}
           borderBottom="1px solid #7D7D7D"
+          bg="blue.400"
         >
           <Flex w="100%" align="center">
             <Text
               as={motion.h2}
               animate={show ? "open" : "closed"}
               display={show ? "flex" : "none"}
-              justify="center"
               w="100%"
+              fontSize="20px"
               fontWeight="medium"
             >
               Filtrar por
@@ -120,15 +123,18 @@ export const FilterSideBar = ({ loader }) => {
           as={motion.div}
           variants={variants}
           animate={show ? "openNav" : "closeNav"}
-          flexGrow={5}
           flexDir="column"
         >
           <FilterMinMax />
-          <FilterMarcas />
+          <FilterMarcas
+            prepareMarcas={prepareMarcas}
+            setPrepareMarcas={setPrepareMarcas}
+          />
           <FilterDiscounts />
           <Button
             boxShadow="0 1px 5px"
-            m={2}
+            mt={5}
+            placeSelf='center'
             size="xs"
             bg="gray.300"
             w="70%"

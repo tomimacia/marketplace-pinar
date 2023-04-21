@@ -1,20 +1,22 @@
 import { Flex, Button, Text } from "@chakra-ui/react";
 
-export const ProductsPagination = ({
+export const Pagination = ({
   pagina,
   paginasTotales,
   handleAnterior,
   handleSiguiente,
   condition
 }) => {
-  if(condition)
+  if(paginasTotales > 1 && condition)
   return (
     <Flex w="100%">
       <Button
         isDisabled={pagina === 1}
         size="sm"
+        _focus={{bg:"transparent"}}
+        bg="transparent"
         m="auto"
-        bg="blue.300"
+        _hover={pagina > 1 && {color:"blue.500"}}
         onClick={handleAnterior}
         w={['30%','25%','20%','20%']}
       >
@@ -26,9 +28,11 @@ export const ProductsPagination = ({
       </Text>
       <Button
         isDisabled={pagina === paginasTotales}
+        _focus={{bg:"transparent"}}
+        bg="transparent"
         size="sm"
         m="auto"
-        bg="blue.300"
+        _hover={pagina < paginasTotales && {color:"blue.500"}}        
         onClick={handleSiguiente}
         w={['30%','25%','25%','20%']}
       >

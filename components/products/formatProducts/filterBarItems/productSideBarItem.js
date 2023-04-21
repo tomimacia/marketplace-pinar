@@ -7,16 +7,14 @@ export const ProductSideBarItem = ({ title, children, applyChanges }) => {
       flexDir="column"
       w="100%"
       align="center"
-      mt={5}
-      mb={5}
+      mt={5}      
     >
-      <Flex bg="gray.300" pl="5%" align="center" width="100%">
-        <Text fontSize="md" fontWeight="medium">
+      <Flex borderRadius='6' p={2} bg="gray.400" pl="5%" align="center" width="100%">
+        <Text fontSize="lg" fontWeight="medium">
           {title}
         </Text>
       </Flex>
-      <Flex
-        borderBottom="1px solid #7D7D7D"
+      <Flex        
         pb="30px"
         pt="15px"
         pl="5%"

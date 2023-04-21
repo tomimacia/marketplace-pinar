@@ -17,8 +17,9 @@ export const useHandlePagination = (products) => {
   useEffect(() => {
     if (products) {
       setPagesTotal(Math.ceil(products.length / 10));
-    }    
+      if (pagesTotal < 2) setPage(1);
+    }
   }, [products]);
-  const pageActions = {setPlusPage, setMinusPage, handlePagination}
+  const pageActions = { setPlusPage, setMinusPage, handlePagination };
   return { page, pagesTotal, pageActions };
 };
