@@ -12,18 +12,18 @@ import {
   Td,
   Text,
   Tr,
-  useToast,
 } from "@chakra-ui/react";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { MdVerified } from "react-icons/md";
 import FormatBlank from "../../../components/FormatBlank";
-import { context } from "../../../contexts/userContext";
-import { auth, firestore } from "../../../firebase/clientApp";
+import { firestore } from "../../../firebase/clientApp";
+import { useCartList } from "../../../items/customHooks/useCartList";
+import { useHandleFav } from "../../../items/customHooks/useHandleFav";
+import { Stats } from "../../../components/dynamicProducts/stats";
 
 export async function getServerSideProps({ params }) {
   const resp = await getDoc(doc(firestore, "Productos", params.productID));
@@ -39,60 +39,9 @@ export default function ProductsDynamic({ prodRef }) {
   const [mainImg, setMainImg] = useState(0);
   const [tempImg, setTempImg] = useState(0);
   const [imgDisplay, setImgDisplay] = useState(true);
-  const [favoriteList, setFavoritelist] = useState([]);
-  const [user, loading, error] = useAuthState(auth);
-  const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
-  const [cartList, setCartList] = useState([]);
-  const ctx = useContext(context);
-
-  // fav storage
-  useEffect(() => {
-    const data = sessionStorage.getItem("FAVORITOS_STORAGE_SESSION_CONTEXT");
-    if (data && data !== favoriteList) {
-      setFavoritelist(JSON.parse(data));
-    }
-  }, []);
-
-  // carrito
-  const handleCarrito = (prop) => {
-    setCartList([...cartList, prop]);
-  };
-
-  // cart storage local
-  useEffect(() => {
-    const data = localStorage.getItem("CART_CONTEXT_STORAGE");
-    if (data) {
-      setCartList(JSON.parse(data));
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("CART_CONTEXT_STORAGE", JSON.stringify(cartList));
-  });
-
-  // favoritos
-  const handleFavorito = async (prop) => {
-    setIsLoading(true);
-    const ind = favoriteList.indexOf(prop);
-    let newArr = [];
-    ind === -1
-      ? (newArr = [...favoriteList, prop])
-      : (newArr = favoriteList.filter((p) => p !== favoriteList[ind]));
-    await updateDoc(doc(firestore, "users", user.uid), {
-      favoritos: newArr,
-    });
-    toast({
-      title: ind === -1 ? `Añadido correctamente` : `Eliminado correctamente`,
-      status: "success",
-      isClosable: true,
-    });
-    setFavoritelist(newArr);
-    sessionStorage.setItem(
-      "FAVORITOS_STORAGE_SESSION_CONTEXT",
-      JSON.stringify(newArr)
-    );
-    setIsLoading(false);
-  };
+  const { favoriteList, selectedProd, favLoading, handleFavorito } =
+    useHandleFav();
+  const { cartList, actions, quantityTotal } = useCartList();
 
   // Especial inmuebles vehiculos
   const paraConsulta = (param) => {
@@ -109,7 +58,6 @@ export default function ProductsDynamic({ prodRef }) {
         hiddenTitle={prodRef.Nombre}
         cartIndex={cartList.length}
         size="md"
-        // titulo listo
         title={
           <Flex>
             <Link
@@ -146,8 +94,8 @@ export default function ProductsDynamic({ prodRef }) {
         }
       >
         <Flex
-          pr={2}
-          pl={2}
+          pr={[0, 0, 2, 2]}
+          pl={[0, 0, 2, 2]}
           borderLeft="1px solid #c7c7c7"
           borderRight="1px solid #c7c7c7"
           m="0 auto"
@@ -155,67 +103,73 @@ export default function ProductsDynamic({ prodRef }) {
           maxW="1200px"
         >
           <Flex>
-            <Flex flexDir="column">
-              {prodRef.Img.map((img, i) => {
-                return (
-                  <Flex
-                    key={i}
-                    onClick={() => setMainImg(i)}
-                    onMouseOver={() => handleMouseOver(i)}
-                    onMouseOut={() => setImgDisplay(true)}
-                    cursor="pointer"
-                    justifyContent="center"
-                    h="50px"
-                    w="50px"
-                    _hover={{ border: "2px solid blue" }}
-                  >
-                    <Image
-                      objectFit="cover"
-                      mb={1}
-                      minH="50px"
-                      w="40px"
-                      minW="40px"
-                      h="50px"
-                      src={img}
-                    />
-
+            <Flex flexDir={["column", "column", "row", "row"]}>
+              <Flex flexDir={["row", "row", "column", "column"]}>
+                {prodRef.Img.map((img, i) => {
+                  return (
                     <Flex
-                      w="3px"
-                      ml={1}
-                      minW="3px"
-                      minH="50px"
-                      borderRadius={5}
-                      bg={i === mainImg ? "blue.500" : "none"}
-                    ></Flex>
-                  </Flex>
-                );
-              })}
-            </Flex>
-            <Flex w="400px" bg="gray.200" mr={5} justify="center">
-              <Flex></Flex>
-              <Image
-                pr={1}
-                pl={2}
-                objectFit="cover"
-                minH="400px"
-                h="400px"
-                src={prodRef.Img[imgDisplay ? mainImg : tempImg]}
-              />
-              <Flex></Flex>
+                      key={i}
+                      onClick={() => setMainImg(i)}
+                      onMouseOver={() => handleMouseOver(i)}
+                      onMouseOut={() => setImgDisplay(true)}
+                      cursor="pointer"
+                      justifyContent="center"
+                      h="50px"
+                      w="50px"
+                      _hover={{ border: "2px solid blue" }}
+                    >
+                      <Image
+                        objectFit="cover"
+                        mb={1}
+                        minH="50px"
+                        w="40px"
+                        minW="40px"
+                        h="50px"
+                        src={img}
+                      />
+
+                      <Flex
+                        w="3px"
+                        ml={1}
+                        minW="3px"
+                        minH="50px"
+                        borderRadius={5}
+                        bg={i === mainImg ? "blue.500" : "none"}
+                      ></Flex>
+                    </Flex>
+                  );
+                })}
+              </Flex>
+              <Flex bg="gray.200" mr={5} justify="center">
+                <Image
+                  pr={1}
+                  pl={2}
+                  objectFit="cover"
+                  minH="400px"
+                  h="400px"
+                  src={prodRef.Img[imgDisplay ? mainImg : tempImg]}
+                />
+              </Flex>
             </Flex>
             <Flex
-              p={3}
+              p={[0,0,2,3]}
+              w={["30%","40%","50%",'70%']}
               justifyContent="space-between"
-              minH="400px"
-              flexGrow={1}
+              minH="400px"              
               flexDir="column"
               borderLeft="1px solid #c7c7c7"
             >
               <Flex justify="space-between">
-                <Heading w="90%" as={motion.h3} size="lg" fontFamily="arial">
+                <Heading
+                  w="100%"
+                  textOverflow="hidden"
+                  as={motion.h3}
+                  size={["sm", "md", "md", "lg"]}
+                  fontFamily="arial"
+                >
                   {prodRef.Nombre}
                 </Heading>
-                {!isLoading ? (
+                {!favLoading ? (
                   <Icon
                     as={
                       favoriteList.includes(prodRef.id)
@@ -245,6 +199,7 @@ export default function ProductsDynamic({ prodRef }) {
                     alignItems="center"
                     w="100%"
                     m="0 auto"
+                    size={["sm","sm","md","md"]}
                     flexDir="column"
                   >
                     <Button maxW="300px" w="100%" bg="blue.300">
@@ -252,8 +207,9 @@ export default function ProductsDynamic({ prodRef }) {
                     </Button>
                     <Button
                       maxW="300px"
-                      onClick={() => handleCarrito(prodRef.id)}
+                      onClick={() => actions.plusOne(prodRef.id)}
                       w="100%"
+                      size={["sm","sm","ndd","md"]}
                       bg="blue.300"
                       mt={5}
                     >
@@ -288,75 +244,9 @@ export default function ProductsDynamic({ prodRef }) {
                 <Text>{prodRef.Descripcion}</Text>
               </Flex>
               {prodRef.Caracteristicas && (
-                <>
-                  <Heading size="lg">Caracteristcas</Heading>
-                  <Flex mt={3} borderRadius="5px" minH="100px" p={2}>
-                    <Flex
-                      w="100%"
-                      m={5}
-                      border="1px solid #c7c7c7"
-                      borderRadius="8px"
-                    >
-                      <TableContainer w="100%">
-                        <Table size="md" variant="simple">
-                          <Tbody>
-                            {prodRef.Caracteristicas.map((car, i) => {
-                              return (
-                                <Tr key={i}>
-                                  <Td
-                                    w="48%"
-                                    bg={i % 2 === 0 && "#c0cbff"}
-                                    borderRadius="5px"
-                                    fontWeight="bold"
-                                  >
-                                    {car.Propiedad}
-                                  </Td>
-                                  <Td w="30%"> {car.Valor}</Td>
-                                </Tr>
-                              );
-                            })}
-                          </Tbody>
-                        </Table>
-                      </TableContainer>
-                    </Flex>
-                  </Flex>
-                </>
+                <Stats stats={prodRef.Caracteristicas} />
               )}
-              {prodRef.Otros && (
-                <>
-                  <Heading size="lg">Otros</Heading>
-                  <Flex mt={3} borderRadius="5px" minH="100px" p={2}>
-                    <Flex
-                      w="100%"
-                      m={5}
-                      border="1px solid #c7c7c7"
-                      borderRadius="8px"
-                    >
-                      <TableContainer w="100%">
-                        <Table size="md" variant="simple">
-                          <Tbody>
-                            {prodRef.Otros.map((otro, i) => {
-                              return (
-                                <Tr key={i}>
-                                  <Td
-                                    w="48%"
-                                    bg={i % 2 === 0 && "#c0cbff"}
-                                    borderRadius="5px"
-                                    fontWeight="bold"
-                                  >
-                                    {otro.Propiedad}
-                                  </Td>
-                                  <Td w="30%"> {otro.Valor ? "Si" : "No"}</Td>
-                                </Tr>
-                              );
-                            })}
-                          </Tbody>
-                        </Table>
-                      </TableContainer>
-                    </Flex>
-                  </Flex>
-                </>
-              )}
+              {prodRef.Otros && <Stats stats={prodRef.Otros} isOtros />}
             </Flex>
           </Flex>
         </Flex>
