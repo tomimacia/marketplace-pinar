@@ -372,7 +372,7 @@ const addProducts = () => {
             placeholder="Selecciona la categoria"
             borderColor="1px solid black"
           >
-            {categorias.map((cat) => {
+            {categories.map((cat) => {
               return (
                 <option key={cat.id} value={cat.id}>
                   {cat.id}
