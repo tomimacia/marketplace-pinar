@@ -12,6 +12,7 @@ import {
   InputGroup,
   InputRightElement,
   ListItem,
+  Progress,
   UnorderedList,
   useColorModeValue,
   useToast,
@@ -32,7 +33,6 @@ export const BusquedaGeneral = () => {
   const searchInputNav2 = useRef(null);
   const setSubCat1 = useSetSubCat1();
   const setCategory = useSetCategoria();
-  const searchInputprop = useSearchInputValue();
   const setSearchInputProp = useSetSearchInputValue();
   const [searchInputValue, setSearchInputValue] = useState("");
   const router = useRouter();
@@ -53,7 +53,7 @@ export const BusquedaGeneral = () => {
         "productsInterfaceRedirect"
       );
     }
-  };  
+  };
   const onClickFunction = (cat, subCat) => {
     setCategory(cat);
     if (subCat) setSubCat1(subCat);
@@ -78,6 +78,7 @@ export const BusquedaGeneral = () => {
           placeholder="¿Que estas buscando?"
           borderColor="blackAlpha.300"
           type="text"
+          autoComplete="on"
           ref={searchInputNav2}
           onKeyDown={useEnter(searchInputNav2.current, setSearch)}
           onChange={(e) => setSearchInputValue(e.target.value)}
@@ -85,11 +86,7 @@ export const BusquedaGeneral = () => {
           color={useColorModeValue("blackAlpha.600", "white")}
         />
         <InputRightElement size="lg">
-          <Search2Icon
-            mt={5}
-            cursor="pointer"
-            onClick={setSearch}
-          />
+          <Search2Icon mt={5} cursor="pointer" onClick={setSearch} />
         </InputRightElement>
       </InputGroup>
       <Flex mt={10} flexDir="column">
@@ -102,7 +99,11 @@ export const BusquedaGeneral = () => {
           o selecciona una categoria
         </Heading>
         <Flex mt={4}>
-          {loadingCategories && <Flex>Loading...</Flex>}
+          {loadingCategories && (
+            <Flex>
+              <Progress m="22px" size="xs" isIndeterminate />
+            </Flex>
+          )}
           {!loadingCategories && (
             <Accordion ml="2%" minW="90%" allowToggle>
               {categories.map((cat) => {

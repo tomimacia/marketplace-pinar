@@ -1,19 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocalStorage } from "./useLocalStorage";
-import { getMultipleDocs } from "../../firebase/services/serviceCategories";
+import { useSessionStorage } from "usehooks-ts";
+import { getCollection } from "../../firebase/services/getCollection";
 
 export const useCategories = () => {
   const catStorageRef = useRef(true);
   const [categoriesError, setCategoriesError] = useState(null);
   const [loadingCategories, setLoadingCategories] = useState(false);
-  const [categories, setCategories] = useLocalStorage(
+  const [categories, setCategories] = useSessionStorage(
     "CATEGORIAS_STORAGE_SESSION_CONTEXT",
     []
   );
   useEffect(() => {
-    if (!categories.length && catStorageRef.current) {
+    if (!categories.length) {
       setLoadingCategories(true);
-      getMultipleDocs("Categorias")
+      getCollection("Categorias")
         .then((res) => {
           sessionStorage.setItem(
             "CATEGORIAS_STORAGE_SESSION_CONTEXT",
@@ -21,13 +21,16 @@ export const useCategories = () => {
           );            
           setCategories(res);
           console.log("fetched categories");
-        })
-        .catch((e) => setCategoriesError("Categories fetching error"))
-        .finally(() => {
-          setLoadingCategories(false);
           catStorageRef.current = false;
+        })
+        .catch((e) =>{
+          setCategoriesError("Categories fetching error");
+          catStorageRef.current = true;
+        })
+        .finally(() => {
+          setLoadingCategories(false);          
         });
     }
-  }, [categories]);
+  }, []);
   return { categories, loadingCategories, categoriesError };
 };

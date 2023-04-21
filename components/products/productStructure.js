@@ -25,7 +25,7 @@ export const ProductStructure = ({
       animate={{ opacity: 1 }}
       transitionDuration={"0.5s"}
       transitionDelay={`${(i - (page * 10 - 10)) * 0.1}s`}
-      border="1px solid black"
+      border="1px solid #a7a7a7"
       borderRadius="5px"
       p={1}
       mt={2}
@@ -43,9 +43,9 @@ export const ProductStructure = ({
               cursor="pointer"
               border={[
                 "none",
-                "1px solid black",
-                "1px solid black",
-                "1px solid black",
+                "1px solid #a7a7a7",
+                "1px solid #a7a7a7",
+                "1px solid #a7a7a7",
               ]}
               loading="lazy"
               boxSize={["100px", "120px", "160px", "160px"]}

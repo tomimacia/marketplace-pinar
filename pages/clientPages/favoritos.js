@@ -59,7 +59,7 @@ const Favoritos = ({ favData }) => {
                   transitionDuration={"0.2s"}
                   transitionDelay={`${(i - (page * 10 - 10)) * 0.1}s`}
                   key={product.id}
-                  border="1px solid black"
+                  border="1px solid #a7a7a7"
                   borderRadius="5px"
                   p={1}
                   mt={2}
@@ -77,9 +77,9 @@ const Favoritos = ({ favData }) => {
                           cursor="pointer"
                           border={[
                             "none",
-                            "1px solid black",
-                            "1px solid black",
-                            "1px solid black",
+                            "1px solid #a7a7a7",
+                            "1px solid #a7a7a7",
+                            "1px solid #a7a7a7",
                           ]}
                           m="auto"
                           boxSize={["100px", "120px", "160px", "160px"]}

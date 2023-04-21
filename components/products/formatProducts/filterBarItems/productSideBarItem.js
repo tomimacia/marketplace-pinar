@@ -4,7 +4,7 @@ export const ProductSideBarItem = ({ title, children, applyChanges }) => {
   
   return (
     <Flex
-      borderRight="1px solid #A3A3A3"
+      
       flexDir="column"
       w="100%"
       align="center"

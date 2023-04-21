@@ -74,7 +74,7 @@ export const FilterSideBar = ({ loader }) => {
     setShow(false)
   })  
   return (
-    <Flex
+    <Flex      
       as={motion.nav}
       ref={domNode}
       maxW="100vw"
