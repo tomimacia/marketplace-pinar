@@ -1,5 +1,5 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -7,12 +7,15 @@ import { FilterDiscounts } from "./filterBarItems/filterDiscounts";
 import { FilterMarcas } from "./filterBarItems/filterMarcas";
 import { FilterMinMax } from "./filterBarItems/filterMinMax";
 import {
+  useMarcas,
   usePriceMinMax,
   useResetFilters,
   useSetDescuento,
   useSetMarcasPicked,
 } from "../../../contexts/productsContext";
+import { useClickOutside } from "../../../items/customHooks/useClickOutside";
 export const FilterSideBar = ({ loader }) => {
+  const marcas = useMarcas()
   const matches = useMediaQuery("(min-width: 780px)");
   const [show, setShow] = useState(false);
   const [prepareMarcas, setPrepareMarcas] = useState([]);
@@ -65,37 +68,36 @@ export const FilterSideBar = ({ loader }) => {
       setMarcasPicked([]);
     }
   };
-
+  const breakpointValues = useBreakpointValue({xs:0,sm:1,md:2,lg:3,xl:4})
+  let domNode = useClickOutside(()=>{
+    if(breakpointValues < 3)    
+    setShow(false)
+  })  
   return (
     <Flex
       as={motion.nav}
+      ref={domNode}
       maxW="100vw"
       variants={variants}
       animate={show ? "open" : "close"}
       position="sticky"
       zIndex={10}
       top={0}
-      bg={show ? "blackAlpha.300" : "blue.500"}
+      bg={show ? "blackAlpha.500" : "blue.500"}
       flexDir="column"
-      minH={'100%'}
+      h={`${Object.values(marcas).length*25+750}px`}
       flexGrow={1}
       borderRadius="10px"
     >
       <Flex flexGrow={5} flexDir="column">
-        <Flex
-          _hover={[
-            { bg: "none" },
-            { bg: "none" },
-            { bg: "none" },
-            { bg: "blue.300", borderRadius: "5px" },
-          ]}
+        <Flex          
           align="center"
           h="60px"
           cursor="pointer"
           maxW="200px"
           onClick={handleClick}
           borderBottom="1px solid #7D7D7D"
-          bg="blue.400"
+          bg="blue.500"
         >
           <Flex w="100%" align="center">
             <Text

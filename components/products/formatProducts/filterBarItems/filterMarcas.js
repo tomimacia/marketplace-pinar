@@ -1,19 +1,17 @@
 import { Checkbox, Flex, ListItem, UnorderedList } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React from "react";
 import {
   useMarcas,
-  useMarcasPicked,
-  useSetMarcasPicked,
+  useSetMarcasPicked
 } from "../../../../contexts/productsContext";
 import { ProductSideBarItem } from "./productSideBarItem";
 
 export const FilterMarcas = ({ prepareMarcas, setPrepareMarcas }) => {
   const marcas = useMarcas();
-  const marcasPicked = useMarcasPicked();
   const setMarcasPicked = useSetMarcasPicked();
   const handleCheckbox = (e) => {
-    if (marcasPicked.includes(e.target.value)) {
-      let newArr = marcasPicked.filter((m) => m !== e.target.value);
+    if (prepareMarcas.includes(e.target.value)) {
+      let newArr = prepareMarcas.filter((m) => m !== e.target.value);
       setPrepareMarcas([...newArr]);
     } else {
       setPrepareMarcas((prev) => [...prev, e.target.value]);
@@ -26,7 +24,7 @@ export const FilterMarcas = ({ prepareMarcas, setPrepareMarcas }) => {
     setMarcasPicked(prepareMarcas);
   };
   return (
-    marcas && (
+    Object.values(marcas).length && (
       <ProductSideBarItem applyChanges={applyChanges} title="Marcas">
         <Flex w="100%" flexDir="column">
           <UnorderedList listStyleType="none">

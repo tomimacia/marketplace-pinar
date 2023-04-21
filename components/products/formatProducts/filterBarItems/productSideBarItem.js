@@ -1,6 +1,7 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
 
 export const ProductSideBarItem = ({ title, children, applyChanges }) => {
+  
   return (
     <Flex
       borderRight="1px solid #A3A3A3"
@@ -9,7 +10,7 @@ export const ProductSideBarItem = ({ title, children, applyChanges }) => {
       align="center"
       mt={5}      
     >
-      <Flex borderRadius='6' p={2} bg="gray.400" pl="5%" align="center" width="100%">
+      <Flex borderRadius='6' p={2} bg="blue.500" pl="5%" align="center" width="100%">
         <Text fontSize="lg" fontWeight="medium">
           {title}
         </Text>
