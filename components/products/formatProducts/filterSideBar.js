@@ -2,7 +2,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { useMediaQuery } from "usehooks-ts";
+// import { useMediaQuery } from "usehooks-ts";
 import { FilterDiscounts } from "./filterBarItems/filterDiscounts";
 import { FilterMarcas } from "./filterBarItems/filterMarcas";
 import { FilterMinMax } from "./filterBarItems/filterMinMax";
@@ -15,8 +15,9 @@ import {
 } from "../../../contexts/productsContext";
 import { useClickOutside } from "../../../items/customHooks/useClickOutside";
 export const FilterSideBar = ({ loader }) => {
+  const breakpointValues = useBreakpointValue({xs:0,sm:1,md:2,lg:3,xl:4})
+  
   const marcas = useMarcas()
-  const matches = useMediaQuery("(min-width: 780px)");
   const [show, setShow] = useState(false);
   const [prepareMarcas, setPrepareMarcas] = useState([]);
   const resetFilters = useResetFilters();
@@ -49,7 +50,7 @@ export const FilterSideBar = ({ loader }) => {
     },
   };
   useEffect(() => {
-    if (matches && loader)
+    if (breakpointValues > 2 && loader)
       setTimeout(() => {
         setShow(true);
       }, 500);
@@ -68,7 +69,6 @@ export const FilterSideBar = ({ loader }) => {
       setMarcasPicked([]);
     }
   };
-  const breakpointValues = useBreakpointValue({xs:0,sm:1,md:2,lg:3,xl:4})
   let domNode = useClickOutside(()=>{
     if(breakpointValues < 3)    
     setShow(false)

@@ -4,7 +4,7 @@ import NavItem from "../../../items/navItem";
 
 const links = [
   ["Home", "/"],
-  ["Productos", "/productPages/productInterface"],
+  ["Productos", "/productPages/busquedaProducts"],
   ["Nosotros", "/about"],
   ["Contacto", "/contact"],
 ];
