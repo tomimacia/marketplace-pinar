@@ -1,6 +1,6 @@
 import { useLocalStorage } from "./useLocalStorage";
 
-export const useCartListHandler = () => {
+export const useCartList = () => {
   const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
   const deleteCart = () => {
     if (cartList.length > 0) {

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { AiFillHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { FormatClient } from "../../components/client/FormatClient";
 import { ProductPrice } from "../../components/products/productPrice";
-import { ProductsPagination } from "../../components/products/productsPagination";
+import { Pagination } from "../../components/products/pagination";
 import { firestore } from "../../firebase/clientApp";
 import { useHandlePagination } from "../../items/customHooks/productsInterfaceHooks/useHandlePagination";
 import { useFavProducts } from "../../items/customHooks/useFavProducts";
@@ -38,18 +38,17 @@ export async function getServerSideProps({ query }) {
   }
 }
 
-const Favoritos = ({ favData }) => {  
+const Favoritos = ({ favData }) => {
   const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
   const { favoriteList, selectedProd, favLoading, handleFavorito } =
-  useHandleFav();
-  const products = useFavProducts(favData,favoriteList)    
-  const { page, pagesTotal, setPlusPage, setMinusPage, handlePagination } =
-    useHandlePagination(products);
-  
+    useHandleFav();
+  const products = useFavProducts(favData, favoriteList);
+  const { page, pagesTotal, pageActions } = useHandlePagination(products);
+
   return (
     <FormatClient title="Favoritos" cartIndex={cartList.length}>
       {!products || products?.length > 0 ? (
-        <Flex justify="center" flexDir="column" p={2} m={2}>          
+        <Flex justify="center" flexDir="column" p={2} m={2}>
           {products.map((product, i) => {
             if (i > page * 10 - 11 && i < page * 10)
               return (
@@ -133,9 +132,7 @@ const Favoritos = ({ favData }) => {
                       />
                       <Spinner
                         display={
-                          favLoading && selectedProd === i + 1
-                            ? "flex"
-                            : "none"
+                          favLoading && selectedProd === i + 1 ? "flex" : "none"
                         }
                         color="blue.500"
                       />
@@ -183,15 +180,15 @@ const Favoritos = ({ favData }) => {
           No se han encontrado favoritos
         </Text>
       )}
-      {products.length > 0 && pagesTotal > 1 && (
-        <ProductsPagination
+
+      <Pagination
+        condition={products.length > 0}
         pagina={page}
         paginasTotales={pagesTotal}
-        manejarPaginacion={handlePagination}
-        handleSiguiente={setPlusPage}
-        handleAnterior={setMinusPage}
+        manejarPaginacion={pageActions.handlePagination}
+        handleSiguiente={pageActions.setPlusPage}
+        handleAnterior={pageActions.setMinusPage}
       />
-      )}
     </FormatClient>
   );
 };

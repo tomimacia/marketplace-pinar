@@ -3,11 +3,11 @@ import { BeatLoader } from "react-spinners";
 import FormatBlank from "../components/FormatBlank";
 import { CartProducts } from "../components/cart/cartProducts";
 import { EmptyCart } from "../components/cart/empyCart";
-import { useCartListHandler } from "../items/customHooks/useCartListHandler";
+import { useCartList } from "../items/customHooks/useCartList";
 import { useGetCart } from "../items/customHooks/useGetCart";
 
 const Carrito = () => {
-  const { cartList, actions, quantityTotal } = useCartListHandler();
+  const { cartList, actions, quantityTotal } = useCartList();
   const { loading, products, error } = useGetCart(cartList);
 
   return (
