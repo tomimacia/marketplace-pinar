@@ -9,7 +9,7 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useSetRecoilState } from "recoil";
-import { modState } from "../atoms/modalatom";
+import { modState } from "../atoms/Modalatom";
 import { auth } from "../../firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetCategoria } from "../../contexts/productsContext";

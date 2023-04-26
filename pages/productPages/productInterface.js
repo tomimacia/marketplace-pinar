@@ -29,7 +29,7 @@ const productos = () => {
         border="1px solid #a7a7a7"
         borderRadius="15px"
       >
-        <Flex justify="center" flexDir="column" p={2} m={2}>
+        <Flex key={products.length*1000} justify="center" flexDir="column" p={2} m={2}>
           {loadingProducts ? (
             <Flex mt={10} justify="center">
               <BeatLoader color="#68EBBB" />
@@ -57,8 +57,7 @@ const productos = () => {
           <Pagination
             condition={!loadingProducts}
             pagina={page}
-            paginasTotales={pagesTotal}
-            manejarPaginacion={pageActions.handlePagination}
+            paginasTotales={pagesTotal}            
             handleSiguiente={pageActions.setPlusPage}
             handleAnterior={pageActions.setMinusPage}
           />

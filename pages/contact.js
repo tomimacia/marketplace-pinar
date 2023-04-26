@@ -9,7 +9,7 @@ import Layout from "../components/Layout";
 const Contact = () => {  
   
   return (
-    <Layout hasTransition={true} title="Contacto" mainTitle="Contacto">
+    <Layout hasTransition headTitle="Contacto" pageTitle="Contacto">
       <Stack fontWeight="bold" p={5} spacing={7} fontSize={18}>
         <Box>
           <PhoneIcon />
@@ -20,7 +20,7 @@ const Contact = () => {
           <Text>somemail@gmail.com</Text>
         </Box>
         <Flex color="black" fontSize={22} pt={0}>
-          <Link href="https://www.instagram.com/" target="_blank">
+          <Link href="https://www.instagram.com/tomimacia" target="_blank">
             <Icon as={BsInstagram} ml={5} />
           </Link>
           <Link href="https://www.twitter.com/" target="_blank">

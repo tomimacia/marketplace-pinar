@@ -21,10 +21,9 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import {
-  useSearchInputValue,
   useSetCategoria,
   useSetSearchInputValue,
-  useSetSubCat1,
+  useSetSubCat1
 } from "../../contexts/productsContext";
 import { useCategories } from "../../items/customHooks/useCategories";
 import { useEnter } from "../../items/customHooks/useEnter";

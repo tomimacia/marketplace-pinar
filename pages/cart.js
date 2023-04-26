@@ -11,7 +11,7 @@ const Carrito = () => {
   const { loading, products, error } = useGetCart(cartList);
 
   return (
-    <FormatBlank size="lg" cartIndex={cartList.length} title="Carrito">
+    <FormatBlank size="lg" pageTitle="Carrito" headTitle="Carrito">
       <Flex minH="60vh">
         <Flex flexGrow={1}></Flex>
         <Flex

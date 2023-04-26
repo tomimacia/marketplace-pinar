@@ -1,6 +1,5 @@
-import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
-import { firestore } from "../../firebase/clientApp";
+import { getSingleDoc } from "../../firebase/services/getSingleDoc";
 
 export const useGetCart = (cartList) => {
   const [products, setProducts] = useState([]);
@@ -18,7 +17,7 @@ export const useGetCart = (cartList) => {
         let data = [];
         idUnicos.map((elem) => {
           async function fetchMyProduct() {
-            const document = await getDoc(doc(firestore, "Productos", elem));
+            const document = await getSingleDoc("Productos", elem);
             data = [...data, { ...document.data(), id: document.id }];
             if (data.length === idUnicos.length) {
               setProducts(data);

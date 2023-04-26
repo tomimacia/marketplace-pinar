@@ -4,7 +4,7 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../firebase/errors";
-import { modState } from "../atoms/modalatom";
+import { modState } from "../atoms/Modalatom";
 
 const SignUp = () => {
   

@@ -4,17 +4,18 @@ import Head from "next/head";
 import Footer from "./navigation/footer";
 import Navigation from "./navigation/Navigation";
 import { layoutA, layoutB } from "../chakra/bgColors";
+import { memo } from "react";
 
-const Layout = ({
+const Layout = memo(({
   children,
-  hiddenTitle,
-  title,  
-  mainTitle,
+  headTitle,
+  pageTitle,
   hasTransition,
 }) => {
   return (
     <Box
       pos="relative"
+      scrollBehavior='smooth'
       maxW="100%"
       w="100%"
       minH="100vh"
@@ -28,7 +29,7 @@ const Layout = ({
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>El Pinar | {hiddenTitle || title}</title>
+        <title>El Pinar | {headTitle}</title>
       </Head>
       <Navigation />
       <Flex pt={0} flexDir="column">
@@ -38,14 +39,12 @@ const Layout = ({
             fontSize: "50px",
           }}
           flexGrow={1}
-          as={motion.h1}
-          color="#06137A"
-          textDecoration="underline"
+          as={motion.h1}                   
           pl={5}
           pt={10}
           align="center"
         >
-          {mainTitle}
+          {pageTitle}
         </Heading>
       </Flex>
       {hasTransition && (
@@ -63,6 +62,6 @@ const Layout = ({
       <Footer />
     </Box>
   );
-};
+});
 
 export default Layout;

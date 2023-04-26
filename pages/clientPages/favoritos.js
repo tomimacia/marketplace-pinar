@@ -1,19 +1,18 @@
 import { Flex, Icon, Image, Spinner, Text } from "@chakra-ui/react";
-import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { FormatClient } from "../../components/client/FormatClient";
-import { ProductPrice } from "../../components/products/productPrice";
 import { Pagination } from "../../components/products/pagination";
-import { firestore } from "../../firebase/clientApp";
+import { ProductPrice } from "../../components/products/ProductPrice";
+import { getSingleDoc } from "../../firebase/services/getSingleDoc";
 import { useHandlePagination } from "../../items/customHooks/productsInterfaceHooks/useHandlePagination";
 import { useFavProducts } from "../../items/customHooks/useFavProducts";
 import { useHandleFav } from "../../items/customHooks/useHandleFav";
 import { useLocalStorage } from "../../items/customHooks/useLocalStorage";
 
 export async function getServerSideProps({ query }) {
-  const usuario = await getDoc(doc(firestore, "users", query.cd));
+  const usuario = await getSingleDoc("users", query.cd);
   const favoritos = usuario.data().favoritos;
   let docObject = [];
   if (favoritos.length === 0) {
@@ -25,7 +24,7 @@ export async function getServerSideProps({ query }) {
     };
   }
   for (let i = 0; i < favoritos.length; i++) {
-    const document = await getDoc(doc(firestore, "Productos", favoritos[i]));
+    const document = await getSingleDoc("Productos", favoritos[i]);
     docObject = [...docObject, { ...document.data(), id: document.id }];
     if (docObject.length === favoritos.length) {
       return {

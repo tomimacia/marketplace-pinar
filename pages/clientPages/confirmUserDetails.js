@@ -22,7 +22,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
-import { modState } from "../../components/atoms/modalatom";
+import { modState } from "../../components/atoms/Modalatom";
 import { auth, firestore } from "../../firebase/clientApp";
 import { sendEmailVerification } from "firebase/auth";
 

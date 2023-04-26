@@ -12,7 +12,7 @@ export const FormatProduct = ({ loader, children, showFilterBar }) => {
   }, [categoria, subCat1]);
 
   return (
-    <Layout hiddenTitle={FormatProductTitle}>
+    <Layout headTitle={categoria || "Productos"} pageTitle={FormatProductTitle}>
       <Flex
         align="center"
         justify="center"

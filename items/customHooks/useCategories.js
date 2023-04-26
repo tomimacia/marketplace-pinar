@@ -10,27 +10,56 @@ export const useCategories = () => {
     "CATEGORIAS_STORAGE_SESSION_CONTEXT",
     []
   );
+  const getCategories = async () => {
+    setLoadingCategories(true)    
+    getCollection("Categorias")
+      .then((res) => {
+        sessionStorage.setItem(
+          "CATEGORIAS_STORAGE_SESSION_CONTEXT",
+          JSON.stringify(res)
+        );
+        setCategories(res);
+        console.log("fetched categories");
+        catStorageRef.current = false;
+      })
+      .catch(() => {
+        setCategoriesError("Categories fetching error");
+        catStorageRef.current = true;
+      })
+      .finally(() => {
+        setLoadingCategories(false);
+      });
+  };
   useEffect(() => {
     if (!categories.length) {
-      setLoadingCategories(true);
-      getCollection("Categorias")
-        .then((res) => {
-          sessionStorage.setItem(
-            "CATEGORIAS_STORAGE_SESSION_CONTEXT",
-            JSON.stringify(res)
-          );            
-          setCategories(res);
-          console.log("fetched categories");
-          catStorageRef.current = false;
-        })
-        .catch((e) =>{
-          setCategoriesError("Categories fetching error");
-          catStorageRef.current = true;
-        })
-        .finally(() => {
-          setLoadingCategories(false);          
-        });
+      console.log("se ejecuto");      
+      getCategories();
     }
   }, []);
-  return { categories, loadingCategories, categoriesError };
+  const getMarcas = (catSelected) => {
+    const obj = categories.filter(
+      (cat) => cat.id === catSelected
+    )[0];
+    return obj.Marcas;
+  };
+  const getSubcategories = (catSelected) => {
+    const obj = categories.filter(
+      (cat) => cat.id === catSelected
+    )[0];
+    return obj.SubCat1;
+  };
+  const getModelos = (catSelected) => {
+    const obj = categories.filter(
+      (cat) => cat.id === catSelected
+    )[0];
+    return obj.Modelos;
+  };
+  return {
+    categories,
+    getField: { getMarcas, getSubcategories, getModelos },
+    setCategories,
+    loadingCategories,
+    categoriesError,
+    getCategories,
+  };
 };

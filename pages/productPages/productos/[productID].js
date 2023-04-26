@@ -7,21 +7,20 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import { doc, getDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { MdVerified } from "react-icons/md";
 import FormatBlank from "../../../components/FormatBlank";
+import { DynamicProductImages } from "../../../components/dynamicProducts/DynamicProductImages";
 import { Stats } from "../../../components/dynamicProducts/stats";
-import { firestore } from "../../../firebase/clientApp";
+import { ProductPrice } from "../../../components/products/ProductPrice";
+import { getSingleDoc } from "../../../firebase/services/getSingleDoc";
 import { useCartList } from "../../../items/customHooks/useCartList";
 import { useHandleFav } from "../../../items/customHooks/useHandleFav";
-import { DynamicProductImages } from "../../../components/dynamicProducts/DynamicProductImages";
-import { ProductPrice } from "../../../components/products/productPrice";
 
 export async function getServerSideProps({ params }) {
-  const resp = await getDoc(doc(firestore, "Productos", params.productID));
+  const resp = await getSingleDoc("Productos", params.productID);
   const producto = resp.data();
   return {
     props: {
@@ -31,9 +30,9 @@ export async function getServerSideProps({ params }) {
 }
 
 export default function ProductsDynamic({ prodRef }) {
-  const { favoriteList, selectedProd, favLoading, handleFavorito } =
+  const { favoriteList,  favLoading, handleFavorito } =
     useHandleFav();
-  const { cartList, actions, quantityTotal } = useCartList();
+  const { cartList, actions } = useCartList();
 
   // Especial inmuebles vehiculos
   const paraConsulta = (param) => {
@@ -43,10 +42,9 @@ export default function ProductsDynamic({ prodRef }) {
   return (
     <Box>
       <FormatBlank
-        hiddenTitle={prodRef.Nombre}
-        cartIndex={cartList.length}
+        headTitle={prodRef.Nombre}        
         size="md"
-        title={
+        pageTitle={
           <Flex>
             <Link
               href={`/productPages/productInterface?categoria=${prodRef.Categoria}`}

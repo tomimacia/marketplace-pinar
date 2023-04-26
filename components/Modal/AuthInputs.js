@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
-import { modState } from "../atoms/modalatom";
+import { modState } from "../atoms/Modalatom";
 import Login from "./Login";
 import SignUp from "./SignUp";
 

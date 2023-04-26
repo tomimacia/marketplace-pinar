@@ -6,7 +6,7 @@ import {
   AiOutlineHeart,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { ProductPrice } from "./productPrice";
+import { ProductPrice } from "./ProductPrice";
 
 export const ProductStructure = ({
   i,

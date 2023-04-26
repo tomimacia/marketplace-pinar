@@ -24,7 +24,7 @@ export const FilterMarcas = ({ prepareMarcas, setPrepareMarcas }) => {
     setMarcasPicked(prepareMarcas);
   };
   return (
-    Object.values(marcas).length && (
+    Object.values(marcas).length > 0 && (
       <ProductSideBarItem applyChanges={applyChanges} title="Marcas">
         <Flex w="100%" flexDir="column">
           <UnorderedList listStyleType="none">

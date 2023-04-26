@@ -1,7 +1,7 @@
-import { doc, getDoc } from "firebase/firestore";
 import { createContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, firestore } from "../firebase/clientApp";
+import { auth } from "../firebase/clientApp";
+import { getSingleDoc } from "../firebase/services/getSingleDoc";
 
 export const context = createContext();
 
@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     if (user) {
       const findUser = async () => {
-        const usuario = await getDoc(doc(firestore, "users", user.uid));
+        const usuario = await getSingleDoc("users", user.uid)
         if (!userRef || userRef != usuario.data()) setUserRef(usuario.data());
       };
       findUser();

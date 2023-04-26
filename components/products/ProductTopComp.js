@@ -7,7 +7,7 @@ import {
   useSetSearchInputValue,
   useSubCat1,
 } from "../../contexts/productsContext";
-import { ProductTopChildren } from "./productTopChildren";
+import { ProductTopChildren } from "./ProductTopChildren";
 import { useRouter } from "next/router";
 
 const ProductTopComp = () => {

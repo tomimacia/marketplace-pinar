@@ -1,5 +1,4 @@
 import {
-  CloseIcon,
   HamburgerIcon,
   MoonIcon,
   Search2Icon,
@@ -7,9 +6,6 @@ import {
 } from "@chakra-ui/icons";
 import {
   Box,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
   Flex,
   Icon,
   IconButton,
@@ -22,35 +18,28 @@ import {
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { a, b } from "../../chakra/bgColors";
-import { useOnKeyPress } from "../../items/customHooks/useOnKey";
-import NavItem from "../../items/navItem";
 import { ClientNavigation } from "./ClientNavigation";
 
+import { useSetSearchInputValue } from "../../contexts/productsContext";
+import { useCartList } from "../../items/customHooks/useCartList";
+import { useEnter } from "../../items/customHooks/useEnter";
 import { ProductsNav } from "./ProductsNav";
 import { MobileNav } from "./mainNav/mobileNav";
-import { useEnter } from "../../items/customHooks/useEnter";
-import { useSetSearchInputValue } from "../../contexts/productsContext";
-
-const pages = [
-  ["Home", "/"],
-  ["Productos", "/productPages/busquedaProducts"],
-  ["Nosotros", "/about"],
-  ["Contacto", "/contact"],
-];
+import { NavigationLinks } from "./navigationLinks";
 
 const Navigation = () => {
   const searchInputNav = useRef(null);
-  const setSearchInputProp = useSetSearchInputValue()
+  const setSearchInputProp = useSetSearchInputValue();
   const router = useRouter();
   const toast = useToast();
-  const [cartCount, setCartCount] = useState(0);
+  const { cartList, actions, quantityTotal } = useCartList();
   const { colorMode, toggleColorMode } = useColorMode();
   const [display, changeDisplay] = useState("none");
   const [searchInputValue, setSearchInputvalue] = useState("");
-  
+
   const setSearch = () => {
     if (searchInputValue.length <= 1 || searchInputValue.length > 50)
       toast({
@@ -75,7 +64,8 @@ const Navigation = () => {
       });
     else {
       router.push(
-        `/productPages/productInterface?searchInput=${searchInputValue.toLocaleLowerCase()}`
+        `/productPages/productInterface`,
+        "productsInterfaceRedirect"
       );
     }
   };
@@ -83,19 +73,7 @@ const Navigation = () => {
   return (
     <Box bgGradient={useColorModeValue(a, b)} p={1}>
       <Flex width="100%" height={50} alignItems="center">
-        <Breadcrumb
-          flexGrow={1}
-          spacing={3}
-          display={["none", "none", "none", "flex"]}
-        >
-          {pages.map((page) => {
-            return (
-              <BreadcrumbItem key={page[0]}>
-                <NavItem href={`${page[1]}`}>{page[0]}</NavItem>
-              </BreadcrumbItem>
-            );
-          })}
-        </Breadcrumb>
+        <NavigationLinks />
 
         <Flex flexGrow={1}>
           <Flex flexGrow={5}>
@@ -162,26 +140,27 @@ const Navigation = () => {
                   borderRadius="50px"
                   zIndex={13}
                 />
-                <Box
-                  as={motion.span}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  right={1}
-                  minW={4}
-                  h={5}
-                  display={cartCount === 0 && "none"}
-                  cursor="pointer"
-                  lineHeight="18px"
-                  textAlign="center"
-                  pos="fixed"
-                  bg="red"
-                  borderRadius="50%"
-                  fontWeight="Bold"
-                  fontSize={15}
-                  zIndex={14}
-                >
-                  <Text>{cartCount}</Text>
-                </Box>
+                {cartList.length > 0 && (
+                  <Box
+                    // as={motion.span}
+                    // initial={{ opacity: 0 }}
+                    // animate={{ opacity: 1 }}
+                    right={1}
+                    minW={4}
+                    h={5}
+                    cursor="pointer"
+                    lineHeight="18px"
+                    textAlign="center"
+                    pos="fixed"
+                    bg="red"
+                    borderRadius="50%"
+                    fontWeight="Bold"
+                    fontSize={15}
+                    zIndex={14}
+                  >
+                    <Text>{cartList.length}</Text>
+                  </Box>
+                )}
               </Flex>
             </Link>
           </Flex>

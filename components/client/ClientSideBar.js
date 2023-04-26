@@ -14,7 +14,7 @@ import { FiSettings } from "react-icons/fi";
 import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
 import { SideBarItem } from "./sideBarItem";
-import { modState } from "../atoms/modalatom";
+import { modState } from "../atoms/Modalatom";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { motion } from "framer-motion";

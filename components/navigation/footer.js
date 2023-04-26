@@ -1,6 +1,6 @@
 import { Text, VStack } from "@chakra-ui/react";
 
-const Footer = () => {
+const Footer = () => {  
   return (
     <VStack
       pos="absolute"

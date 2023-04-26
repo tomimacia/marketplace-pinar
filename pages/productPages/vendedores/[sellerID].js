@@ -7,24 +7,21 @@ import {
   Progress,
   Text,
 } from "@chakra-ui/react";
-import {
-  doc,
-  getDoc
-} from "firebase/firestore";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiEdit } from "react-icons/bi";
 import FormatBlank from "../../../components/FormatBlank";
-import { ProductPrice } from "../../../components/products/productPrice";
-import { auth, firestore } from "../../../firebase/clientApp";
+import { ProductPrice } from "../../../components/products/ProductPrice";
+import { auth } from "../../../firebase/clientApp";
+import { getSingleDoc } from "../../../firebase/services/getSingleDoc";
 import { useLocalStorage } from "../../../items/customHooks/useLocalStorage";
 import { useSellerID } from "../../../items/customHooks/useSellerID";
 
 
 export async function getServerSideProps({ params }) {
-  const resp = await getDoc(doc(firestore, "users", params.sellerID));
+  const resp = await getSingleDoc("users", params.sellerID);
   const seller = resp.data();
   delete seller.fechaDeSuscripcion;  
   return {
@@ -43,8 +40,7 @@ export default function ProductsDynamic({ sellerRef, sellerID }) {
   
   return (
     <Box>
-      <FormatBlank
-        cartIndex={cartList.length}
+      <FormatBlank        
         hiddenTitle={sellerRef.sellerName}
         title={
           <Flex

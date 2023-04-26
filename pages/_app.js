@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }) {
             h={2}
             colorScheme="blue"
             bg="transparent"
-            top="120px"            
+            top={["150px","120px","120px","120px"]}            
             w="100%"            
             isIndeterminate
             position="absolute"

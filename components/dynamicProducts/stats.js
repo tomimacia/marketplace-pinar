@@ -4,7 +4,7 @@ import React from "react";
 export const Stats = ({stats,isOtros}) => {
   return (
     <Flex mt={10} flexDir='column'>
-      <Heading size={["sm","sm","lg","lg"]}>{!isOtros ? "Caracteristicas" : "Otros"}</Heading>
+      <Heading size={["sm","sm","md","md"]}>{!isOtros ? "Caracteristicas" : "Otros"}</Heading>
       <Flex mt={3} borderRadius="5px" minH="100px" p={2}>
         <Flex
           w="100%"
@@ -13,7 +13,7 @@ export const Stats = ({stats,isOtros}) => {
           borderRadius="8px"
         >
           <TableContainer w="100%">
-            <Table size={["xs","xs","sm","md"]} variant="simple">
+            <Table size={["xs","xs","sm","sm"]} variant="simple">
               <Tbody fontSize={['sm','sm',"md","md"]}
                         fontWeight={["none","none","bold","bold"]}>
                 {stats.map((otro, i) => {

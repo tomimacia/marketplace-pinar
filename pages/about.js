@@ -6,7 +6,7 @@ const About = () => {
   
   
   return (
-    <Layout hasTransition={true} title='Sobre nosotros' mainTitle="Sobre nosotros">
+    <Layout hasTransition={true} headTitle='Sobre nosotros' pageTitle="Sobre nosotros">
       <Text 
         p={25}
         fontWeight="bold"

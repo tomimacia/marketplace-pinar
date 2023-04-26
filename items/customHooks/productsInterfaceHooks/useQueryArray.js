@@ -1,21 +1,19 @@
-import { collection, limit, orderBy, where } from "firebase/firestore";
+import { limit, orderBy, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useCategoria, usePriceMinMax, useProductOrder, useSearchInputValue, useSubCat1 } from "../../../contexts/productsContext";
-import { firestore } from "../../../firebase/clientApp";
 
 export const useQueryArray = () => {
   const categoria = useCategoria()
   const searchInputValue = useSearchInputValue()
   const productOrder = useProductOrder()
   const subCat1 = useSubCat1()
-  const priceMinMax = usePriceMinMax()
-  const productsCollection = collection(firestore, "Productos");
-  const [queryArr, setQueryArr] = useState([productsCollection, limit(1)]);
+  const priceMinMax = usePriceMinMax()  
+  const [queryArr, setQueryArr] = useState([]);
   
 
   useEffect(() => {
     if (categoria || searchInputValue.length) {
-      let arr = [productsCollection];
+      let arr = [];
       if (searchInputValue.length > 0) {
         arr = [
           ...arr,

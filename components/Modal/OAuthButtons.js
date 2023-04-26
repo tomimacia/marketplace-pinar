@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
-import { modState } from "../atoms/modalatom";
+import { modState } from "../atoms/Modalatom";
 
 const OAuthButtons = () => {
   const setAuthModelState = useSetRecoilState(modState);

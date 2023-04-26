@@ -3,17 +3,14 @@ import { Flex, Heading, Box } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 const FormatBlank = ({  
-  hiddenTitle,
-  mainTitle,
-  title,
   children,
   size,
+  headTitle,
+  pageTitle
 }) => {
   return (
     <Layout      
-      hiddenTitle={hiddenTitle}
-      mainTitle={mainTitle}
-      title={title}
+      headTitle={headTitle}                           
     >
       <Box minH="80vh" h="100%" bgGradient="linear(to-b, gray.200, gray.100)">
         <Flex          
@@ -26,7 +23,7 @@ const FormatBlank = ({
           borderBottom="1px solid black"
         >          
           <Heading m="auto" ml={7} as={motion.h1} size={size}>
-            {title}
+            {pageTitle}
           </Heading>
           
         </Flex>

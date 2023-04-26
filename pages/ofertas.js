@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 
 const Ofertas = () => {
   return (
-    <Layout title="Ofertas" mainTitle="Ofertas!!">
+    <Layout pageTitle="Ofertas" headTitle="Ofertas!!">
       <Box>''</Box>
     </Layout>
   );

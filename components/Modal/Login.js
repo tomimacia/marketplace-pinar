@@ -1,7 +1,7 @@
 import { Flex, Text, Input, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { useSetRecoilState } from "recoil";
-import { modState } from "../atoms/modalatom";
+import { modState } from "../atoms/Modalatom";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../firebase/errors";

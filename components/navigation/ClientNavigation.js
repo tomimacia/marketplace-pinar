@@ -17,7 +17,7 @@ import { useSetRecoilState } from "recoil";
 import { context } from "../../contexts/userContext";
 import { auth } from "../../firebase/clientApp";
 import ModalTest from "../Modal/modalLog";
-import { modState } from "../atoms/modalatom";
+import { modState } from "../atoms/Modalatom";
 import { ProfileImage } from "./ProfileImage";
 import { Avatars } from "./avatars";
 import { ClientNavLink } from "./clientNavLink";

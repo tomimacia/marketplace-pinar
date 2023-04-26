@@ -30,7 +30,7 @@ export const useGetProducts = () => {
   useEffect(() => {
     if (queryArr.length > 2 && (searchInputValue.length || categoria)) {
       setLoadingProducts(true);
-      getProducts(queryArr)
+      getProducts("Productos",queryArr)
         .then((response) => {
           setProducts(response);
           const currentMarcas = updateMarcas(response)

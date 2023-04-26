@@ -21,8 +21,7 @@ export const ProductTopChildren = () => {
               size={["xs", "sm"]}
               placeholder="Secciones"
               borderBottom="1px solid #7D7D7D"
-              borderRight="1px solid #7D7D7D"
-              value={subCat1}
+              borderRight="1px solid #7D7D7D"              
               onChange={(e) => {
                 setSubCat1(e.target.value);
               }}
