@@ -134,7 +134,7 @@ const confirmUserDetails = () => {
           p={[0, 0, 0, 10]}
         >
           <Heading as="h2" size="sm" mb={3}>
-            Bienvenido {user ?? user.email}!
+            Bienvenido {user ? user.email : ""}!
           </Heading>
           <Heading as="h3" size="sm" mb={3}>
             Completa los datos para continuar
