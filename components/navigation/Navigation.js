@@ -115,12 +115,11 @@ const Navigation = () => {
               onClick={toggleColorMode}
               outlineColor={useColorModeValue("blackAlpha.400", "gray.400")}
               cursor="pointer"
-              fontSize={20}
+              fontSize={18}
               mt={1}
-              boxSize={33}
+              size='sm'
               _hover={{ color: "blackAlpha.400" }}
-              bg="transparent"
-              ml={2}
+              bg="transparent"              
               mr="45px"
             >
               Switch Mode

@@ -22,7 +22,7 @@ export const FormatClient = ({ children, title, cartIndex }) => {
 
         <Flex left="0vw" w="90vw" minH="80%">
           <Box minH="80%" minW="80%" w="100%" h="100%" bg="gray.200">
-            <Box pt={1} pr={[1, 3, 5, 7]} pl={[1, 3, 5, 7]}>
+            <Box pt={1} pb={3} pr={[1, 3, 5, 7]} pl={[1, 3, 5, 7]}>
               <Box p={5} border="1px solid black" borderRadius="15px">
                 <Heading
                   as={motion.h1}
@@ -47,8 +47,7 @@ export const FormatClient = ({ children, title, cartIndex }) => {
           </Box>
         </Flex>
         <Flex w="5vw" bgGradient="linear(to-r, teal.400, teal.300)"></Flex>
-      </Flex>
-      <Flex bg="white" h="10vh"></Flex>
+      </Flex>      
     </Layout>
   );
 };

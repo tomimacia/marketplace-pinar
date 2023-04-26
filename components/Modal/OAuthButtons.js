@@ -5,7 +5,7 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
 import { modState } from "../atoms/Modalatom";
-
+import googleLogo from "../../public/images/googlelogo.png"
 const OAuthButtons = () => {
   const setAuthModelState = useSetRecoilState(modState);
   const [handleError, setError] = useState("");
@@ -44,7 +44,7 @@ const OAuthButtons = () => {
         <Image
           mr={[3,4,5,5]}
           h={["15px", "17px", "20px", "20px"]}          
-          src="https://img2.freepng.es/20180324/iww/kisspng-google-logo-g-suite-google-5ab6f1cee66464.5739288415219388949437.jpg"
+          src={googleLogo.src}
         />
         <Text fontSize={['xs','sm','sm','md']}>Continuar con Google</Text>
       </Button>

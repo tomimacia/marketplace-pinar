@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <VStack
       pos="absolute"
-      padding="10px 10px 0px 10px"
+      placeContent='center'
       bottom={0}
       h="4rem"
       bg="gray.400"

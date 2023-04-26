@@ -19,7 +19,7 @@ const productos = () => {
   const { page, pagesTotal, pageActions } = useHandlePagination(products);
   
   return (
-    <FormatProduct showFilterBar={true} loader={loadingProducts}>
+    <FormatProduct headTitle showFilterBar={true} loader={loadingProducts}>
       <ProductTopComp />
 
       <Box

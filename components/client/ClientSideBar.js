@@ -1,6 +1,9 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Divider, Box, Flex, Icon, Text, useToast } from "@chakra-ui/react";
+import { Box, Divider, Flex, Icon, Text } from "@chakra-ui/react";
 
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   FaBell,
@@ -13,34 +16,33 @@ import {
 import { FiSettings } from "react-icons/fi";
 import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
-import { SideBarItem } from "./SideBarItem";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
 import { modState } from "../atoms/Modalatom";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { motion } from "framer-motion";
-
+import { SideBarItem } from "./SideBarItem";
+import { useClickOutside } from "../../items/customHooks/useClickOutside";
 export const ClientSideBar = () => {
-  const [customDisplay, setCustomDisplay] = useState("none");
-  const handleClick = () => {
-    setCustomDisplay(customDisplay === "none" ? "flex" : "none");
-  };
+  const [show, setShow] = useState(false);
 
-  const toast = useToast();
+  const { errorToast } = useCustomToast();
   const [user, loading, error] = useAuthState(auth);
   const routeBg = "blue.300";
   const setAuthModelState = useSetRecoilState(modState);
   const route = useRouter().route;
+  let domNode = useClickOutside(() => {
+    setShow(false);
+  });
   return (
     <Flex
       as={motion.div}
       maxW="100vw"
-      animate={customDisplay === "none" ? { width: 10 } : { width: "60vw" }}
+      animate={show ? { width: "60vw" } : { width: 10 }}
       position="sticky"
       zIndex={10}
-      top={0}      
+      top={0}
       bg="gray.300"
-      h="60vh"      
-      maxH="60vh"
+      h="60vh"
+      minH="530px"
+      ref={domNode}
       flexDir="column"
       flexGrow={1}
     >
@@ -50,17 +52,16 @@ export const ClientSideBar = () => {
           align="center"
           flexGrow={1}
           cursor="pointer"
-          onClick={handleClick}
+          onClick={() => setShow(!show)}
         >
           <Flex ml={2} w="100%" align="center">
-            <Text display={customDisplay}>
-              {user ? user.displayName : "Usuario"}
-            </Text>
-            <Flex
-              w="100%"
-              justify={customDisplay === "none" ? "flex-start" : "flex-end"}
-            >
-              <Box as={motion.div} whileHover={{}} animate={customDisplay === "none" ? "none" : {rotate:90, color:'#2961EE'}}>
+            {show && <Text>{user ? user.displayName : "Usuario"}</Text>}
+            <Flex w="100%" justify={show ? "flex-end" : "flex-start"}>
+              <Box
+                as={motion.div}
+                whileHover={{}}
+                animate={show ? { rotate: 90, color: "#2961EE" } : "none"}
+              >
                 <HamburgerIcon mr={2} fontSize={20} />
               </Box>
             </Flex>
@@ -71,27 +72,33 @@ export const ClientSideBar = () => {
           icon={FaUserAlt}
           href="/clientPages/miCuenta"
         >
-          <Text display={customDisplay} cursor="pointer" w="100%">
-            Mi cuenta
-          </Text>
+          {show && (
+            <Text cursor="pointer" w="100%">
+              Mi cuenta
+            </Text>
+          )}
         </SideBarItem>
         <SideBarItem
           bgProp={route === "/clientPages/misCompras" ? routeBg : "none"}
           icon={FaWallet}
           href="/clientPages/misCompras"
         >
-          <Text display={customDisplay} cursor="pointer">
-            Mis compras
-          </Text>
+          {show && (
+            <Text display cursor="pointer">
+              Mis compras
+            </Text>
+          )}
         </SideBarItem>
         <SideBarItem
           bgProp={route === "/clientPages/favoritos" ? routeBg : "none"}
           icon={FaHeart}
           href={`/clientPages/favoritos?cd=${user ? user.uid : "noUser"}`}
         >
-          <Text mr="20vw" display={customDisplay} cursor="pointer">
-            Favoritos
-          </Text>
+          {show && (
+            <Text mr="20vw" cursor="pointer">
+              Favoritos
+            </Text>
+          )}
         </SideBarItem>
       </Flex>
       <Divider mb="10%" />
@@ -101,24 +108,18 @@ export const ClientSideBar = () => {
           icon={FaBell}
           href="/clientPages/notificaciones"
         >
-          <Text display={customDisplay} cursor="pointer">
-            Notificaciones
-          </Text>
+          {show && <Text cursor="pointer">Notificaciones</Text>}
         </SideBarItem>
         <SideBarItem
           bgProp={route === "/clientPages/configuracion" ? routeBg : "none"}
           icon={FiSettings}
           href="/clientPages/configuracion"
         >
-          <Text display={customDisplay} cursor="pointer">
-            Configuracion
-          </Text>
+          {show && <Text cursor="pointer">Configuracion</Text>}
         </SideBarItem>
 
         <SideBarItem href="/ayuda" icon={FaHeadset}>
-          <Text display={customDisplay} cursor="pointer">
-            Ayuda
-          </Text>
+          {show && <Text cursor="pointer">Ayuda</Text>}
         </SideBarItem>
 
         <Flex
@@ -131,23 +132,15 @@ export const ClientSideBar = () => {
               open: true,
               view: user ? "logout" : "login",
             });
-            !user
-              ? toast({
-                  title: `No has iniciado sesion`,
-                  status: "error",
-                  isClosable: true,
-                })
-              : "";
+            !user && errorToast("No has iniciado sesion");
           }}
         >
           <Flex ml={3} align="center" width="100%">
             <Icon as={FaPowerOff} mr={2} />
-            <Text display={customDisplay}>Cerrar Sesion</Text>
+            {show && <Text >Cerrar Sesion</Text>}
           </Flex>
         </Flex>
       </Flex>
     </Flex>
   );
 };
-
-

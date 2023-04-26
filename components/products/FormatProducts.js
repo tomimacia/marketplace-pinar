@@ -21,21 +21,20 @@ export const FormatProduct = ({ loader, children, showFilterBar }) => {
       >
         <Heading>Publicidad</Heading>
       </Flex>
-      <Flex gap={[1, 2, 2, 2]}>
-        <Flex
+      <Flex  gap={[1, 2, 2, 2]}>
+        <Flex        
           minW={["28px", "32px", "35px", "35px"]}
-          maxW={["28px", "32px", "35px", "100%"]}
+          maxW={["28px", "32px", "35px", "100%"]}          
         >
           {showFilterBar && <FilterSideBar loader={loader} />}
         </Flex>
         <Flex flexGrow={10}>
-          <Flex flexGrow={1} flexDir="column" minH="80%" h="100%" bg="gray.200">
+          <Flex borderRadius='10px' flexGrow={1} flexDir="column" minH="80%" h="100%" bg="gray.200">
             {children}
           </Flex>
         </Flex>
         <Flex flexGrow={1} bgGradient="linear(to-r, teal.400, teal.300)"></Flex>
-      </Flex>
-      <Flex justify="center" bg="white" h="10vh"></Flex>
+      </Flex>      
     </Layout>
   );
 };

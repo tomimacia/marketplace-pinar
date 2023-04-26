@@ -1,30 +1,21 @@
 import { Box, Image } from "@chakra-ui/react";
-
-export const ProfileImage = ({
-  showFunction,
-  img,
-  userPhoto,
-  defaultProf,
-}) => {
+import { defaultProfile } from "../../public/images/avatars/exportAvatars";
+export const ProfileImage = ({ showFunction, img, userPhoto, defaultProf }) => {
+  const selectImg = () => {
+    if (img) return img;
+    if (userPhoto) return userPhoto;
+    return defaultProfile.src;
+  };
   return (
     <Box>
-      {img ? (
-        <Image
-          boxSize="4rem"
-          borderRadius="full"
-          onClick={showFunction}
-          src={img}
-          mr="12px"
-          _hover={{ opacity: "0.8" }}
-        />
-      ) : <Image
-      boxSize="4rem"
-      borderRadius="full"
-      onClick={showFunction}
-      src={userPhoto || defaultProf}
-      mr="12px"
-      _hover={{ opacity: "0.8" }}
-    />}
+      <Image
+        boxSize="4rem"
+        borderRadius="full"
+        onClick={showFunction}
+        src={selectImg()}
+        mr="12px"
+        _hover={{ opacity: "0.8" }}
+      />
     </Box>
   );
 };

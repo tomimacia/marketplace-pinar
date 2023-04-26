@@ -55,9 +55,10 @@ const confirmUserDetails = () => {
     setForm({ ...form, checkbox: !form.checkbox });
   };
   const onChange = (e) => {
+    const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
   function todayDate(str) {
@@ -74,12 +75,13 @@ const confirmUserDetails = () => {
       pais: form.pais,
       telefono: form.telefono ? `+${form.codigoDeArea}-${form.telefono}` : "",
       direccion: "",
+      favoritos: [],
       deseaRecibirEmails: form.checkbox,
       fechaDeSuscripcion: new Date(),
     });
     updateProfile(user, { displayName: form.nombre });
   };
-  
+
   const format = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
   const handleSubmit = () => {
     if (format.test(form.nombre) || format.test(form.apellido))
@@ -132,7 +134,7 @@ const confirmUserDetails = () => {
           p={[0, 0, 0, 10]}
         >
           <Heading as="h2" size="sm" mb={3}>
-            Bienvenido {user ? user.email : ""}!
+            Bienvenido {user ?? user.email}!
           </Heading>
           <Heading as="h3" size="sm" mb={3}>
             Completa los datos para continuar
@@ -272,25 +274,28 @@ const confirmUserDetails = () => {
         <Box
           textAlign="center"
           alignItems="center"
-          p={[2,5,10,10]}
-          borderRadius='20px'
-          border='1px solid black'
-          m="auto"          
-          h={[300,550,700,700]}
-          w={["90%","75%","60%","60%"]}
+          p={[2, 5, 10, 10]}
+          borderRadius="20px"
+          border="1px solid black"
+          m="auto"
+          h={[300, 550, 700, 700]}
+          w={["90%", "75%", "60%", "60%"]}
           bg="blue.400"
         >
-          <Heading fontSize={[15,22,25,30]} mb={10}>Bienvenido {form.nombre}!</Heading>
-          <Text mb={5} fontSize={[10,17,20,25]}>
+          <Heading fontSize={[15, 22, 25, 30]} mb={10}>
+            Bienvenido {form.nombre}!
+          </Heading>
+          <Text mb={5} fontSize={[10, 17, 20, 25]}>
             Muchas gracias por suscribirte a Marketplace el Pinar. <br />
             Te hemos enviado un email de verificacion al correo{" "}
-            {user ? user.email : ""} (si no aparece chequea la casilla de spam). <br />
+            {user ? user.email : ""} (si no aparece chequea la casilla de spam).{" "}
+            <br />
             La verificacion es necesaria para poder realizar compras, pero ya
-            puedes navegar por el sitio y consultar nuestros productos. <br /> Vuelve
-            al inicio para comenzar a utilizar tu usuario.
+            puedes navegar por el sitio y consultar nuestros productos. <br />{" "}
+            Vuelve al inicio para comenzar a utilizar tu usuario.
           </Text>
           <Link href="/">
-            <Button  size={['sm','sm','md','lg']}>Volver al inicio</Button>
+            <Button size={["sm", "sm", "md", "lg"]}>Volver al inicio</Button>
           </Link>
         </Box>
       </Box>

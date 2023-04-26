@@ -1,5 +1,6 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
+  Box,
   Button,
   Flex,
   Icon,
@@ -22,25 +23,18 @@ import { ProfileImage } from "./ProfileImage";
 import { Avatars } from "./Avatars";
 import { ClientNavLink } from "./ClientNavLink";
 import { linkTags, sellerTags } from "./ClientNavTags";
-import { defaultProfile } from "../../public/images/avatars/exportAvatars";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
 
-
-export const ClientNavigation = () => {  
-  
+export const ClientNavigation = () => {
   const [show, setShow] = useState(false);
   const ctx = useContext(context);
-  const toast = useToast();
+  const { errorToast } = useCustomToast();
   const [user, loading, error] = useAuthState(auth);
   const setAuthModelState = useSetRecoilState(modState);
-  
-  
+
   return (
-    <Flex width={["100%", "100%", "90%", "400px"]}>
-      {show && (
-        <Avatars          
-          showClick={() => setShow(false)}          
-        />
-      )}
+    <Flex justify="flex-end" width={["100%", "100%", "90%", "400px"]}>
+      {show && <Avatars showClick={() => setShow(false)} />}
       {!loading && (
         <Button
           size={["md", "sm", "sm", "sm"]}
@@ -54,21 +48,21 @@ export const ClientNavigation = () => {
       )}
       <ModalTest />
 
-      {!loading && (
+      {!user ? (
         <Button
           size="sm"
           mr={["10px", "10px", "20px", "20px"]}
-          bg={user ? "teal.400" : null}
-          _hover={user ? { bg: "teal.300" } : null}
           flexGrow={1}
-          onClick={
-            user ? null : () => setAuthModelState({ open: true, view: "login" })
-          }
+          onClick={() => setAuthModelState({ open: true, view: "login" })}
         >
-          {user
-            ? `Hola ${!loading && user.displayName}!`
-            : "Ingresá"}
+          Ingresá
         </Button>
+      ) : (
+        <Box p={1} mr={2} align='center' minW='40%' bg="teal.400" borderRadius="10px">
+          <Text userSelect="none" fontWeight="bold" fontSize="14px">{`Hola ${
+            !loading && user.displayName
+          }!`}</Text>
+        </Box>
       )}
 
       {!loading && (
@@ -80,23 +74,19 @@ export const ClientNavigation = () => {
             as={Button}
             rightIcon={<ChevronDownIcon />}
           >
-            {
-              <Icon
-                as={AiOutlineUser}
-                cursor="pointer"
-                _hover={{ color: "blackAlpha.400" }}
-                fontSize={25}
-              />
-            }
+            <Icon
+              as={AiOutlineUser}
+              cursor="pointer"
+              _hover={{ color: "blackAlpha.400" }}
+              fontSize={25}
+            />
           </MenuButton>
           <MenuList zIndex={15}>
             <MenuItem minH="48px">
               <ProfileImage
                 showFunction={() => setShow(true)}
-                img={ctx !== "offline" && ctx.Img}
-                user={user}
-                userPhoto={user && user.photoURL}
-                defaultProf={defaultProfile}
+                img={ctx?.Img}
+                userPhoto={user?.photoURL}
               />
               <Flex cursor="auto" flexDir="column">
                 <span>Mi Usuario</span>
@@ -114,8 +104,15 @@ export const ClientNavigation = () => {
               />
             )}
             {ctx.isSeller &&
-              sellerTags(loading,user).map((lnk) => {
-                return <ClientNavLink key={lnk[0]} title={lnk[0]} end={lnk[1]} isSeller />;
+              sellerTags(loading, user).map((lnk) => {
+                return (
+                  <ClientNavLink
+                    key={lnk[0]}
+                    title={lnk[0]}
+                    end={lnk[1]}
+                    isSeller
+                  />
+                );
               })}
 
             <MenuItem
@@ -125,13 +122,7 @@ export const ClientNavigation = () => {
                   open: true,
                   view: user ? "logout" : "login",
                 });
-                !user
-                  ? toast({
-                      title: `No has iniciado sesion`,
-                      status: "error",
-                      isClosable: true,
-                    })
-                  : "";
+                !user && errorToast("No has iniciado sesion");
               }}
             >
               Cerrar Sesion

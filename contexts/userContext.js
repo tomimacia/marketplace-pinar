@@ -19,15 +19,6 @@ export const UserProvider = ({ children }) => {
     }
   }, [user]);
 
-  useEffect(() => {
-    if (userRef !== null) {
-      const favs = userRef.favoritos;
-      sessionStorage.setItem(
-        "FAVORITOS_STORAGE_SESSION_CONTEXT",
-        JSON.stringify(favs)
-      );
-    }
-  }, [userRef]);
 
   return (
     <context.Provider value={userRef || "offline"}>
