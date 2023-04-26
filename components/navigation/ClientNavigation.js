@@ -16,11 +16,11 @@ import { AiOutlineUser } from "react-icons/ai";
 import { useSetRecoilState } from "recoil";
 import { context } from "../../contexts/userContext";
 import { auth } from "../../firebase/clientApp";
-import ModalTest from "../Modal/modalLog";
+import ModalTest from "../Modal/ModalLog";
 import { modState } from "../atoms/Modalatom";
 import { ProfileImage } from "./ProfileImage";
-import { Avatars } from "./avatars";
-import { ClientNavLink } from "./clientNavLink";
+import { Avatars } from "./Avatars";
+import { ClientNavLink } from "./ClientNavLink";
 import { linkTags, sellerTags } from "./clientNavTags";
 import { defaultProfile } from "../../public/images/avatars/exportAvatars";
 

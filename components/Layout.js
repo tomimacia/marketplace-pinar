@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Head from "next/head";
-import Footer from "./navigation/footer";
+import Footer from "./navigation/Footer";
 import Navigation from "./navigation/Navigation";
 import { layoutA, layoutB } from "../chakra/bgColors";
 import { memo } from "react";
