@@ -1,8 +1,8 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import FormatBlank from "../components/FormatBlank";
-import { CartProducts } from "../components/cart/cartProducts";
-import { EmptyCart } from "../components/cart/empyCart";
+import { CartProducts } from "../components/cart/CartProducts";
+import { EmptyCart } from "../components/cart/EmpyCart";
 import { useCartList } from "../items/customHooks/useCartList";
 import { useGetCart } from "../items/customHooks/useGetCart";
 

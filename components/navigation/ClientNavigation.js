@@ -21,7 +21,7 @@ import { modState } from "../atoms/Modalatom";
 import { ProfileImage } from "./ProfileImage";
 import { Avatars } from "./Avatars";
 import { ClientNavLink } from "./ClientNavLink";
-import { linkTags, sellerTags } from "./clientNavTags";
+import { linkTags, sellerTags } from "./ClientNavTags";
 import { defaultProfile } from "../../public/images/avatars/exportAvatars";
 
 
