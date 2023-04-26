@@ -2,7 +2,7 @@ import { Button, Flex, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 import { ProductPrice } from "../products/ProductPrice";
-import { CartFooter } from "./cartFooter";
+import { CartFooter } from "./CartFooter";
 
 export const CartProducts = ({
   products,

@@ -15,7 +15,6 @@ import {
   useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -26,9 +25,9 @@ import { ClientNavigation } from "./ClientNavigation";
 import { useSetSearchInputValue } from "../../contexts/productsContext";
 import { useCartList } from "../../items/customHooks/useCartList";
 import { useEnter } from "../../items/customHooks/useEnter";
+import { NavigationLinks } from "./NavigationLinks";
 import { ProductsNav } from "./ProductsNav";
-import { MobileNav } from "./mainNav/mobileNav";
-import { NavigationLinks } from "./navigationLinks";
+import { MobileNav } from "./mainNav/MobileNav";
 
 const Navigation = () => {
   const searchInputNav = useRef(null);
