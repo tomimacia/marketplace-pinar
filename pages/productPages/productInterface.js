@@ -2,8 +2,8 @@ import { Box, Flex } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import { FormatProduct } from "../../components/products/FormatProducts";
 import ProductTopComp from "../../components/products/ProductTopComp";
-import { ProductStructure } from "../../components/products/productStructure";
-import { Pagination } from "../../components/products/pagination";
+import { ProductStructure } from "../../components/products/ProductStructure";
+import { Pagination } from "../../components/products/Pagination";
 import {
   useGetProducts,
   useHandlePagination,

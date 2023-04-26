@@ -13,7 +13,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { MdVerified } from "react-icons/md";
 import FormatBlank from "../../../components/FormatBlank";
 import { DynamicProductImages } from "../../../components/dynamicProducts/DynamicProductImages";
-import { Stats } from "../../../components/dynamicProducts/stats";
+import { Stats } from "../../../components/dynamicProducts/Stats";
 import { ProductPrice } from "../../../components/products/ProductPrice";
 import { getSingleDoc } from "../../../firebase/services/getSingleDoc";
 import { useCartList } from "../../../items/customHooks/useCartList";
