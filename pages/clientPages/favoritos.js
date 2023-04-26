@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { AiFillHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { FormatClient } from "../../components/client/FormatClient";
-import { Pagination } from "../../components/products/pagination";
+import { Pagination } from "../../components/products/Pagination";
 import { ProductPrice } from "../../components/products/ProductPrice";
 import { getSingleDoc } from "../../firebase/services/getSingleDoc";
 import { useHandlePagination } from "../../items/customHooks/productsInterfaceHooks/useHandlePagination";

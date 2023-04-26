@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BusquedaGeneral } from "../../components/products/busquedaGeneral";
+import { BusquedaGeneral } from "../../components/products/BusquedaGeneral";
 import { FormatProduct } from "../../components/products/FormatProducts";
 import { Box, Flex } from "@chakra-ui/react";
 import { useReset } from "../../contexts/productsContext";
