@@ -1,7 +1,7 @@
 import React from "react";
 import { AddSelect } from "../formComponents/AddSelect";
 
-export const AddSubCat = ({onChange,state,catToUpdate}) => {
+export const AddSubCat = ({onChange,catToUpdate}) => {
   return (
     <AddSelect
       isRequired

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React from "react";
 import { ProductPrice } from "../products/ProductPrice";
 import { CartFooter } from "./CartFooter";
+import { PlusMinusProduct } from "./PlusMinusProduct";
 
 export const CartProducts = ({
   products,
@@ -42,9 +43,9 @@ export const CartProducts = ({
                   <Image
                     border={[
                       "none",
-                      "1px solid black",
-                      "1px solid black",
-                      "1px solid black",
+                      "1px solid #c7c7c7",
+                      "1px solid #c7c7c7",
+                      "1px solid #c7c7c7",
                     ]}
                     boxSize={["100px", "120px", "160px", "160px"]}
                     objectFit="cover"
@@ -52,41 +53,16 @@ export const CartProducts = ({
                     src={product.Img}
                   />
                 </Flex>
-                <Flex flexGrow={1} flexDir="column">
-                  <Flex align="center" flexGrow={7}>
-                    <Flex flexGrow={2}>
+                <Flex flexDir="column">
+                  <Flex align="center">
+                    <Flex>
                       <Text fontSize={17} fontWeight="bold">
                         {product.Nombre}
                       </Text>
                     </Flex>
-                    <Flex flexGrow={1}>
-                      <Button
-                        bg="blue.300"
-                        size={["xs", "sm", "md", "md"]}
-                        onClick={() => actions.minusOne(product.id)}
-                      >
-                        -
-                      </Button>
-                      <Text
-                        ml={3}
-                        mr={3}
-                        w="40px"
-                        align="center"
-                        border="1px solid black"
-                        fontSize={22}
-                      >
-                        {cantidad}
-                      </Text>
-                      <Button
-                        bg="blue.300"
-                        size={["xs", "sm", "md", "md"]}
-                        onClick={() => actions.plusOne(product.id)}
-                      >
-                        +
-                      </Button>
-                    </Flex>
                   </Flex>
                   <Flex align="flex-end">
+                    
                     <ProductPrice
                       precio={product.Precio}
                       descuento={product.Descuento}
@@ -98,16 +74,16 @@ export const CartProducts = ({
                         cantidad}
                     </Text>
                   </Flex>
+                  <PlusMinusProduct
+                      cantidad={cantidad}
+                      plusOne={() => actions.plusOne(product.id)}
+                      minusOne={() => actions.minusOne(product.id)}
+                      deleteAll={() => actions.deleteProduct(product.id)}
+                    />
                 </Flex>
 
                 <Flex p={2} flexDir="column" justify="flex-end">
-                  <Button
-                    bg="blue.300"
-                    size="xs"
-                    onClick={() => actions.deleteProduct(product.id)}
-                  >
-                    Eliminar
-                  </Button>
+                  
                 </Flex>
               </Flex>
             </Flex>

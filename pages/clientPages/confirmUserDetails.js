@@ -7,13 +7,10 @@ import {
   FormHelperText,
   FormLabel,
   Heading,
-  Input,
-  Select,
   Text,
-  useColorMode,
-  useToast,
+  useColorMode
 } from "@chakra-ui/react";
-import { signOut, updateProfile } from "firebase/auth";
+import { sendEmailVerification, signOut, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -23,27 +20,31 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { modState } from "../../components/atoms/Modalatom";
+import { ConfirmInput } from "../../components/forms/confirmUserDetails/ConfirmInput";
+import { ConfirmSelect } from "../../components/forms/confirmUserDetails/ConfirmSelect";
+import { WelcomeUser } from "../../components/forms/confirmUserDetails/WelcomeUser";
 import { auth, firestore } from "../../firebase/clientApp";
-import { sendEmailVerification } from "firebase/auth";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
 
 const confirmUserDetails = () => {
   const setAuthModelState = useSetRecoilState(modState);
   const { colorMode, setColorMode } = useColorMode();
   const [user, loading, error] = useAuthState(auth);
   const [selectedDate, setSelectedDate] = useState(null);
-  const toast = useToast();
   const router = useRouter();
+  const { errorToast, successToast } = useCustomToast();
   const [isOpen, setIsOpen] = useState("none");
   const [form, setForm] = useState({
-    nombre: "",
-    apellido: "",
-    dni: "",
-    tipoDeDni: "",
-    pais: "",
-    codigoDeArea: "",
-    telefono: "",
+    Nombre: "",
+    Apellido: "",
+    Dni: "",
+    TipoDeDni: "",
+    Pais: "",
+    CodigoDeArea: "",
+    Telefono: "",
     checkbox: false,
   });
+  
   useEffect(() => {
     if (!user) router.push("/");
   }, []);
@@ -67,41 +68,29 @@ const confirmUserDetails = () => {
 
   const confirmUser = async () => {
     await setDoc(doc(firestore, "users", user.uid), {
-      nombre: form.nombre,
-      apellido: form.apellido,
+      nombre: form.Nombre,
+      apellido: form.Apellido,
       fechaDeNacimiento: todayDate(selectedDate),
       email: user.email,
-      dni: `${form.tipoDeDni} ${form.dni}`,
-      pais: form.pais,
-      telefono: form.telefono ? `+${form.codigoDeArea}-${form.telefono}` : "",
+      dni: `${form.TipoDeDni} ${form.Dni}`,
+      pais: form.Pais,
+      telefono: form.Telefono ? `+${form.CodigoDeArea}-${form.Telefono}` : "",
       direccion: "",
       favoritos: [],
       deseaRecibirEmails: form.checkbox,
       fechaDeSuscripcion: new Date(),
     });
-    updateProfile(user, { displayName: form.nombre });
+    updateProfile(user, { displayName: form.Nombre });
   };
 
   const format = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
   const handleSubmit = () => {
-    if (format.test(form.nombre) || format.test(form.apellido))
-      return toast({
-        title: `Nombre o apellido invalido`,
-        status: "error",
-        isClosable: true,
-      });
-    else if (!form.pais || !selectedDate)
-      return toast({
-        title: `Complete los datos obligatorios por favor`,
-        status: "error",
-        isClosable: true,
-      });
+    if (format.test(form.Nombre) || format.test(form.Apellido))
+      return errorToast("Nombre o apellido invalido");
+    else if (!form.Pais || !selectedDate)
+      return errorToast("Complete los datos obligatorios por favor");
     else {
-      toast({
-        title: `Regitrado correctamente`,
-        status: "success",
-        isClosable: true,
-      });
+      successToast("Regitrado correctamente");
       confirmUser();
       setAuthModelState(() => ({
         view: "login",
@@ -131,10 +120,10 @@ const confirmUserDetails = () => {
           flexDir="column"
           width={["100%", "80%", "80%", "80%"]}
           bg="white"
-          p={[0, 0, 0, 10]}
+          p={[0, 0, 0, 5]}
         >
           <Heading as="h2" size="sm" mb={3}>
-            Bienvenido {user ? user.email : ""}!
+            Bienvenido {user && user.email}!
           </Heading>
           <Heading as="h3" size="sm" mb={3}>
             Completa los datos para continuar
@@ -145,22 +134,22 @@ const confirmUserDetails = () => {
             maxH="100%"
             w={["100%", "100%", "100%", "70%"]}
           >
-            <FormLabel>* Nombre</FormLabel>
-            <Input
-              name="nombre"
+            <ConfirmInput
+              title="Nombre"
+              isRequired
+              type="text"
               onChange={onChange}
-              required
               placeholder="Ingrese su nombre completo"
             />
-            <FormLabel>* Apellido</FormLabel>
-            <Input
-              name="apellido"
+            <ConfirmInput
+              title="Apellido"
+              type="text"
+              isRequired
               onChange={onChange}
-              required
               placeholder="Ingrese su apellido"
             />
-            <FormLabel>* Fecha de nacimiento</FormLabel>
-            <Box border="1px solid black">
+            <FormLabel>Fecha de nacimiento *</FormLabel>
+            <Box maxW='183px' border='1px solid black'>
               <DatePicker
                 onChange={(date) => setSelectedDate(date)}
                 selected={selectedDate}
@@ -172,52 +161,50 @@ const confirmUserDetails = () => {
                 isClosable
               />
             </Box>
-            <FormLabel>* Pais</FormLabel>
-            <Select
-              name="pais"
+            <ConfirmSelect
+              title="Pais"
               onChange={onChange}
               placeholder="Seleccionar pais"
-            >
-              <option>Argentina</option>
-              <option>Uruguay</option>
-              <option>Paraguay</option>
-              <option>Chile</option>
-              <option>Bolivia</option>
-              <option>Brasil</option>
-              <option>Peru</option>
-              <option>Colombia</option>
-            </Select>
-            <FormLabel>DNI</FormLabel>
-            <Input
-              name="dni"
-              onChange={onChange}
+              options={[
+                "Argentina",
+                "Uruguay",
+                "Paraguay",
+                "Chile",
+                "Bolivia",
+                "Brasil",
+                "Peru",
+                "Colombia",
+              ]}
+            />
+            <ConfirmInput
+              title="Dni"
               type="number"
+              onChange={onChange}
               placeholder="Ingrese su DNI"
             />
-            <FormLabel>Tipo de DNI</FormLabel>
-            <Select
-              name="tipoDeDni"
+            <ConfirmSelect
+              customTitle="Tipo de DNI"
+              title="TipoDeDni"
               onChange={onChange}
               placeholder="Tipo de DNI"
-            >
-              <option>Cédula de identidad</option>
-              <option>Libreta de Enrolamiento</option>
-              <option>DNI</option>
-              <option>Libreta Cívica</option>
-              <option>Otro</option>
-            </Select>
-            <FormLabel>Codigo de Area</FormLabel>
-            <Input
-              name="codigoDeArea"
-              onChange={onChange}
+              options={[
+                "Cédula de identidad",
+                "Libreta de Enrolamiento",
+                "DNI",
+                "Libreta Cívica",
+                "Otro",
+              ]}
+            />
+            <ConfirmInput
+              title="CodigoDeArea"
               type="number"
+              onChange={onChange}
               placeholder="Ej: 54"
             />
-            <FormLabel>Numero de Telefono</FormLabel>
-            <Input
-              name="telefono"
-              onChange={onChange}
+            <ConfirmInput
+              title="Telefono"
               type="number"
+              onChange={onChange}
               placeholder="Ej: 1141414141"
             />
             {/* activar para terminos y condiciones
@@ -236,25 +223,32 @@ const confirmUserDetails = () => {
               La informacion es solo para el uso de la aplicacion.
             </FormHelperText>
             <FormHelperText>
-              No compartiremos la informacion con nadie.
+              No compartiremos esta informacion con nadie.
             </FormHelperText>
-            <Button
-              _hover={{ bg: "blue.200" }}
-              fontSize="15px"
-              fontWeight="bold"
-              w="50%"
-              mt={10}
-              mb={3}
-              bg="blue.400"
-              ml="20%"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Confirmar
-            </Button>
-            <Flex width="100%">
+            <Flex flexDir="column" p={5} align="center" width="100%">
+              <Button
+                _hover={{ bg: "blue.200" }}
+                fontSize="15px"
+                fontWeight="bold"
+                w={["100%", "90%", "80%", "70%"]}
+                size={["xs", "xs", "sm", "sm"]}
+                bg="blue.400"
+                type="submit"
+                m={3}
+                onClick={handleSubmit}
+              >
+                Confirmar
+              </Button>
               <Link href="/">
-                <Button bg="gray.300" m="auto" onClick={() => signOut(auth)}>
+                <Button
+                  m={3}
+                  w={["100%", "90%", "80%", "70%"]}
+                  fontSize="15px"
+                  fontWeight="bold"
+                  size={["xs", "xs", "sm", "sm"]}
+                  bg="gray.300"
+                  onClick={() => signOut(auth)}
+                >
                   Cerrar y volver al Inicio
                 </Button>
               </Link>
@@ -262,43 +256,7 @@ const confirmUserDetails = () => {
           </FormControl>
         </Flex>
       </Flex>
-      <Box
-        backdropFilter="auto"
-        display={isOpen}
-        pos="absolute"
-        w="100%"
-        h="100%"
-        backdropBlur="4px"
-        bg="(0, 0, 0, 0.5)"
-      >
-        <Box
-          textAlign="center"
-          alignItems="center"
-          p={[2, 5, 10, 10]}
-          borderRadius="20px"
-          border="1px solid black"
-          m="auto"
-          h={[300, 550, 700, 700]}
-          w={["90%", "75%", "60%", "60%"]}
-          bg="blue.400"
-        >
-          <Heading fontSize={[15, 22, 25, 30]} mb={10}>
-            Bienvenido {form.nombre}!
-          </Heading>
-          <Text mb={5} fontSize={[10, 17, 20, 25]}>
-            Muchas gracias por suscribirte a Marketplace el Pinar. <br />
-            Te hemos enviado un email de verificacion al correo{" "}
-            {user ? user.email : ""} (si no aparece chequea la casilla de spam).{" "}
-            <br />
-            La verificacion es necesaria para poder realizar compras, pero ya
-            puedes navegar por el sitio y consultar nuestros productos. <br />{" "}
-            Vuelve al inicio para comenzar a utilizar tu usuario.
-          </Text>
-          <Link href="/">
-            <Button size={["sm", "sm", "md", "lg"]}>Volver al inicio</Button>
-          </Link>
-        </Box>
-      </Box>
+      <WelcomeUser user={user} display={isOpen} nombre={form.nombre} />
     </Flex>
   );
 };
