@@ -1,25 +1,25 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Flex,  
+  Flex,
   Heading,
   IconButton,
-  Image,
-  useToast,
+  Image
 } from "@chakra-ui/react";
 
-import { BeatLoader } from "react-spinners";
-import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { doc, updateDoc } from "firebase/firestore";
-import { auth, firestore } from "../../firebase/clientApp";
-import { dogs, profiles } from "../../public/images/avatars/exportAvatars";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { BeatLoader } from "react-spinners";
+import { auth, firestore } from "../../firebase/clientApp";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
+import { dogs, profiles } from "../../public/images/avatars/exportAvatars";
 
 export const Avatars = ({ showClick }) => {
   const [loadingImg, setLoadingImg] = useState(false);
   const [user, loading, error] = useAuthState(auth);
-  const toast = useToast();  
+  const {errorToast,successToast} = useCustomToast()  
   const allAvatars = [...dogs,...profiles]
 
   const handleImg = async (prop) => {
@@ -30,17 +30,9 @@ export const Avatars = ({ showClick }) => {
       });
       setLoadingImg(false);      
       window.location.reload();
-      toast({
-        title: `Avatar actualizado correctamente`,
-        status: "success",
-        isClosable: true,
-      });
+      successToast("Avatar actualizado correctamente");
     } else {
-      toast({
-        title: `Inicia sesion`,
-        status: "error",
-        isClosable: true,
-      });
+      errorToast("Inicia sesion");
     }
   };
   return (
@@ -50,7 +42,7 @@ export const Avatars = ({ showClick }) => {
         initial={{ x: 500, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: -500, opacity: 1 }}
-        transitionDuration={'0.5s'}        
+        transitionDuration='1s'                        
         zIndex={100}
         minH="100%"
         minW="100%"

@@ -16,8 +16,9 @@ export const FormatProduct = ({ loader, children, showFilterBar }) => {
       <Flex
         align="center"
         justify="center"
-        h={["3vh", "4vh", "5vh", "6vh"]}
-        bgGradient="linear(to-t, teal.400, teal.300)"
+        h={['45px','45px','55px','55px']}
+        boxShadow="0 10px 20px"
+        bg="teal.400"        
       >
         <Heading>Publicidad</Heading>
       </Flex>
@@ -33,7 +34,7 @@ export const FormatProduct = ({ loader, children, showFilterBar }) => {
             {children}
           </Flex>
         </Flex>
-        <Flex flexGrow={1} bgGradient="linear(to-r, teal.400, teal.300)"></Flex>
+        <Flex flexGrow={1} bg="teal.400" boxShadow="10px 10px 20px"/>
       </Flex>      
     </Layout>
   );

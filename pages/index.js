@@ -4,7 +4,7 @@ const Index = () => {
   const { colorMode } = useColorMode();
   
   return (
-    <Layout hasTransition={true} pageTitle="Home" headTitle="Marketplace El Pinar">
+    <Layout hasTransition={true} pageTitle="El Pinar | Marketplace" headTitle="Marketplace El Pinar">
       <Box>
         <Image
           display={colorMode === "light" ? "flex" : "none"}
