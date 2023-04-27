@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 import { ProductPrice } from "../products/ProductPrice";
@@ -53,21 +53,21 @@ export const CartProducts = ({
                     src={product.Img}
                   />
                 </Flex>
-                <Flex flexDir="column">
+                <Flex justify="space-between" flexDir="column" w="100%">
                   <Flex align="center">
                     <Flex>
-                      <Text fontSize={17} fontWeight="bold">
+                      <Heading fontSize={[12, 14, 18, 20]} fontWeight="bold">
                         {product.Nombre}
-                      </Text>
+                      </Heading>
                     </Flex>
                   </Flex>
-                  <Flex align="flex-end">
-                    
+                  <Flex align="center">
                     <ProductPrice
+                      fontSizeProp={[8, 10, 12, 15]}
                       precio={product.Precio}
                       descuento={product.Descuento}
                     />
-                    <Text ml={5} fontWeight="bold">
+                    <Text ml={5} fontSize={[10, 11, 12, 15]} fontWeight="bold">
                       Total: $
                       {product.Precio *
                         (product.Descuento ? 1 - product.Descuento * 0.01 : 1) *
@@ -75,16 +75,14 @@ export const CartProducts = ({
                     </Text>
                   </Flex>
                   <PlusMinusProduct
-                      cantidad={cantidad}
-                      plusOne={() => actions.plusOne(product.id)}
-                      minusOne={() => actions.minusOne(product.id)}
-                      deleteAll={() => actions.deleteProduct(product.id)}
-                    />
+                    cantidad={cantidad}
+                    plusOne={() => actions.plusOne(product.id)}
+                    minusOne={() => actions.minusOne(product.id)}
+                    deleteAll={() => actions.deleteProduct(product.id)}
+                  />
                 </Flex>
 
-                <Flex p={2} flexDir="column" justify="flex-end">
-                  
-                </Flex>
+                <Flex p={2} flexDir="column" justify="flex-end"></Flex>
               </Flex>
             </Flex>
           );

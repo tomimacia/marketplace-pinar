@@ -2,7 +2,7 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 
 export const PlusMinusProduct = ({ cantidad, minusOne, plusOne,deleteAll }) => {
   return (
-    <Flex>
+    <Flex align='center'>
       <Button color='blue.300' fontSize={[11, 12, 15, 18]} size={["xs", "xs", "sm", "sm"]} onClick={minusOne}>
         -
       </Button>
