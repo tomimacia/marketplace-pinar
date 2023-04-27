@@ -18,11 +18,11 @@ const FormatBlank = ({
           m='auto'
           maxW='1500px'          
           minH="50px"
-          h="10vh"
+          h={["7vh","8vh","9vh","10vh"]}
           boxShadow="0 10px 20px"
           borderBottom="1px solid black"
         >          
-          <Heading m="auto" ml={7} as={motion.h1} size={size}>
+          <Heading fontSize={[16,18,18,20]} m="auto" ml={7} as={motion.h1} size={size}>
             {pageTitle}
           </Heading>
           

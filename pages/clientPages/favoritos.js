@@ -38,7 +38,7 @@ export async function getServerSideProps({ query }) {
 }
 
 const Favoritos = ({ favData }) => {
-  const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
+  const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_LOCAL_STORAGE", []);
   const { favoriteList, selectedProd, favLoading, handleFavorito } =
     useHandleFav();
   const products = useFavProducts(favData, favoriteList);

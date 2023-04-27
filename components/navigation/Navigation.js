@@ -12,8 +12,7 @@ import {
   Input,
   Text,
   useColorMode,
-  useColorModeValue,
-  useToast,
+  useColorModeValue
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -22,8 +21,9 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { a, b } from "../../chakra/bgColors";
 import { ClientNavigation } from "./ClientNavigation";
 
+import { useCartContext } from "../../contexts/ShoppingCartContext";
 import { useSetSearchInputValue } from "../../contexts/productsContext";
-import { useCartList } from "../../items/customHooks/useCartList";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
 import { useEnter } from "../../items/customHooks/useEnter";
 import { NavigationLinks } from "./NavigationLinks";
 import { ProductsNav } from "./ProductsNav";
@@ -33,19 +33,14 @@ const Navigation = () => {
   const searchInputNav = useRef(null);
   const setSearchInputProp = useSetSearchInputValue();
   const router = useRouter();
-  const toast = useToast();
-  const { cartList, actions, quantityTotal } = useCartList();
+  const {errorToast} = useCustomToast();
   const { colorMode, toggleColorMode } = useColorMode();
   const [display, changeDisplay] = useState("none");
   const [searchInputValue, setSearchInputvalue] = useState("");
-
+  const cartContext = useCartContext()
   const setSearch = () => {
     if (searchInputValue.length <= 1 || searchInputValue.length > 50)
-      toast({
-        title: `Ingresa una busqueda entre 2 y 50 caracteres`,
-        status: "error",
-        isClosable: true,
-      });
+    errorToast("Ingresa una busqueda entre 2 y 50 caracteres");
     else {
       setSearchInputProp(searchInputValue.split(" "));
       router.push(
@@ -56,11 +51,7 @@ const Navigation = () => {
   };
   const handleSearchClick = () => {
     if (searchInputValue.length <= 1 || searchInputValue.length > 50)
-      toast({
-        title: `Ingresa una busqueda entre 2 y 50 caracteres`,
-        status: "error",
-        isClosable: true,
-      });
+    errorToast("Ingresa una busqueda entre 2 y 50 caracteres");
     else {
       router.push(
         `/productPages/productInterface`,
@@ -138,11 +129,8 @@ const Navigation = () => {
                   borderRadius="50px"
                   zIndex={13}
                 />
-                {cartList.length > 0 && (
-                  <Box
-                    // as={motion.span}
-                    // initial={{ opacity: 0 }}
-                    // animate={{ opacity: 1 }}
+                {cartContext > 0 && (
+                  <Box                    
                     right={1}
                     minW={4}
                     h={5}
@@ -156,7 +144,7 @@ const Navigation = () => {
                     fontSize={15}
                     zIndex={14}
                   >
-                    <Text>{cartList.length}</Text>
+                    <Text>{cartContext}</Text>
                   </Box>
                 )}
               </Flex>

@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import { useSetCartContext } from "../../contexts/ShoppingCartContext";
 
 export const useCartList = () => {
-  const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
+  const setCartContext = useSetCartContext()
+  const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_LOCAL_STORAGE", []);
   const deleteCart = () => {
     if (cartList.length > 0) {
       setCartList([]);
     }
   };
+  useEffect(()=>{
+    setCartContext(cartList.length)
+  },[cartList])
   function deleteProduct(prop) {
     setCartList(cartList.filter((prod) => prod !== prop));
   }
@@ -17,7 +23,7 @@ export const useCartList = () => {
     setCartList([...arr]);
   }
   function plusOne(prop) {
-    setCartList([...cartList, prop]);
+    setCartList([...cartList,prop])
   }
   const quantityTotal = (prd) => {
     const sum = prd.reduce((acc, p) => {

@@ -30,7 +30,7 @@ export const ProductStructure = ({
       p={1}
       mt={2}
     >
-      <Flex w="100%" borderRadius="5px" bg="white">
+      <Flex position='relative' w="100%" borderRadius="5px" >
         <Flex
           w={["80px", "120px", "160px", "160px"]}
           minW={["80px", "120px", "160px", "160px"]}
@@ -92,7 +92,7 @@ export const ProductStructure = ({
           ) : (
             <Spinner color="blue.500" />
           )}
-          <Flex>
+          <Flex bottom={0} right={0} position='absolute'>
             {cartList.includes(product.id) && (
               <Text fontSize={[12, 15, 18, 18]} opacity="0.7" fontWeight="bold">
                 (

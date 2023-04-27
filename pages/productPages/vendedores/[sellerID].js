@@ -16,7 +16,7 @@ import FormatBlank from "../../../components/FormatBlank";
 import { ProductPrice } from "../../../components/products/ProductPrice";
 import { auth } from "../../../firebase/clientApp";
 import { getSingleDoc } from "../../../firebase/services/getSingleDoc";
-import { useLocalStorage } from "../../../items/customHooks/useLocalStorage";
+import { useCartList } from "../../../items/customHooks/useCartList";
 import { useSellerID } from "../../../items/customHooks/useSellerID";
 
 
@@ -35,7 +35,7 @@ export async function getServerSideProps({ params }) {
 
 export default function ProductsDynamic({ sellerRef, sellerID }) {
   const [user, loading, error] = useAuthState(auth);
-  const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
+  const {cartList, actions} = useCartList()
   const { products, loadedProducts, prodError } = useSellerID(sellerID);
   
   return (
@@ -162,7 +162,7 @@ export default function ProductsDynamic({ sellerRef, sellerID }) {
                       p={1}
                       key={product.id}
                     >
-                      <Flex w="100%" borderRadius="5px" bg="white">
+                      <Flex position='relative' w="100%" borderRadius="5px" bg="white">
                         {/* Flex de la imagen */}
                         <Flex
                           w={["80px", "120px", "140px", "140px"]}
@@ -225,8 +225,21 @@ export default function ProductsDynamic({ sellerRef, sellerID }) {
                           />
                         </Flex>
 
-                        <Flex ml="auto">
-                          <Flex flexDir="column" align="center">
+                        <Flex position='absolute' right={0} bottom={0}>
+                          <Flex >
+                          {cartList.includes(product.id) && (
+                              <Text
+                                fontSize={[12, 15, 18, 15]}
+                                opacity="0.7"
+                                fontWeight="bold"
+                              >
+                                (
+                                {cartList.reduce((acc, prod) => {
+                                  return prod === product.id ? acc + 1 : acc;
+                                }, 0)}
+                                )
+                              </Text>
+                            )}
                             <Icon
                               as={AiOutlineShoppingCart}
                               cursor="pointer"
@@ -241,22 +254,9 @@ export default function ProductsDynamic({ sellerRef, sellerID }) {
                               color="blue"
                               fontSize={[20, 25, 28, 28]}
                               onClick={() =>
-                                setCartList([...cartList, product.id])
+                                actions.plusOne(product.id)
                               }
-                            />
-                            {cartList.includes(product.id) && (
-                              <Text
-                                fontSize={[12, 15, 18, 15]}
-                                opacity="0.7"
-                                fontWeight="bold"
-                              >
-                                (
-                                {cartList.reduce((acc, prod) => {
-                                  return prod === product.id ? acc + 1 : acc;
-                                }, 0)}
-                                )
-                              </Text>
-                            )}
+                            />                            
                           </Flex>
                         </Flex>
                       </Flex>

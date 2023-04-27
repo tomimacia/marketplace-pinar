@@ -32,7 +32,7 @@ export async function getServerSideProps({ params }) {
 export default function ProductsDynamic({ prodRef }) {
   const { favoriteList,  favLoading, handleFavorito } =
     useHandleFav();
-  const { cartList, actions } = useCartList();
+  const { actions } = useCartList();
 
   // Especial inmuebles vehiculos
   const paraConsulta = (param) => {
@@ -43,7 +43,6 @@ export default function ProductsDynamic({ prodRef }) {
     <Box>
       <FormatBlank
         headTitle={prodRef.Nombre}        
-        size="md"
         pageTitle={
           <Flex>
             <Link

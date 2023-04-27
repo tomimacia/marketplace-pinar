@@ -1,23 +1,23 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import { FormatProduct } from "../../components/products/FormatProducts";
-import ProductTopComp from "../../components/products/ProductTopComp";
-import { ProductStructure } from "../../components/products/ProductStructure";
 import { Pagination } from "../../components/products/Pagination";
+import { ProductStructure } from "../../components/products/ProductStructure";
+import ProductTopComp from "../../components/products/ProductTopComp";
 import {
   useGetProducts,
   useHandlePagination,
 } from "../../items/customHooks/productsInterfaceHooks/productsInterfaceHooks";
+import { useCartList } from "../../items/customHooks/useCartList";
 import { useHandleFav } from "../../items/customHooks/useHandleFav";
-import { useLocalStorage } from "../../items/customHooks/useLocalStorage";
 
-const productos = () => {  
+const productos = () => {
   const { favoriteList, selectedProd, favLoading, handleFavorito } =
     useHandleFav();
-  const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_STORAGE", []);
+  const { cartList, actions } = useCartList();
   const { products, loadingProducts } = useGetProducts();
   const { page, pagesTotal, pageActions } = useHandlePagination(products);
-  
+
   return (
     <FormatProduct headTitle showFilterBar={true} loader={loadingProducts}>
       <ProductTopComp />
@@ -29,7 +29,13 @@ const productos = () => {
         border="1px solid #a7a7a7"
         borderRadius="15px"
       >
-        <Flex key={products.length*1000} justify="center" flexDir="column" p={2} m={2}>
+        <Flex
+          key={products.length * 1000}
+          justify="center"
+          flexDir="column"
+          p={2}
+          m={2}
+        >
           {loadingProducts ? (
             <Flex mt={10} justify="center">
               <BeatLoader color="#68EBBB" />
@@ -44,9 +50,7 @@ const productos = () => {
                     product={product}
                     favoriteList={favoriteList}
                     cartList={cartList}
-                    onClickCarrito={() =>
-                      setCartList([...cartList, product.id])
-                    }
+                    onClickCarrito={() => actions.plusOne(product.id)}
                     onClickFavorito={() => handleFavorito(product.id, i)}
                     key={product.id}
                     isSpinner={favLoading && selectedProd === i}
@@ -57,7 +61,7 @@ const productos = () => {
           <Pagination
             condition={!loadingProducts}
             pagina={page}
-            paginasTotales={pagesTotal}            
+            paginasTotales={pagesTotal}
             handleSiguiente={pageActions.setPlusPage}
             handleAnterior={pageActions.setMinusPage}
           />
@@ -68,4 +72,3 @@ const productos = () => {
 };
 
 export default productos;
-
