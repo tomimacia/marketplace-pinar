@@ -13,7 +13,7 @@ import blackLogo from "../public/images/blackLogo.png"
 const Index = () => {
   const { colorMode } = useColorMode();
   const { products, loadedProducts } = useHomeProducts();
-  console.log(products);
+  
   return (
     <Layout
       hasTransition={true}

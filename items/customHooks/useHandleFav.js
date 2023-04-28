@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { auth, firestore } from "../../firebase/clientApp";
-import { useSessionStorage } from "../../items/customHooks/useSessionStorage";
+import { useSessionStorage } from "../../items/customHooks/storage/useSessionStorage";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";

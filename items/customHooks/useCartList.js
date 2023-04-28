@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocalStorage } from "./useLocalStorage";
+import { useLocalStorage } from "./storage/useLocalStorage";
 import { useSetCartContext } from "../../contexts/ShoppingCartContext";
 
 export const useCartList = () => {

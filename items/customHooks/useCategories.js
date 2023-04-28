@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useSessionStorage } from "usehooks-ts";
+import { useSessionStorage } from "./storage/useSessionStorage";
 import { getCollection } from "../../firebase/services/getCollection";
 
 export const useCategories = () => {
@@ -11,7 +11,7 @@ export const useCategories = () => {
     []
   );
   const getCategories = async () => {
-    setLoadingCategories(true)    
+    setLoadingCategories(true);
     getCollection("Categorias")
       .then((res) => {
         sessionStorage.setItem(
@@ -31,27 +31,19 @@ export const useCategories = () => {
       });
   };
   useEffect(() => {
-    if (!categories.length) {
-      console.log("se ejecuto");      
-      getCategories();
-    }
+    if (categories.length) return;
+    getCategories();
   }, []);
   const getMarcas = (catSelected) => {
-    const obj = categories.filter(
-      (cat) => cat.id === catSelected
-    )[0];
+    const obj = categories.filter((cat) => cat.id === catSelected)[0];
     return obj.Marcas;
   };
   const getSubcategories = (catSelected) => {
-    const obj = categories.filter(
-      (cat) => cat.id === catSelected
-    )[0];
+    const obj = categories.filter((cat) => cat.id === catSelected)[0];
     return obj.SubCat1;
   };
   const getModelos = (catSelected) => {
-    const obj = categories.filter(
-      (cat) => cat.id === catSelected
-    )[0];
+    const obj = categories.filter((cat) => cat.id === catSelected)[0];
     return obj.Modelos;
   };
   return {
