@@ -36,7 +36,7 @@ const Layout = memo(({ children, headTitle, pageTitle, hasTransition }) => {
               animate={{ x: 0, opacity: 1 }}
               p={5}
               placeSelf="center"
-              fontSize="40px"
+              fontSize={["25px","30px","35px","40px"]}
             >
               {pageTitle}
             </Heading>
@@ -49,7 +49,7 @@ const Layout = memo(({ children, headTitle, pageTitle, hasTransition }) => {
             transitionDuration={"0.5s"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            pb="5rem"
+            pb="5rem"            
             alignContent="center"
           >
             {children}

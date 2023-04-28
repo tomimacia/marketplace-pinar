@@ -12,18 +12,12 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
 import { modState } from "../atoms/Modalatom";
+import { useCategories } from "../../items/customHooks/useCategories";
 export const ProductsNav = () => {
   const [user, loading, error] = useAuthState(auth);
   const setAuthModelState = useSetRecoilState(modState);
-
-  const linkTags = [
-    "Deportes",
-    "Herramientas",
-    "Inmuebles",
-    "Tecnologia",
-    "Supermercado",
-    "Vehiculos",
-  ];
+  const {categories} = useCategories()
+  
   return (
     <Flex>
       <Menu>
@@ -36,13 +30,13 @@ export const ProductsNav = () => {
           Categorias
         </MenuButton>
         <MenuList zIndex={15} width="40vw">
-          {linkTags.map((link, i) => {
+          {categories.map((cat, i) => {
             return (
-              <Link key={"prodNavLink"+link} href={`/productPages/productInterface?Category=${link}`}>
+              <Link key={"prodNavLink"+cat.id} href={`/productPages/productInterface?Category=${cat.id}`}>
                 <MenuItem
                   _hover={{ bg: "#aaa", borderRadius: "10px" }}                  
                 >
-                  {link}
+                  {cat.id}
                 </MenuItem>
               </Link>
             );
@@ -50,7 +44,7 @@ export const ProductsNav = () => {
         </MenuList>
       </Menu>
 
-      {user ? (
+      {!loading && user ? (
         <Link href="/ofertas">
           <Button
             display={["flex", "none", "none", "none"]}

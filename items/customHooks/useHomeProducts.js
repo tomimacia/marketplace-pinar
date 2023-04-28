@@ -2,13 +2,13 @@ import { limit, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../firebase/services/serviceProducts";
 
-export const useSellerID = (sellerID) => {
+export const useHomeProducts = () => {
   const [products, setProducts] = useState([]);
   const [loadedProducts, setLoadedProducts] = useState(true);
   const [prodError, setProdError] = useState(null); 
   const queryArr = [    
     limit(10),
-    where("UserID", "==", sellerID),
+    where("Descuento", ">", 0),
   ];
   useEffect(() => {
     setLoadedProducts(false);
@@ -16,7 +16,7 @@ export const useSellerID = (sellerID) => {
       const data = await getProducts("Productos",queryArr);      
       setProducts(data);
       setLoadedProducts(true);
-      console.log("render");
+      console.log("fetched Home Products");
     };
     try {
       updateProducts();

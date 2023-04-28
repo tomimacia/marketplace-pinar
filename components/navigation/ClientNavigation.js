@@ -24,6 +24,7 @@ import { Avatars } from "./Avatars";
 import { ClientNavLink } from "./ClientNavLink";
 import { linkTags, sellerTags } from "./ClientNavTags";
 import { useCustomToast } from "../../items/customHooks/useCustomToast";
+import { AnimatePresence } from "framer-motion";
 
 export const ClientNavigation = () => {
   const [show, setShow] = useState(false);
@@ -34,7 +35,9 @@ export const ClientNavigation = () => {
 
   return (
     <Flex justify="flex-end" width={["100%", "100%", "90%", "400px"]}>
-      {show && <Avatars showClick={() => setShow(false)} />}
+      <AnimatePresence exitBeforeEnter> 
+        {show && <Avatars showClick={() => setShow(false)} />}
+      </AnimatePresence>
       {!loading && (
         <Button
           size={["md", "sm", "sm", "sm"]}
@@ -48,7 +51,7 @@ export const ClientNavigation = () => {
       )}
       <ModalTest />
 
-      {!user ? (
+      {!user && !loading ? (
         <Button
           size="sm"
           mr={["10px", "10px", "20px", "20px"]}
@@ -58,7 +61,14 @@ export const ClientNavigation = () => {
           Ingresá
         </Button>
       ) : (
-        <Box p={1} mr={2} align='center' minW='40%' bg="teal.400" borderRadius="10px">
+        <Box
+          p={1}
+          mr={2}
+          align="center"
+          minW="40%"
+          bg="teal.400"
+          borderRadius="10px"
+        >
           <Text userSelect="none" fontWeight="bold" fontSize="14px">{`Hola ${
             !loading && user.displayName
           }!`}</Text>

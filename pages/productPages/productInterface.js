@@ -1,24 +1,18 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { BeatLoader } from "react-spinners";
 import { FormatProduct } from "../../components/products/FormatProducts";
-import { NoResults } from "../../components/products/NoResults";
+import { NoProducts } from "../../components/products/NoProducts";
 import { Pagination } from "../../components/products/Pagination";
-import { ProductStructure } from "../../components/products/ProductStructure";
 import ProductTopComp from "../../components/products/ProductTopComp";
+import ProductsInterfaceAll from "../../components/products/ProductsInterfaceAll";
 import {
   useGetProducts,
   useHandlePagination,
 } from "../../items/customHooks/productsInterfaceHooks/productsInterfaceHooks";
-import { useCartList } from "../../items/customHooks/useCartList";
-import { useHandleFav } from "../../items/customHooks/useHandleFav";
-import { NoProducts } from "../../components/products/NoProducts";
-import { useRouter } from "next/router";
 import { useUrlQueryParams } from "../../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
 
-const productos = () => {
-  const { favoriteList, selectedProd, favLoading, handleFavorito } =
-    useHandleFav();
-  const { cartList, actions } = useCartList();
+const productos = () => {  
   const { products, setProducts, loadingProducts } = useGetProducts();
   const { page, pagesTotal, pageActions } = useHandlePagination(products);
   const router = useRouter();
@@ -47,22 +41,10 @@ const productos = () => {
               <BeatLoader color="#68EBBB" />
             </Flex>
           ) : (
-            products.map((product, i) => {
-              if (i > page * 10 - 11 && i < page * 10)
-                return (
-                  <ProductStructure
-                    page={page}
-                    i={i}
-                    product={product}
-                    favoriteList={favoriteList}
-                    cartList={cartList}
-                    onClickCarrito={() => actions.plusOne(product.id)}
-                    onClickFavorito={() => handleFavorito(product.id, i)}
-                    key={product.id}
-                    isSpinner={favLoading && selectedProd === i}
-                  />
-                );
-            })
+            <ProductsInterfaceAll 
+            page={page}
+            products={products}
+            />
           )}
           <Pagination
             condition={!loadingProducts}
