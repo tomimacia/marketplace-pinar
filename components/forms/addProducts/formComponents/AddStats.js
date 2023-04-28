@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { FcCancel, FcCheckmark } from "react-icons/fc";
 import { StatsChecked } from "./StatsChecked";
-import { useEnter } from "../../../../items/customHooks/useEnter";
+import { useEnter } from "../../../../items/customHooks/eventHooks/useEnter";
 
 export const AddStats = ({ title,setForm }) => {
   const toast = useToast();

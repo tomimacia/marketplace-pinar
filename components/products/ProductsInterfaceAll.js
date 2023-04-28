@@ -1,6 +1,6 @@
 import React from "react";
-import { useCartList } from "../../items/customHooks/useCartList";
-import { useHandleFav } from "../../items/customHooks/useHandleFav";
+import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
+import { useHandleFav } from "../../items/customHooks/favoritesHooks/useHandleFav";
 import { ProductStructure } from "./ProductStructure";
 
 const ProductsInterfaceAll = ({ products,page }) => {

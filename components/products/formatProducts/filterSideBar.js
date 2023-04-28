@@ -13,7 +13,7 @@ import {
   useSetDescuento,
   useSetMarcasPicked,
 } from "../../../contexts/productsContext";
-import { useClickOutside } from "../../../items/customHooks/useClickOutside";
+import { useClickOutside } from "../../../items/customHooks/eventHooks/useClickOutside";
 export const FilterSideBar = ({ loader }) => {
   const breakpointValues = useBreakpointValue({xs:0,sm:1,md:2,lg:3,xl:4})
   

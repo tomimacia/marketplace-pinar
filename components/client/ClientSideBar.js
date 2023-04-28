@@ -19,7 +19,7 @@ import { auth } from "../../firebase/clientApp";
 import { useCustomToast } from "../../items/customHooks/useCustomToast";
 import { modState } from "../atoms/Modalatom";
 import { SideBarItem } from "./SideBarItem";
-import { useClickOutside } from "../../items/customHooks/useClickOutside";
+import { useClickOutside } from "../../items/customHooks/eventHooks/useClickOutside";
 export const ClientSideBar = () => {
   const [show, setShow] = useState(false);
 

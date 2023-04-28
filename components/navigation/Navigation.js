@@ -24,7 +24,7 @@ import { ClientNavigation } from "./ClientNavigation";
 import { useCartContext } from "../../contexts/ShoppingCartContext";
 import { useReset, useSetSearchInputValue } from "../../contexts/productsContext";
 import { useCustomToast } from "../../items/customHooks/useCustomToast";
-import { useEnter } from "../../items/customHooks/useEnter";
+import { useEnter } from "../../items/customHooks/eventHooks/useEnter";
 import { NavigationLinks } from "./NavigationLinks";
 import { ProductsNav } from "./ProductsNav";
 import { MobileNav } from "./mainNav/MobileNav";

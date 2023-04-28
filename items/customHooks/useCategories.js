@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useSessionStorage } from "./storage/useSessionStorage";
+import { useSessionStorage } from "./storageHooks/useSessionStorage";
 import { getCollection } from "../../firebase/services/getCollection";
 
 export const useCategories = () => {

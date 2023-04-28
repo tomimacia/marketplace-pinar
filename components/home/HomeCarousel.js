@@ -14,6 +14,7 @@ export const HomeCarousel = ({ products }) => {
         const intial = ((products.length+1)*100)
         return (
           <ChakraBox
+          key={product.id}
             initial={{ x: `${intial}%` }}
             animate={{ x: `-${intial}%` }}
             transition={{

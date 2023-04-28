@@ -1,7 +1,7 @@
 import { limit, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../firebase/services/serviceProducts";
-import { useSessionStorage } from "../customHooks/storage/useSessionStorage";
+import { useSessionStorage } from "./storageHooks/useSessionStorage";
 
 export const useHomeProducts = () => {
   const [products, setProducts] = useSessionStorage("HOME_SESSION_STORAGE_PRODUCTS",[]);

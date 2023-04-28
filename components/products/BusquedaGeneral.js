@@ -25,7 +25,7 @@ import {
 } from "../../contexts/productsContext";
 import { useCategories } from "../../items/customHooks/useCategories";
 import { useCustomToast } from "../../items/customHooks/useCustomToast";
-import { useEnter } from "../../items/customHooks/useEnter";
+import { useEnter } from "../../items/customHooks/eventHooks/useEnter";
 
 export const BusquedaGeneral = () => {
   const searchInputNav2 = useRef(null);  

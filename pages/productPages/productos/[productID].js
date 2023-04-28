@@ -16,8 +16,8 @@ import { DynamicProductImages } from "../../../components/dynamicProducts/Dynami
 import { Stats } from "../../../components/dynamicProducts/Stats";
 import { ProductPrice } from "../../../components/products/ProductPrice";
 import { getSingleDoc } from "../../../firebase/services/getSingleDoc";
-import { useCartList } from "../../../items/customHooks/useCartList";
-import { useHandleFav } from "../../../items/customHooks/useHandleFav";
+import { useCartList } from "../../../items/customHooks/cartHooks/useCartList";
+import { useHandleFav } from "../../../items/customHooks/favoritesHooks/useHandleFav";
 
 export async function getServerSideProps({ params }) {
   const resp = await getSingleDoc("Productos", params.productID);

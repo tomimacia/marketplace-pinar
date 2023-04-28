@@ -1,7 +1,7 @@
 import { Flex, Icon, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useCartList } from "../../items/customHooks/useCartList";
+import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
 import { ProductPrice } from "../products/ProductPrice";
 import { motion } from "framer-motion";
 

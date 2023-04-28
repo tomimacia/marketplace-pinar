@@ -6,13 +6,11 @@ import { NoProducts } from "../../components/products/NoProducts";
 import { Pagination } from "../../components/products/Pagination";
 import ProductTopComp from "../../components/products/ProductTopComp";
 import ProductsInterfaceAll from "../../components/products/ProductsInterfaceAll";
-import {
-  useGetProducts,
-  useHandlePagination,
-} from "../../items/customHooks/productsInterfaceHooks/productsInterfaceHooks";
+import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
+import { useGetProducts } from "../../items/customHooks/productsInterfaceHooks/useGetProducts";
 import { useUrlQueryParams } from "../../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
 
-const productos = () => {  
+const productos = () => {
   const { products, setProducts, loadingProducts } = useGetProducts();
   const { page, pagesTotal, pageActions } = useHandlePagination(products);
   const router = useRouter();
@@ -41,10 +39,7 @@ const productos = () => {
               <BeatLoader color="#68EBBB" />
             </Flex>
           ) : (
-            <ProductsInterfaceAll 
-            page={page}
-            products={products}
-            />
+            <ProductsInterfaceAll page={page} products={products} />
           )}
           <Pagination
             condition={!loadingProducts}

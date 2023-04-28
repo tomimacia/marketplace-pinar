@@ -1,9 +1,8 @@
-import { Flex, Input, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { Flex, Input, Text, useColorModeValue } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { useSetPriceMinMax } from "../../../../contexts/productsContext";
-import { useOnKeyPress } from "../../../../items/customHooks/useOnKey";
+import { useEnter } from "../../../../items/customHooks/eventHooks/useEnter";
 import { ProductSideBarItem } from "./productSideBarItem";
-import { useEnter } from "../../../../items/customHooks/useEnter";
 
 export const FilterMinMax = () => {
   const setPriceMinMax = useSetPriceMinMax();

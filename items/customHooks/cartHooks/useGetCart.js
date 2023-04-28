@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { getSingleDoc } from "../../firebase/services/getSingleDoc";
+import { getSingleDoc } from "../../../firebase/services/getSingleDoc";
 
 export const useGetCart = (cartList) => {
   const [products, setProducts] = useState([]);

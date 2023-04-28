@@ -6,10 +6,10 @@ import { FormatClient } from "../../components/client/FormatClient";
 import { Pagination } from "../../components/products/Pagination";
 import { ProductPrice } from "../../components/products/ProductPrice";
 import { getSingleDoc } from "../../firebase/services/getSingleDoc";
-import { useHandlePagination } from "../../items/customHooks/productsInterfaceHooks/useHandlePagination";
-import { useFavProducts } from "../../items/customHooks/useFavProducts";
-import { useHandleFav } from "../../items/customHooks/useHandleFav";
-import { useCartList } from "../../items/customHooks/useCartList";
+import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
+import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
+import { useHandleFav } from "../../items/customHooks/favoritesHooks/useHandleFav";
+import { useFavProducts } from "../../items/customHooks/favoritesHooks/useFavProducts";
 
 export async function getServerSideProps({ query }) {
   const usuario = await getSingleDoc("users", query.cd);

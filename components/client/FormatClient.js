@@ -5,7 +5,7 @@ import Layout from "../Layout";
 
 export const FormatClient = ({ children, title, cartIndex }) => {
   return (
-    <Layout hiddenTitle={title} title="hola" cartIndex={cartIndex}>
+    <Layout headTitle={title} cartIndex={cartIndex}>
       <Flex align="center" justify="center" h="57px" bg={useColorModeValue("teal.400","teal.700")}>
         <Heading>Publicidad</Heading>
       </Flex>
