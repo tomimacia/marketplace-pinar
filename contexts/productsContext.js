@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
-const initialState = {
-  products: [],
+const initialState = {  
   categoria: null,
   marcas: {},
   priceMinMax: { min: 0, max: Infinity },
@@ -18,7 +17,6 @@ const initialFilters = {
 }
 const useProduct = create((set) => ({
   ...initialState,
-  setProducts: (newProducts) => set(() => ({ categoria: newProducts })),
   setCategoria: (newCategoria) => set(() => ({ categoria: newCategoria })),
   setMarcas: (newMarcas) => set(() => ({ marcas: newMarcas })),
   setPriceMinMax: (newMinMax) => set(() => ({ priceMinMax: newMinMax })),

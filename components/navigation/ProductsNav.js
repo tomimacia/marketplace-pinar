@@ -1,37 +1,29 @@
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
-  MenuItem,
-  Menu,
-  MenuButton,
-  MenuList,
   Button,
   Flex,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import Link from "next/link";
-import { useSetRecoilState } from "recoil";
-import { modState } from "../atoms/Modalatom";
-import { auth } from "../../firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useSetCategoria } from "../../contexts/productsContext";
-import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+import { auth } from "../../firebase/clientApp";
+import { modState } from "../atoms/Modalatom";
 export const ProductsNav = () => {
   const [user, loading, error] = useAuthState(auth);
-  const router = useRouter()
   const setAuthModelState = useSetRecoilState(modState);
-  const setCategory = useSetCategoria();
+
   const linkTags = [
     "Deportes",
     "Herramientas",
-    "Inmuebles",
     "Inmuebles",
     "Tecnologia",
     "Supermercado",
     "Vehiculos",
   ];
-  const onClickFunction = (cat) => {
-    setCategory(cat);
-    router.push(`/productPages/productInterface`, "productsInterfaceRedirect");
-  };
   return (
     <Flex>
       <Menu>
@@ -44,15 +36,15 @@ export const ProductsNav = () => {
           Categorias
         </MenuButton>
         <MenuList zIndex={15} width="40vw">
-          {linkTags.map((link,i) => {
+          {linkTags.map((link, i) => {
             return (
-              <MenuItem
-                key={link+i*2}
-                onClick={() => onClickFunction(link)}
-                _hover={{ bg: "#aaa", borderRadius: "10px" }}
-              >
-                {link}
-              </MenuItem>
+              <Link key={"prodNavLink"+link} href={`/productPages/productInterface?Category=${link}`}>
+                <MenuItem
+                  _hover={{ bg: "#aaa", borderRadius: "10px" }}                  
+                >
+                  {link}
+                </MenuItem>
+              </Link>
             );
           })}
         </MenuList>

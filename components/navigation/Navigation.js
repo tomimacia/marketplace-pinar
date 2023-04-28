@@ -12,7 +12,7 @@ import {
   Input,
   Text,
   useColorMode,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -22,7 +22,7 @@ import { a, b } from "../../chakra/bgColors";
 import { ClientNavigation } from "./ClientNavigation";
 
 import { useCartContext } from "../../contexts/ShoppingCartContext";
-import { useSetSearchInputValue } from "../../contexts/productsContext";
+import { useReset, useSetSearchInputValue } from "../../contexts/productsContext";
 import { useCustomToast } from "../../items/customHooks/useCustomToast";
 import { useEnter } from "../../items/customHooks/useEnter";
 import { NavigationLinks } from "./NavigationLinks";
@@ -31,34 +31,23 @@ import { MobileNav } from "./mainNav/MobileNav";
 
 const Navigation = () => {
   const searchInputNav = useRef(null);
+  const reset = useReset()
   const setSearchInputProp = useSetSearchInputValue();
   const router = useRouter();
-  const {errorToast} = useCustomToast();
+  const { errorToast } = useCustomToast();
   const { colorMode, toggleColorMode } = useColorMode();
   const [display, changeDisplay] = useState("none");
   const [searchInputValue, setSearchInputvalue] = useState("");
-  const cartContext = useCartContext()
+  const cartContext = useCartContext();
   const setSearch = () => {
     if (searchInputValue.length <= 1 || searchInputValue.length > 50)
-    errorToast("Ingresa una busqueda entre 2 y 50 caracteres");
+      errorToast("Ingresa una busqueda entre 2 y 50 caracteres");
     else {
+      reset()
       setSearchInputProp(searchInputValue.split(" "));
-      router.push(
-        `/productPages/productInterface`,
-        "productsInterfaceRedirect"
-      );
+      router.push(`/productPages/productInterface?SearchInputValue=${searchInputValue}`);
     }
-  };
-  const handleSearchClick = () => {
-    if (searchInputValue.length <= 1 || searchInputValue.length > 50)
-    errorToast("Ingresa una busqueda entre 2 y 50 caracteres");
-    else {
-      router.push(
-        `/productPages/productInterface`,
-        "productsInterfaceRedirect"
-      );
-    }
-  };
+  };  
 
   return (
     <Box bgGradient={useColorModeValue(a, b)} p={1}>
@@ -94,7 +83,7 @@ const Navigation = () => {
                 justify="right"
                 display={["none", "flex", "flex", "flex"]}
                 borderRadius="10%"
-                onClick={handleSearchClick}
+                onClick={setSearch}
                 _hover={{ color: "blackAlpha.400" }}
                 m={2}
               />
@@ -108,9 +97,9 @@ const Navigation = () => {
               cursor="pointer"
               fontSize={18}
               mt={1}
-              size='sm'
+              size="sm"
               _hover={{ color: "blackAlpha.400" }}
-              bg="transparent"              
+              bg="transparent"
               mr="45px"
             >
               Switch Mode
@@ -130,7 +119,7 @@ const Navigation = () => {
                   zIndex={13}
                 />
                 {cartContext > 0 && (
-                  <Box                    
+                  <Box
                     right={1}
                     minW={4}
                     h={5}

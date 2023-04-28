@@ -22,7 +22,7 @@ const FormatBlank = ({
           boxShadow="0 10px 20px"
           borderBottom="1px solid black"
         >          
-          <Heading fontSize={[16,18,18,20]} m="auto" ml={7} as={motion.h1} size={size}>
+          <Heading fontSize={[20,23,25,30]} m="auto" ml={7} as={motion.h1} size={size}>
             {pageTitle}
           </Heading>
           

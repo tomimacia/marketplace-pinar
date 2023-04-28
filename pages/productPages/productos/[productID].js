@@ -46,7 +46,7 @@ export default function ProductsDynamic({ prodRef }) {
         pageTitle={
           <Flex>
             <Link
-              href={`/productPages/productInterface?categoria=${prodRef.Categoria}`}
+              href={`/productPages/productInterface?Category=${prodRef.Categoria}`}
             >
               <Text
                 textDecoration="underline"
@@ -60,7 +60,7 @@ export default function ProductsDynamic({ prodRef }) {
               {">"}
             </Text>
             <Link
-              href={`/productPages/productInterface?categoria=${prodRef.Categoria}&SubCat1=${prodRef.SubCat1}`}
+              href={`/productPages/productInterface?Category=${prodRef.Categoria}&SubCat1=${prodRef.SubCat1}`}
             >
               <Text
                 textDecoration="underline"
@@ -72,7 +72,7 @@ export default function ProductsDynamic({ prodRef }) {
             </Link>
             {prodRef.Marca && (
               <Text ml={2} mr={2}>
-                {`>${prodRef.Marca}`}
+                {`> ${prodRef.Marca}`}
               </Text>
             )}
           </Flex>

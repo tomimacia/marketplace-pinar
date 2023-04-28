@@ -1,6 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { BeatLoader } from "react-spinners";
 import { FormatProduct } from "../../components/products/FormatProducts";
+import { NoResults } from "../../components/products/NoResults";
 import { Pagination } from "../../components/products/Pagination";
 import { ProductStructure } from "../../components/products/ProductStructure";
 import ProductTopComp from "../../components/products/ProductTopComp";
@@ -10,17 +11,21 @@ import {
 } from "../../items/customHooks/productsInterfaceHooks/productsInterfaceHooks";
 import { useCartList } from "../../items/customHooks/useCartList";
 import { useHandleFav } from "../../items/customHooks/useHandleFav";
+import { NoProducts } from "../../components/products/NoProducts";
+import { useRouter } from "next/router";
+import { useUrlQueryParams } from "../../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
 
 const productos = () => {
   const { favoriteList, selectedProd, favLoading, handleFavorito } =
     useHandleFav();
   const { cartList, actions } = useCartList();
-  const { products, loadingProducts } = useGetProducts();
+  const { products, setProducts, loadingProducts } = useGetProducts();
   const { page, pagesTotal, pageActions } = useHandlePagination(products);
-
+  const router = useRouter();
+  useUrlQueryParams(router);
   return (
     <FormatProduct headTitle showFilterBar={true} loader={loadingProducts}>
-      <ProductTopComp />
+      <ProductTopComp setProducts={setProducts} />
 
       <Box
         mt={[2, 4, 7, 10]}
@@ -36,6 +41,7 @@ const productos = () => {
           p={2}
           m={2}
         >
+          {!loadingProducts && !products.length && <NoProducts />}
           {loadingProducts ? (
             <Flex mt={10} justify="center">
               <BeatLoader color="#68EBBB" />

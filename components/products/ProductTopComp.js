@@ -8,17 +8,15 @@ import {
   useSubCat1,
 } from "../../contexts/productsContext";
 import { ProductTopChildren } from "./ProductTopChildren";
-import { useRouter } from "next/router";
 
-const ProductTopComp = () => {
-  const router = useRouter();
+const ProductTopComp = ({setProducts}) => {  
   const categoria = useCategoria();
   const subCat1 = useSubCat1();
   const searchInputValue = useSearchInputValue();
   const setSearchInputValue = useSetSearchInputValue();
   const crossClick = () => {
     setSearchInputValue([]);
-    if (!categoria) router.push("/productPages/busquedaProducts");
+    setProducts([])    
   };
   return (
     <Flex flexDir="column">

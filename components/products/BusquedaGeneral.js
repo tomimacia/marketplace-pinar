@@ -14,11 +14,9 @@ import {
   ListItem,
   Progress,
   UnorderedList,
-  useColorModeValue,
-  useToast,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import {
   useSetCategoria,
@@ -26,38 +24,30 @@ import {
   useSetSubCat1
 } from "../../contexts/productsContext";
 import { useCategories } from "../../items/customHooks/useCategories";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
 import { useEnter } from "../../items/customHooks/useEnter";
 
 export const BusquedaGeneral = () => {
-  const searchInputNav2 = useRef(null);
+  const searchInputNav2 = useRef(null);  
+  
   const setSubCat1 = useSetSubCat1();
   const setCategory = useSetCategoria();
   const setSearchInputProp = useSetSearchInputValue();
   const [searchInputValue, setSearchInputValue] = useState("");
-  const router = useRouter();
-  const toast = useToast();
+  const {errorToast} = useCustomToast()
   const { categories, loadingCategories, categoriesError } = useCategories();
 
   const setSearch = () => {
     if (searchInputValue.length <= 1 || searchInputValue.length > 50)
-      toast({
-        title: `Ingresa una busqueda entre 2 y 50 caracteres`,
-        status: "error",
-        isClosable: true,
-      });
+    errorToast("Ingresa una busqueda entre 2 y 50 caracteres");
     else {
-      setSearchInputProp(searchInputValue.split(" "));
-      router.push(
-        `/productPages/productInterface`,
-        "productsInterfaceRedirect"
-      );
+      setSearchInputProp(searchInputValue.split(" "));      
     }
   };
   const onClickFunction = (cat, subCat) => {
     setCategory(cat);
     if (subCat) setSubCat1(subCat);
-    router.push(`/productPages/productInterface`, "productsInterfaceRedirect");
-  };
+  };  
   return (
     <Flex
       as={motion.div}

@@ -31,7 +31,7 @@ const Layout = memo(({ children, headTitle, pageTitle, hasTransition }) => {
           <AnimatePresence exitBeforeEnter initial>
             <Heading
               flexGrow={1}
-              as={motion.h7}
+              as={motion.h3}
               initial={{ x: 500, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               p={5}
