@@ -1,6 +1,5 @@
 import {
   Box,
-  Divider,
   Flex,
   Heading,
   Image,
@@ -9,8 +8,10 @@ import {
 import Layout from "../components/Layout";
 import { HomeCarousel } from "../components/home/HomeCarousel";
 import { useHomeProducts } from "../items/customHooks/useHomeProducts";
+import lightLogo from "../public/images/lightLogo.png"
+import blackLogo from "../public/images/blackLogo.png"
 const Index = () => {
-  const { colorMode } = useColorMode();  
+  const { colorMode } = useColorMode();
   const { products, loadedProducts } = useHomeProducts();
   console.log(products);
   return (
@@ -21,23 +22,18 @@ const Index = () => {
     >
       <Box>
         <Image
-          display={colorMode === "light" ? "flex" : "none"}
           ml={3}
           width={200}
-          src="https://elpinar.edu.mx/wp-content/uploads/2020/03/LogoElPinar-e1583287195672.png"
+          src={
+            colorMode === "light"
+              ? lightLogo.src
+              : blackLogo.src
+          }
         />
-        <Image
-          display={colorMode === "light" ? "none" : "flex"}
-          ml={3}
-          width={200}
-          src="https://elpinar.edu.mx/wp-content/uploads/2020/03/LogoElPinar_blanco.png"
-        />
-        <Flex flexDir='column' mt={20}>
-          <Heading m={5}>Hot sale!</Heading>
-          <Divider m={1} orientation='horizontal' />
-          {loadedProducts &&
-            <HomeCarousel products={products} />}
-            <Divider m={1} orientation='horizontal' />
+
+        <Flex flexDir="column" mt={20}>
+          <Heading m={5}>Hot Sale!</Heading>
+          {loadedProducts && <HomeCarousel products={products} />}
         </Flex>
       </Box>
     </Layout>

@@ -2,7 +2,7 @@ import { Flex, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
 import { ProductPrice } from "../products/ProductPrice";
-
+import { useColorModeValue } from "@chakra-ui/react";
 export const HomeProduct = ({ product, i }) => {
   return (
     <Flex
@@ -12,7 +12,7 @@ export const HomeProduct = ({ product, i }) => {
       h={["140px", "160px", "190px", "190px"]}
       key={product.id}
     >
-      <Flex flexDir="column" w="100%" borderRadius="5px" bg="white">
+      <Flex flexDir="column" w="100%" borderRadius="5px" bg={useColorModeValue("white","gray.500")}>
         {/* Flex del nombre */}
         <Flex minH="25%" maxH="25%">
           <Link href={`/productPages/productos/${product.id}`}>
@@ -20,6 +20,7 @@ export const HomeProduct = ({ product, i }) => {
               cursor="pointer"
               fontSize={[12, 13, 14, 14]}
               fontWeight="bold"
+              color={useColorModeValue("black","white")}
               lineHeight="18px"
               title={product.Nombre}
               textOverflow="ellipsis"

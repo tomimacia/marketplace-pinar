@@ -17,8 +17,7 @@ const Carrito = () => {
         <Flex
           flexGrow={10}
           border="2px solid black"
-          flexDir="column"
-          bg="gray.200"
+          flexDir="column"          
           p={3}
           borderRadius="10px"
         >

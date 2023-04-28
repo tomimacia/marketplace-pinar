@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 import { FormatClient } from "../../components/client/FormatClient";
 const MisCompras = () => {
   return (
@@ -7,7 +7,7 @@ const MisCompras = () => {
         <Text mt={5}
           align="center"
           fontSize={[10, 20, 20, 20]}
-          color="blackAlpha.500">No has realizado compras aun</Text>        
+          color={useColorModeValue("blackAlpha.500","whiteAlpha.500")}>No has realizado compras aun</Text>        
         </FormatClient>
     </Box>
   );

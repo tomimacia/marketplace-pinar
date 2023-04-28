@@ -1,5 +1,5 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Box, Divider, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
@@ -39,7 +39,7 @@ export const ClientSideBar = () => {
       position="sticky"
       zIndex={10}
       top={0}
-      bg="gray.300"
+      bg={useColorModeValue("gray.300","gray.500")}
       h="60vh"
       minH="530px"
       ref={domNode}

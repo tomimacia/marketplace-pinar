@@ -1,5 +1,5 @@
 import Layout from "./Layout";
-import { Flex, Heading, Box } from "@chakra-ui/react";
+import { Flex, Heading, Box, useColorModeValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 const FormatBlank = ({  
@@ -14,7 +14,7 @@ const FormatBlank = ({
     >
       <Box minH="80vh" h="100%" bgGradient="linear(to-b, gray.200, gray.100)">
         <Flex          
-          bg="white"
+          bg={useColorModeValue("white","gray.600")}
           m='auto'
           maxW='1500px'          
           minH="50px"
@@ -27,7 +27,7 @@ const FormatBlank = ({
           </Heading>
           
         </Flex>
-        <Box bg="whiteAlpha.300">
+        <Box bg={useColorModeValue("white","gray.600")}>
           <Box 
           pt={["35px","40px","45px","50px"]}
           pr={["5px","40px","40px","40px"]}

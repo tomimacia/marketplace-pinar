@@ -1,4 +1,4 @@
-import { Flex, Input, Text } from "@chakra-ui/react";
+import { Flex, Input, Text, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { useSetPriceMinMax } from "../../../../contexts/productsContext";
 import { useOnKeyPress } from "../../../../items/customHooks/useOnKey";
@@ -37,12 +37,12 @@ export const FilterMinMax = () => {
               borderColor="blackAlpha.500"
               ref={searchInputNavMin}
               onKeyDown={useEnter(searchInputNavMin.current, applyRangeChanges)}
-              bg="white"
+              bg={useColorModeValue('white',"gray.400")}
               color="black"
               w="80%"
               size="xs"
               type="number"
-              placeholder={"Ingresa un mínimo"}
+              placeholder={"Ingresa un mínimo"}              
             />
           </Flex>
           <Flex flexDir="column">
@@ -64,7 +64,7 @@ export const FilterMinMax = () => {
               borderColor="blackAlpha.500"
               ref={searchInputNavMax}
               onKeyDown={useEnter(searchInputNavMax.current, applyRangeChanges)}
-              bg="white"
+              bg={useColorModeValue('white',"gray.400")}
               color="black"
               w="80%"
               size="xs"

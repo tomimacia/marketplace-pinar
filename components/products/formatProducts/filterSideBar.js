@@ -138,6 +138,7 @@ export const FilterSideBar = ({ loader }) => {
             mt={5}
             placeSelf='center'
             size="xs"
+            color='black'
             bg="gray.300"
             w="70%"
             onClick={onClickCleanValues}

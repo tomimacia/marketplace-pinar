@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 
 export const ProductSideBarItem = ({ title, children, applyChanges }) => {
   
@@ -20,7 +20,7 @@ export const ProductSideBarItem = ({ title, children, applyChanges }) => {
         pt="15px"
         pl="5%"
         width="100%"
-        bg="White"
+        bg={useColorModeValue("white","gray.500")}
         flexDir="column"
       >
         {children}
@@ -30,6 +30,7 @@ export const ProductSideBarItem = ({ title, children, applyChanges }) => {
           size="xs"
           bg="gray.300"
           w="50%"
+          color='black'
           boxShadow="0 1px 5px"
         >
           Aplicar

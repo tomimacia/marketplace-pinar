@@ -32,7 +32,7 @@ export const CartProducts = ({
               p={1}
               mt={2}
             >
-              <Flex w="100%" borderRadius="5px" bg="white">
+              <Flex w="100%" borderRadius="5px">
                 <Flex
                   w={["80px", "120px", "160px", "160px"]}
                   minW={["80px", "120px", "160px", "160px"]}

@@ -27,7 +27,7 @@ export const ProductsDeploy = ({products}) => {
             p={1}
             key={product.id}
           >
-            <Flex position="relative" w="100%" borderRadius="5px" bg="white">
+            <Flex position="relative" w="100%" borderRadius="5px" >
               {/* Flex de la imagen */}
               <Flex
                 w={["80px", "120px", "140px", "140px"]}

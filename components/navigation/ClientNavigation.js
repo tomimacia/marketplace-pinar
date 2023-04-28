@@ -9,6 +9,7 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useColorModeValue,
   useToast,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
@@ -66,7 +67,7 @@ export const ClientNavigation = () => {
           mr={2}
           align="center"
           minW="40%"
-          bg="teal.400"
+          bg={useColorModeValue("teal.400","teal.700")}
           borderRadius="10px"
         >
           <Text userSelect="none" fontWeight="bold" fontSize="14px">{`Hola ${
