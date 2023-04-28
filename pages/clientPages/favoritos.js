@@ -10,6 +10,7 @@ import { useHandlePagination } from "../../items/customHooks/useHandlePagination
 import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
 import { useHandleFav } from "../../items/customHooks/favoritesHooks/useHandleFav";
 import { useFavProducts } from "../../items/customHooks/favoritesHooks/useFavProducts";
+import { ProductStructure } from "../../components/products/ProductStructure";
 
 export async function getServerSideProps({ query }) {
   const usuario = await getSingleDoc("users", query.cd);
@@ -51,121 +52,17 @@ const Favoritos = ({ favData }) => {
           {products.map((product, i) => {
             if (i > page * 10 - 11 && i < page * 10)
               return (
-                <Flex
-                  as={motion.div}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transitionDuration={"0.2s"}
-                  transitionDelay={`${(i - (page * 10 - 10)) * 0.1}s`}
+                <ProductStructure
+                  page={page}
+                  i={i}
+                  product={product}
+                  favoriteList={favoriteList}
+                  cartList={cartList}
+                  onClickCarrito={() => actions.plusOne(product.id)}
+                  onClickFavorito={() => handleFavorito(product.id, i)}
                   key={product.id}
-                  border="1px solid #a7a7a7"
-                  borderRadius="5px"
-                  p={1}
-                  mt={2}
-                >
-                  <Flex w="100%" borderRadius="5px" bg="white">
-                    <Flex
-                      w={["80px", "120px", "160px", "160px"]}
-                      minW={["80px", "120px", "160px", "160px"]}
-                      h={["120px", "120px", "160px", "160px"]}
-                      ml={["10px", "20px", "35px", "40px"]}
-                      mr={["10px", "20px", "35px", "40px"]}
-                    >
-                      <Link href={`/productPages/productos/${product.id}`}>
-                        <Image
-                          cursor="pointer"
-                          border={[
-                            "none",
-                            "1px solid #a7a7a7",
-                            "1px solid #a7a7a7",
-                            "1px solid #a7a7a7",
-                          ]}
-                          m="auto"
-                          boxSize={["100px", "120px", "160px", "160px"]}
-                          objectFit="cover"
-                          borderRadius="5px"
-                          src={product.Img}
-                        />
-                      </Link>
-                    </Flex>
-                    <Flex
-                      maxH={["120px", "120px", "160px", "160px"]}
-                      h="100%"
-                      flexDir="column"
-                      placeContent="space-between"
-                      flexGrow={1}
-                    >
-                      <Flex flexGrow={4}>
-                        <Link href={`/productPages/productos/${product.id}`}>
-                          <Text
-                            cursor="pointer"
-                            fontSize={[12, 14, 17, 17]}
-                            fontWeight="bold"
-                          >
-                            {product.Nombre}
-                          </Text>
-                        </Link>
-                      </Flex>
-                      <ProductPrice
-                        precio={product.Precio}
-                        descuento={product.Descuento}
-                      />
-                    </Flex>
-                    <Flex
-                      flexDir="column"
-                      align="flex-end"
-                      justifyContent="space-between"
-                    >
-                      <Icon
-                        as={AiFillHeart}
-                        cursor="pointer"
-                        display={
-                          !favLoading || selectedProd !== i + 1
-                            ? "flex"
-                            : "none"
-                        }
-                        _hover={{ opacity: "0.4" }}
-                        color="blue.800"
-                        fontSize={[20, 25, 30, 30]}
-                        onClick={() => handleFavorito(product.id, i + 1)}
-                      />
-                      <Spinner
-                        display={
-                          favLoading && selectedProd === i + 1 ? "flex" : "none"
-                        }
-                        color="blue.500"
-                      />
-                      <Flex>
-                        {cartList.includes(product.id) && (
-                          <Text
-                            fontSize={[12, 15, 18, 18]}
-                            opacity="0.7"
-                            fontWeight="bold"
-                          >
-                            (
-                            {cartList.reduce((acc, prod) => {
-                              return prod === product.id ? acc + 1 : acc;
-                            }, 0)}
-                            )
-                          </Text>
-                        )}
-                        <Icon
-                          as={AiOutlineShoppingCart}
-                          cursor="pointer"
-                          _hover={
-                            !cartList.includes(product.id)
-                              ? { opacity: "1" }
-                              : { opacity: "0.7" }
-                          }
-                          opacity={cartList.includes(product.id) ? "1" : "0.3"}
-                          color="blue"
-                          fontSize={[20, 25, 30, 30]}
-                          onClick={() => actions.plusOne(product.id)}
-                        />
-                      </Flex>
-                    </Flex>
-                  </Flex>
-                </Flex>
+                  isSpinner={favLoading && selectedProd === i}
+                />
               );
           })}
         </Flex>
