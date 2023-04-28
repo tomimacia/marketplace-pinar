@@ -9,23 +9,22 @@ import {
   MenuItem,
   MenuList,
   Text,
-  useColorModeValue,
-  useToast,
+  useColorModeValue
 } from "@chakra-ui/react";
+import { AnimatePresence } from "framer-motion";
 import { useContext, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { AiOutlineUser } from "react-icons/ai";
 import { useSetRecoilState } from "recoil";
 import { context } from "../../contexts/userContext";
 import { auth } from "../../firebase/clientApp";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
 import ModalTest from "../Modal/ModalLog";
 import { modState } from "../atoms/Modalatom";
-import { ProfileImage } from "./ProfileImage";
 import { Avatars } from "./Avatars";
 import { ClientNavLink } from "./ClientNavLink";
 import { linkTags, sellerTags } from "./ClientNavTags";
-import { useCustomToast } from "../../items/customHooks/useCustomToast";
-import { AnimatePresence } from "framer-motion";
+import { ProfileImage } from "./ProfileImage";
 
 export const ClientNavigation = () => {
   const [show, setShow] = useState(false);

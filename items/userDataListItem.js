@@ -1,11 +1,10 @@
-import { Button, Flex, Input,Box, Select, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../firebase/clientApp";
-import { useToast } from "@chakra-ui/react";
-
+import { useCustomToast } from "./customHooks/useCustomToast";
 
 export const UserDataListItem = ({
   isEmail,
@@ -22,7 +21,7 @@ export const UserDataListItem = ({
   const [inputLocalidad, setInputLocalidad] = useState();
   const [inputCP, setInputCP] = useState();
   const [isValid, setIsValid] = useState(false);
-  const toast = useToast();
+  const { errorToast, successToast } = useCustomToast();
 
   const format = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
@@ -31,11 +30,7 @@ export const UserDataListItem = ({
       await updateDoc(doc(firestore, "users", user.uid), {
         [`${prop}`]: inputValue,
       });
-      toast({
-        title: `Actualizado correctamente`,
-        status: "success",
-        isClosable: true,
-      });
+      successToast("Actualizado correctamente");
       window.location.reload();
     } else if (isValid && userProp === "direccion") {
       await updateDoc(doc(firestore, "users", user.uid), {
@@ -43,18 +38,10 @@ export const UserDataListItem = ({
         ["direccion.direccion"]: inputValue,
         ["direccion.localidad"]: inputLocalidad,
       });
-      toast({
-        title: `Actualizado correctamente`,
-        status: "success",
-        isClosable: true,
-      });
+      successToast("Actualizado correctamente");
       window.location.reload();
     } else {
-      toast({
-        title: `Ingresa correctamente los datos`,
-        status: "error",
-        isClosable: true,
-      });
+      errorToast("Ingresa correctamente los datos");
     }
   };
   // validaciones de inputs
@@ -91,13 +78,22 @@ export const UserDataListItem = ({
       }
     }
   }, [inputValue, inputLocalidad, inputCP]);
-  const paises = ["Argentina","Uruguay","Paraguay","Chile","Brasil","Bolivia","Peru","Colombia"];
+  const paises = [
+    "Argentina",
+    "Uruguay",
+    "Paraguay",
+    "Chile",
+    "Brasil",
+    "Bolivia",
+    "Peru",
+    "Colombia",
+  ];
 
   return (
     <Flex
       flexDir={["column", "row", "row", "row"]}
-      p={1}      
-      minH={['24px','24px','24px','46.2px']}
+      p={1}
+      minH={["24px", "24px", "24px", "46.2px"]}
       borderRadius="10px"
       border="1px solid black"
       mb={5}
@@ -113,7 +109,7 @@ export const UserDataListItem = ({
         w="100%"
       >
         <Flex flexWrap="wrap" w="50%">
-          <Text m='auto' flexGrow={1} fontSize={["xs", "xs", "md", "md"]}>
+          <Text m="auto" flexGrow={1} fontSize={["xs", "xs", "md", "md"]}>
             {title}
           </Text>
         </Flex>
@@ -133,7 +129,7 @@ export const UserDataListItem = ({
               onChange={(e) => setInputValue(e.target.value)}
               bg="white"
               color="black"
-              m='auto'
+              m="auto"
               size={["xs", "xs", "sm", "sm"]}
               type={inputType}
             />
@@ -144,11 +140,9 @@ export const UserDataListItem = ({
               onChange={(e) => setInputValue(e.target.value)}
               display={displayProp ? "flex" : "none"}
               placeholder="Seleccionar pais"
-            >              
-              {paises.map((pais)=>{
-                return (
-                  <option key={pais}>{pais}</option>
-                )
+            >
+              {paises.map((pais) => {
+                return <option key={pais}>{pais}</option>;
               })}
             </Select>
           ) : (
@@ -206,7 +200,7 @@ export const UserDataListItem = ({
                 </Flex>
                 <Flex onClick={onClickBlur}>
                   <Button
-                    ml={[0,0,1,1]}
+                    ml={[0, 0, 1, 1]}
                     w="100%"
                     size={["xs", "xs", "xs", "sm"]}
                     boxShadow="0 1px 1px"
@@ -223,11 +217,11 @@ export const UserDataListItem = ({
             )}
             {!displayProp && (
               <Flex onClick={blurProp ? onClickBlur : null}>
-                <Button                                    
+                <Button
                   size={["xs", "xs", "sm", "sm"]}
                   boxShadow="0 1px 1px"
                   bg="gray.400"
-                  _hover={blurProp ? { bg: "gray.300" } : {bg:"none"}}
+                  _hover={blurProp ? { bg: "gray.300" } : { bg: "none" }}
                   onClick={blurProp ? () => setDisplayProp(true) : null}
                 >
                   Modificar

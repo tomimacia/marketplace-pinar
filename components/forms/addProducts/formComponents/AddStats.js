@@ -6,17 +6,17 @@ import {
   Stat,
   StatHelpText,
   Switch,
-  Text,
-  useToast,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { FcCancel, FcCheckmark } from "react-icons/fc";
-import { StatsChecked } from "./StatsChecked";
 import { useEnter } from "../../../../items/customHooks/eventHooks/useEnter";
+import { useCustomToast } from "../../../../items/customHooks/useCustomToast";
+import { StatsChecked } from "./StatsChecked";
 
 export const AddStats = ({ title,setForm }) => {
-  const toast = useToast();
+  const {errorToast} = useCustomToast()
   const [stats, setStats] = useState([]);
   const [prop, setProp] = useState("");
   const [value, setValue] = useState(false);
@@ -25,18 +25,10 @@ export const AddStats = ({ title,setForm }) => {
   const isOtros = title === "Otros";
   const addCaracterística = (e) => {
     if (!prop) {
-      return toast({
-        title: `Completa propiedad y valor`,
-        status: "error",
-        isClosable: true,
-      });
+      return errorToast("Completa propiedad y valor");
     }
     if (!isOtros && !value) {
-      return toast({
-        title: `Completa propiedad y valor`,
-        status: "error",
-        isClosable: true,
-      });
+      return errorToast("Completa propiedad y valor");
     }
     setStats((prev) => [...prev, { Propiedad: prop, Valor: value }]);
     setProp("");

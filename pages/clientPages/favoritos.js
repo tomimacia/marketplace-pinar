@@ -1,16 +1,12 @@
-import { Flex, Icon, Image, Spinner, Text } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { AiFillHeart, AiOutlineShoppingCart } from "react-icons/ai";
+import { Flex, Text } from "@chakra-ui/react";
 import { FormatClient } from "../../components/client/FormatClient";
 import { Pagination } from "../../components/products/Pagination";
-import { ProductPrice } from "../../components/products/ProductPrice";
-import { getSingleDoc } from "../../firebase/services/getSingleDoc";
-import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
-import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
-import { useHandleFav } from "../../items/customHooks/favoritesHooks/useHandleFav";
-import { useFavProducts } from "../../items/customHooks/favoritesHooks/useFavProducts";
 import { ProductStructure } from "../../components/products/ProductStructure";
+import { getSingleDoc } from "../../firebase/services/getSingleDoc";
+import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
+import { useFavProducts } from "../../items/customHooks/favoritesHooks/useFavProducts";
+import { useHandleFav } from "../../items/customHooks/favoritesHooks/useHandleFav";
+import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
 
 export async function getServerSideProps({ query }) {
   const usuario = await getSingleDoc("users", query.cd);
@@ -30,8 +26,7 @@ export async function getServerSideProps({ query }) {
     if (docObject.length === favoritos.length) {
       return {
         props: {
-          favData: docObject,
-          favs: favoritos,
+          favData: docObject,          
         },
       };
     }
