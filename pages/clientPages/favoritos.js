@@ -9,7 +9,7 @@ import { getSingleDoc } from "../../firebase/services/getSingleDoc";
 import { useHandlePagination } from "../../items/customHooks/productsInterfaceHooks/useHandlePagination";
 import { useFavProducts } from "../../items/customHooks/useFavProducts";
 import { useHandleFav } from "../../items/customHooks/useHandleFav";
-import { useLocalStorage } from "../../items/customHooks/useLocalStorage";
+import { useCartList } from "../../items/customHooks/useCartList";
 
 export async function getServerSideProps({ query }) {
   const usuario = await getSingleDoc("users", query.cd);
@@ -38,7 +38,7 @@ export async function getServerSideProps({ query }) {
 }
 
 const Favoritos = ({ favData }) => {
-  const [cartList, setCartList] = useLocalStorage("CART_CONTEXT_LOCAL_STORAGE", []);
+  const { cartList, actions } = useCartList();
   const { favoriteList, selectedProd, favLoading, handleFavorito } =
     useHandleFav();
   const products = useFavProducts(favData, favoriteList);
@@ -160,7 +160,7 @@ const Favoritos = ({ favData }) => {
                           opacity={cartList.includes(product.id) ? "1" : "0.3"}
                           color="blue"
                           fontSize={[20, 25, 30, 30]}
-                          onClick={() => setCartList([...cartList, product.id])}
+                          onClick={() => actions.plusOne(product.id)}
                         />
                       </Flex>
                     </Flex>
