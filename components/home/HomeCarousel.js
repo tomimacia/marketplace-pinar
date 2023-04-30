@@ -1,4 +1,4 @@
-import { Flex, chakra, shouldForwardProp } from "@chakra-ui/react";
+import { Flex, chakra, shouldForwardProp, useBreakpointValue } from "@chakra-ui/react";
 import { isValidMotionProp, motion } from "framer-motion";
 import { HomeProduct } from "./HomeProduct";
 const ChakraBox = chakra(motion.div, {
@@ -6,24 +6,24 @@ const ChakraBox = chakra(motion.div, {
     isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
-export const HomeCarousel = ({ products }) => {  
+export const HomeCarousel = ({ products }) => {
+  const boxWidth = useBreakpointValue({xs:175,sm:200,md:225,lg:225,xl:225})
   return (
-    <ChakraBox      
-      dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+    <ChakraBox     
+      key={boxWidth}
       initial={{ x: "100vw" }}
-      animate={{ x: "calc(-100% - 275px)" }}
+      animate={{ x: `-${boxWidth*products.length+50*(products.length-1)}px` }}
       transition={{
         x: {
-          duration: products.length * 5,
+          duration: boxWidth/5,
           repeat: Infinity,
           ease: "linear",
-        },
-        repeat: Infinity,
+        },        
       }}
     >
       <Flex gap={"50px"}>
-        {products.map((product, i) => {
-          return <HomeProduct product={product} i={i} />;
+        {products.map((product) => {
+          return <HomeProduct product={product} />;
         })}
       </Flex>
     </ChakraBox>
