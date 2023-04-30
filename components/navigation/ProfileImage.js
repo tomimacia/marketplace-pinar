@@ -6,10 +6,12 @@ export const ProfileImage = ({ showFunction, img, userPhoto, defaultProf }) => {
     if (userPhoto) return userPhoto;
     return defaultProfile.src;
   };
+  
   return (
     <Box>
       <Image
         boxSize="4rem"
+        alt="profile-image" 
         borderRadius="full"
         onClick={showFunction}
         src={selectImg()}

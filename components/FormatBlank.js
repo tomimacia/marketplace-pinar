@@ -19,15 +19,15 @@ const FormatBlank = ({
           maxW='1500px'          
           minH="50px"
           h={["7vh","8vh","9vh","10vh"]}
-          boxShadow="0 10px 20px"
-          borderBottom="1px solid black"
+          boxShadow="0 10px 10px"
+          borderBottom="1px solid black"        
         >          
-          <Heading fontSize={[20,23,25,30]} m="auto" ml={7} as={motion.h1} size={size}>
+          <Heading fontSize={[20,23,25,25]} m="auto" ml={7} as={motion.h1} size={size}>
             {pageTitle}
           </Heading>
           
         </Flex>
-        <Box bg={useColorModeValue("white","gray.600")}>
+        <Box mt={7} bg={useColorModeValue("white","gray.600")}>
           <Box 
           pt={["35px","40px","45px","50px"]}
           pr={["5px","40px","40px","40px"]}
@@ -41,3 +41,5 @@ const FormatBlank = ({
 };
 
 export default FormatBlank;
+
+

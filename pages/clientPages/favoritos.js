@@ -26,7 +26,7 @@ export async function getServerSideProps({ query }) {
     if (docObject.length === favoritos.length) {
       return {
         props: {
-          favData: docObject,          
+          favData: docObject,
         },
       };
     }

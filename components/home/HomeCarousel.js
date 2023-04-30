@@ -23,7 +23,7 @@ export const HomeCarousel = ({ products }) => {
     >
       <Flex gap={"50px"}>
         {products.map((product) => {
-          return <HomeProduct product={product} />;
+          return <HomeProduct product={product} key={product.id+"HomeProduct"} />;
         })}
       </Flex>
     </ChakraBox>

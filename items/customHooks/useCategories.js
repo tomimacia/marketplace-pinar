@@ -23,15 +23,14 @@ export const useCategories = () => {
         catStorageRef.current = false;
       })
       .catch(() => {
-        setCategoriesError("Categories fetching error");
-        catStorageRef.current = true;
+        setCategoriesError("Categories fetching error");        
       })
       .finally(() => {
         setLoadingCategories(false);
       });
   };
   useEffect(() => {
-    if (categories.length) return;
+    if (categories.length > 0 || !catStorageRef.current) return;
     getCategories();
   }, []);
   const getMarcas = (catSelected) => {
