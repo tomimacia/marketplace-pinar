@@ -6,15 +6,15 @@ import { NoProducts } from "../../components/products/NoProducts";
 import { Pagination } from "../../components/products/Pagination";
 import ProductTopComp from "../../components/products/ProductTopComp";
 import ProductsInterfaceAll from "../../components/products/ProductsInterfaceAll";
-import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
 import { useGetProducts } from "../../items/customHooks/productsInterfaceHooks/useGetProducts";
 import { useUrlQueryParams } from "../../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
+import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
 
 const productos = () => {
   const { products, setProducts, loadingProducts } = useGetProducts();
   const { page, pagesTotal, pageActions } = useHandlePagination(products);
   const router = useRouter();
-  useUrlQueryParams(router);
+  useUrlQueryParams(router);  
   return (
     <FormatProduct headTitle showFilterBar={true} loader={loadingProducts}>
       <ProductTopComp setProducts={setProducts} />

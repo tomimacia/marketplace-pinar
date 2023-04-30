@@ -1,36 +1,31 @@
 import { Flex, chakra, shouldForwardProp } from "@chakra-ui/react";
-import React from "react";
-import { HomeProduct } from "./HomeProduct";
 import { isValidMotionProp, motion } from "framer-motion";
+import { HomeProduct } from "./HomeProduct";
 const ChakraBox = chakra(motion.div, {
   shouldForwardProp: (prop) =>
     isValidMotionProp(prop) || shouldForwardProp(prop),
 });
 
-export const HomeCarousel = ({ products }) => {
+export const HomeCarousel = ({ products }) => {  
   return (
-    <Flex w="100%" justify="space-between">
-      {products.map((product, i) => {
-        const intial = ((products.length+1)*100)
-        return (
-          <ChakraBox
-          key={product.id}
-            initial={{ x: `${intial}%` }}
-            animate={{ x: `-${intial}%` }}
-            transition={{
-              x: {
-                delay: i/2,
-                duration: products.length*2,
-                repeat: Infinity,
-                ease: "linear",
-              },
-              repeat: Infinity,
-            }}
-          >
-            <HomeProduct product={product} i={i} />
-          </ChakraBox>
-        );
-      })}
-    </Flex>
+    <ChakraBox      
+      dragConstraints={{ left: 0, top: 0, right: 0, bottom: 0 }}
+      initial={{ x: "100vw" }}
+      animate={{ x: "calc(-100% - 275px)" }}
+      transition={{
+        x: {
+          duration: products.length * 5,
+          repeat: Infinity,
+          ease: "linear",
+        },
+        repeat: Infinity,
+      }}
+    >
+      <Flex gap={"50px"}>
+        {products.map((product, i) => {
+          return <HomeProduct product={product} i={i} />;
+        })}
+      </Flex>
+    </ChakraBox>
   );
 };
