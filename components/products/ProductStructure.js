@@ -10,8 +10,8 @@ import { ProductPrice } from "./ProductPrice";
 
 export const ProductStructure = ({
   i,
-  page,  
-  product,  
+  page,
+  product,
   favoriteList,
   cartList,
   onClickCarrito,
@@ -30,7 +30,7 @@ export const ProductStructure = ({
       p={1}
       mt={2}
     >
-      <Flex position='relative' w="100%" borderRadius="5px" >
+      <Flex position="relative" w="100%" borderRadius="5px">
         <Flex
           w={["80px", "120px", "160px", "160px"]}
           minW={["80px", "120px", "160px", "160px"]}
@@ -64,9 +64,11 @@ export const ProductStructure = ({
           placeContent="space-between"
           flexGrow={1}
         >
-          <Flex maxH='50%' flexGrow>
+          <Flex maxH="50%" flexGrow>
             <Link href={`/productPages/productos/${product.id}`}>
               <Text
+                textOverflow="ellipsis"
+                overflow="hidden"                
                 cursor="pointer"
                 fontSize={[12, 14, 17, 17]}
                 fontWeight="bold"
@@ -81,7 +83,9 @@ export const ProductStructure = ({
         <Flex flexDir="column" align="flex-end" justifyContent="space-between">
           {!isSpinner && favoriteList ? (
             <Icon
-              as={favoriteList.includes(product.id) ? AiFillHeart : AiOutlineHeart}
+              as={
+                favoriteList.includes(product.id) ? AiFillHeart : AiOutlineHeart
+              }
               cursor="pointer"
               _hover={{ opacity: "0.4" }}
               color="blue.800"
@@ -92,7 +96,7 @@ export const ProductStructure = ({
           ) : (
             <Spinner color="blue.500" />
           )}
-          <Flex bottom={0} right={0} position='absolute'>
+          <Flex bottom={0} right={0} position="absolute">
             {cartList.includes(product.id) && (
               <Text fontSize={[12, 15, 18, 18]} opacity="0.7" fontWeight="bold">
                 (
@@ -106,7 +110,9 @@ export const ProductStructure = ({
               as={AiOutlineShoppingCart}
               cursor="pointer"
               _hover={
-                !cartList.includes(product.id) ? { opacity: "1" } : { opacity: "0.7" }
+                !cartList.includes(product.id)
+                  ? { opacity: "1" }
+                  : { opacity: "0.7" }
               }
               opacity={cartList.includes(product.id) ? "1" : "0.3"}
               color="blue"
