@@ -15,7 +15,7 @@ export const HomeCarousel = ({ products }) => {
       animate={{ x: `-${boxWidth*products.length+50*(products.length-1)}px` }}
       transition={{
         x: {
-          duration: boxWidth/5,
+          duration: boxWidth/6,
           repeat: Infinity,
           ease: "linear",
         },        

@@ -4,6 +4,7 @@ import React from "react";
 import { ProductPrice } from "../products/ProductPrice";
 import { CartFooter } from "./CartFooter";
 import { PlusMinusProduct } from "./PlusMinusProduct";
+import Link from "next/link";
 
 export const CartProducts = ({
   products,
@@ -40,25 +41,34 @@ export const CartProducts = ({
                   ml={["10px", "20px", "35px", "40px"]}
                   mr={["10px", "20px", "35px", "40px"]}
                 >
-                  <Image
-                    border={[
-                      "none",
-                      "1px solid #c7c7c7",
-                      "1px solid #c7c7c7",
-                      "1px solid #c7c7c7",
-                    ]}
-                    boxSize={["100px", "120px", "160px", "160px"]}
-                    objectFit="cover"
-                    borderRadius="5px"
-                    src={product.Img}
-                  />
+                  <Link href={`/productPages/productos/${product.id}`}>
+                    <Image
+                      cursor="pointer"
+                      border={[
+                        "none",
+                        "1px solid #c7c7c7",
+                        "1px solid #c7c7c7",
+                        "1px solid #c7c7c7",
+                      ]}
+                      boxSize={["100px", "120px", "160px", "160px"]}
+                      objectFit="cover"
+                      borderRadius="5px"
+                      src={product.Img}
+                    />
+                  </Link>
                 </Flex>
                 <Flex justify="space-between" flexDir="column" w="100%">
                   <Flex align="center">
                     <Flex>
-                      <Heading fontSize={[12, 14, 18, 20]} fontWeight="bold">
-                        {product.Nombre}
-                      </Heading>
+                      <Link href={`/productPages/productos/${product.id}`}>
+                        <Heading
+                          cursor="pointer"
+                          fontSize={[12, 14, 18, 20]}
+                          fontWeight="bold"
+                        >
+                          {product.Nombre}
+                        </Heading>
+                      </Link>
                     </Flex>
                   </Flex>
                   <Flex align="center">

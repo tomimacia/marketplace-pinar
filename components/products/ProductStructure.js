@@ -64,7 +64,7 @@ export const ProductStructure = ({
           placeContent="space-between"
           flexGrow={1}
         >
-          <Flex flexGrow={4}>
+          <Flex maxH='50%' flexGrow>
             <Link href={`/productPages/productos/${product.id}`}>
               <Text
                 cursor="pointer"
