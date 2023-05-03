@@ -68,7 +68,7 @@ export const ProductStructure = ({
             <Link href={`/productPages/productos/${product.id}`}>
               <Text
                 textOverflow="ellipsis"
-                overflow="hidden"                
+                overflow="hidden"                        
                 cursor="pointer"
                 fontSize={[12, 14, 17, 17]}
                 fontWeight="bold"

@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import { useSessionStorage } from "./storageHooks/useSessionStorage";
+import { createFactory, useCallback, useEffect, useRef, useState } from "react";
 import { getCollection } from "../../firebase/services/getCollection";
+import { useSessionStorage } from "./storageHooks/useSessionStorage";
 
 export const useCategories = () => {
-  const catStorageRef = useRef(true);
   const [categoriesError, setCategoriesError] = useState(null);
   const [loadingCategories, setLoadingCategories] = useState(false);
   const [categories, setCategories] = useSessionStorage(
     "CATEGORIAS_STORAGE_SESSION_CONTEXT",
     []
-  );
-  const getCategories = async () => {
+  );  
+  const catFetched = useRef(false)
+  const getCategories = useCallback(async () => {    
     setLoadingCategories(true);
     getCollection("Categorias")
       .then((res) => {
@@ -19,18 +19,18 @@ export const useCategories = () => {
           JSON.stringify(res)
         );
         setCategories(res);
-        console.log("fetched categories");
-        catStorageRef.current = false;
+        console.log("fetch categories");        
       })
       .catch(() => {
-        setCategoriesError("Categories fetching error");        
+        setCategoriesError("Categories fetching error");
       })
       .finally(() => {
         setLoadingCategories(false);
       });
-  };
+  }, []);
   useEffect(() => {
-    if (categories.length > 0 || !catStorageRef.current) return;
+    if (categories.length || catFetched.current) return;
+    catFetched.current = true
     getCategories();
   }, []);
   const getMarcas = (catSelected) => {

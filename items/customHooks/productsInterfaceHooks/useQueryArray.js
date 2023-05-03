@@ -17,7 +17,7 @@ export const useQueryArray = () => {
       if (searchInputValue.length > 0) {
         arr = [
           ...arr,
-          where("SearchValues", "array-contains-any", searchInputValue),
+          where("SearchValues", "array-contains-any", searchInputValue.map(value=>value.toLowerCase())),
         ];
       }
       if (categoria) {

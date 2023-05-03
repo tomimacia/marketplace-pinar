@@ -15,7 +15,7 @@ export const useHandleFav = () => {
     []
   );
   const [favFetched, setFavFetched] = useSessionStorage(
-    "FAV_SESION_FETCHED",
+    "FAV_SESSION_FETCHED",
     false
   );
   const { errorToast, successToast } = useCustomToast();
@@ -25,11 +25,15 @@ export const useHandleFav = () => {
     const usuario = await getSingleDoc("users", user.uid);
     const favoritos = usuario.data().favoritos;
 
-    console.log("fetched Fav Data");
+    console.log("fetch favorites data");
     setFavoritelist(favoritos);
   });
   useEffect(() => {
-    if (favoriteList.length > 0 || favFetched) return;
+    if (!user) {
+      setFavFetched(false);
+      setFavoritelist([]);
+      return;
+    } else if (favoriteList.length || favFetched) return;
     setFetchFavsLoading(true);
     try {
       getFavoriteList();
@@ -39,7 +43,7 @@ export const useHandleFav = () => {
     } finally {
       setFetchFavsLoading(false);
     }
-  }, []);
+  }, [user]);
   const handleFavorito = async (prop, numProp) => {
     if (favLoading) return;
     if (!user) {

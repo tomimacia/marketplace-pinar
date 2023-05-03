@@ -22,17 +22,16 @@ import { a, b } from "../../chakra/bgColors";
 import { ClientNavigation } from "./ClientNavigation";
 
 import { useCartContext } from "../../contexts/ShoppingCartContext";
-import { useReset, useSetSearchInputValue } from "../../contexts/productsContext";
-import { useCustomToast } from "../../items/customHooks/useCustomToast";
+import { useReset } from "../../contexts/productsContext";
 import { useEnter } from "../../items/customHooks/eventHooks/useEnter";
+import { useCustomToast } from "../../items/customHooks/useCustomToast";
 import { NavigationLinks } from "./NavigationLinks";
 import { ProductsNav } from "./ProductsNav";
 import { MobileNav } from "./mainNav/MobileNav";
 
 const Navigation = () => {
   const searchInputNav = useRef(null);
-  const reset = useReset()
-  const setSearchInputProp = useSetSearchInputValue();
+  const reset = useReset()  
   const router = useRouter();
   const { errorToast } = useCustomToast();
   const { colorMode, toggleColorMode } = useColorMode();
@@ -44,7 +43,6 @@ const Navigation = () => {
       errorToast("Ingresa una busqueda entre 2 y 50 caracteres");
     else {
       reset()
-      setSearchInputProp(searchInputValue.split(" "));
       router.push(`/productPages/productInterface?SearchInputValue=${searchInputValue}`);
     }
   };  

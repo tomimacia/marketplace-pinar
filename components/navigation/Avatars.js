@@ -12,7 +12,7 @@ import { dogs, profiles } from "../../public/images/avatars/exportAvatars";
 
 export const Avatars = ({ showClick }) => {
   const [loadingImg, setLoadingImg] = useState(false);
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const { errorToast, successToast } = useCustomToast();
   const allAvatars = [...dogs, ...profiles];
 
@@ -34,8 +34,8 @@ export const Avatars = ({ showClick }) => {
       as={motion.div}
       initial={{ x: 500, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -500, opacity: 1 }}
-      transitionDuration="0.2s"
+      exit={{ x: 500, opacity: 1 }}
+      transitionDuration="0.5s"
       zIndex={100}
       minH="100%"
       minW="100%"
@@ -44,7 +44,7 @@ export const Avatars = ({ showClick }) => {
       pos="absolute"
       bg="gray.400"
     >
-      <Flex pos='relative' w="100%" flexDir="column">
+      <Flex pos="relative" w="100%" flexDir="column">
         <Heading m={10} align="center">
           Selecciona tu Avatar
         </Heading>
@@ -70,7 +70,7 @@ export const Avatars = ({ showClick }) => {
               />
             </Flex>
             {loadingImg ? (
-              <Flex position='absolute' mt={5} justify="center">
+              <Flex position="absolute" mt={5} justify="center">
                 <BeatLoader color="#68EBBB" />
               </Flex>
             ) : null}

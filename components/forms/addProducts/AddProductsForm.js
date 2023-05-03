@@ -21,7 +21,7 @@ import { useCustomToast } from "../../../items/customHooks/useCustomToast";
 import { prepareSearchValue } from "./helpers/prepareSearchValue";
 
 export const AddProductsForm = () => {
-  const [user, error] = useAuthState(auth); 
+  const [user] = useAuthState(auth); 
   const ctx = useContext(context);
   const [formKey, setFormKey] = useState(10);
   const [loading, setLoading] = useState(false);

@@ -12,6 +12,6 @@ export const getProducts = async (thisCollection,queryArr) => {
     ...product.data(),
     id: product.id,
   }));
-  console.log("fetched");
+  console.log("fetched products");
   return data;
 };

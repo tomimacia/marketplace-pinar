@@ -10,17 +10,15 @@ export const AddSelect = ({
   isRequired,
   onChange,
   placeHolder,
-  // importants
   title,
   prop,
   catToUpdate,
-  // importants
 }) => {
   const [addState, setAddState] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { errorToast, successToast } = useCustomToast();
 
-  const { categories, setCategories, getField } = useCategories();
+  const { setCategories, getField } = useCategories();
   const initialFieldGroup = (prop, catToUpdate) => {
     const { getModelos, getMarcas, getSubcategories } = getField;
     switch (prop) {
@@ -60,11 +58,11 @@ export const AddSelect = ({
               return { ...cat, [prop]: [...fieldGroup, addValue] };
             }
             return cat;
-          });          
+          });
           return [...newCategories];
         });
         //update local state to use new value without reload
-        setFieldGroup(prev=>[...prev,addValue])
+        setFieldGroup((prev) => [...prev, addValue]);
         successToast("Actualizado correctamente");
       } catch (e) {
         errorToast("Error en la subida de datos");
@@ -75,50 +73,50 @@ export const AddSelect = ({
       }
     }
   };
-  if(fieldGroup?.length)
-  return (
-    <div>
-      <FormLabel>{`${title} ${isRequired ? "*" : " "}`}</FormLabel>
-      {addState ? (
-        isLoading ? (
-          <Progress m="22px" size="xs" isIndeterminate />
+  if (fieldGroup?.length)
+    return (
+      <div>
+        <FormLabel>{`${title} ${isRequired ? "*" : " "}`}</FormLabel>
+        {addState ? (
+          isLoading ? (
+            <Progress m="22px" size="xs" isIndeterminate />
+          ) : (
+            <AddPrdInput
+              onChangeValue={(e) => setAddValue(e.target.value)}
+              placeHolder={`Agregar ${
+                title === "Modelo" ? "nuevo" : "nueva"
+              } ${title}`}
+              onClickCancelar={() => setAddState((prev) => !prev)}
+              onClickAceptar={onClickUpdate}
+            />
+          )
         ) : (
-          <AddPrdInput
-            onChangeValue={(e) => setAddValue(e.target.value)}
-            placeHolder={`Agregar ${
-              title === "Modelo" ? "nuevo" : "nueva"
-            } ${title}`}
-            onClickCancelar={() => setAddState((prev) => !prev)}
-            onClickAceptar={onClickUpdate}
-          />
-        )
-      ) : (
-        <Select
-          name={prop}
-          onChange={onChange}
-          placeholder={placeHolder}
-          borderColor="1px solid black"
-        >
-          {fieldGroup.map((elem) => {
-            return (
-              <option key={elem} value={elem}>
-                {elem}
-              </option>
-            );
-          })}
-        </Select>
-      )}
-      {!addState && (
-        <Flex>
-          <Text
-            textDecor="underline"
-            ml={1}
-            _hover={{ color: "blue.600" }}
-            cursor="pointer"
-            onClick={() => setAddState((prev) => !prev)}
-          >{`Agregar ${title.toLowerCase()}`}</Text>
-        </Flex>
-      )}
-    </div>
-  );
+          <Select
+            name={prop}
+            onChange={onChange}
+            placeholder={placeHolder}
+            borderColor="1px solid black"
+          >
+            {fieldGroup.map((elem) => {
+              return (
+                <option key={elem} value={elem}>
+                  {elem}
+                </option>
+              );
+            })}
+          </Select>
+        )}
+        {!addState && (
+          <Flex>
+            <Text
+              textDecor="underline"
+              ml={1}
+              _hover={{ color: "blue.600" }}
+              cursor="pointer"
+              onClick={() => setAddState((prev) => !prev)}
+            >{`Agregar ${title.toLowerCase()}`}</Text>
+          </Flex>
+        )}
+      </div>
+    );
 };
