@@ -26,7 +26,7 @@ export const useCartList = () => {
     setCartList([...cartList,prop])
   }
   const quantityTotal = (prd) => {
-    const sum = prd.reduce((acc, p) => {
+    return prd.reduce((acc, p) => {
       acc =
         acc +
         p.Precio *
@@ -35,8 +35,7 @@ export const useCartList = () => {
             return prod === p.id ? acc + 1 : acc;
           }, 0);
       return acc;
-    }, 0);
-    return sum;
+    }, 0);     
   };
   const actions = {
     deleteCart,

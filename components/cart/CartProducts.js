@@ -1,10 +1,10 @@
-import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 import { ProductPrice } from "../products/ProductPrice";
 import { CartFooter } from "./CartFooter";
 import { PlusMinusProduct } from "./PlusMinusProduct";
-import Link from "next/link";
 
 export const CartProducts = ({
   products,

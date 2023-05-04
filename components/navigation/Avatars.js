@@ -85,6 +85,7 @@ export const Avatars = ({ showClick }) => {
                   <Flex m={2} key={"P" + i + 1}>
                     <Image
                       cursor="pointer"
+                      alt={ph.alt}
                       onClick={() => handleImg(ph.src)}
                       _hover={{ opacity: "0.8" }}
                       h="70px"
