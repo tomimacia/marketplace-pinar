@@ -5,25 +5,21 @@ import {
   SliderMark,
   SliderThumb,
   SliderTrack,
-  Tooltip,
+  Tooltip
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import { useSetDescuento } from "../../../../contexts/productsContext";
 import { ProductSideBarItem } from "./productSideBarItem";
 
-export const FilterDiscounts = () => {
+export const FilterDiscounts = ({sliderValue, setSliderValue}) => {
   const setDescuento = useSetDescuento();
   const labelStyles = {
     mt: "2",
     ml: "-2.5",
     fontSize: "xs",
   };
-  const [sliderValue, setSliderValue] = useState(0);
+  
   const [showSlider, setShowSlider] = useState(false);
-
-  const sliderValueRef = useRef(null);
-  const sliderThumbRef = useRef(null);
-  const filledTrackRef = useRef(null);
   const applyChanges = () => {
     if (sliderValue > 0) setDescuento(sliderValue);
   };
@@ -32,10 +28,9 @@ export const FilterDiscounts = () => {
       <Flex width="100%" flexDir="column">
         <Flex w="85%">
           <Slider
-            focusThumbOnChange
-            defaultValue={0}
+            focusThumbOnChange            
             aria-label="slider-ex-6"
-            ref={sliderValueRef}
+            value={sliderValue}            
             onChange={(val) => setSliderValue(val)}
             min={0}
             max={30}
@@ -52,7 +47,7 @@ export const FilterDiscounts = () => {
               |
             </SliderMark>
             <SliderTrack>
-              <SliderFilledTrack ref={filledTrackRef} />
+              <SliderFilledTrack />
             </SliderTrack>
             <Tooltip
               hasArrow
@@ -62,8 +57,7 @@ export const FilterDiscounts = () => {
               isOpen={showSlider}
               label={`${sliderValue}%`}
             >
-              <SliderThumb
-                ref={sliderThumbRef}
+              <SliderThumb                
                 bg="gray.300"
                 _hover={{ bg: "blue.300" }}
                 onMouseEnter={() => setShowSlider(true)}

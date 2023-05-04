@@ -2,7 +2,7 @@ import {AddProductsForm} from "../../../components/forms/addProducts/AddProducts
 import FormatBlank from "../../../components/FormatBlank"
 const addProducts = () => {  
   return (
-    <FormatBlank pageTitle="Agregar Productos">
+    <FormatBlank headTitle="Agregar Productos" pageTitle="Agregar Productos">
       <AddProductsForm />
     </FormatBlank>
   );

@@ -1,11 +1,8 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 // import { useMediaQuery } from "usehooks-ts";
-import { FilterDiscounts } from "./filterBarItems/filterDiscounts";
-import { FilterMarcas } from "./filterBarItems/filterMarcas";
-import { FilterMinMax } from "./filterBarItems/filterMinMax";
 import {
   useMarcas,
   usePriceMinMax,
@@ -14,9 +11,12 @@ import {
   useSetMarcasPicked,
 } from "../../../contexts/productsContext";
 import { useClickOutside } from "../../../items/customHooks/eventHooks/useClickOutside";
+import { FilterDiscounts } from "./filterBarItems/filterDiscounts";
+import { FilterMarcas } from "./filterBarItems/filterMarcas";
+import { FilterMinMax } from "./filterBarItems/filterMinMax";
 export const FilterSideBar = ({ loader }) => {
   const breakpointValues = useBreakpointValue({xs:0,sm:1,md:2,lg:3,xl:4})
-  
+  const [sliderValue, setSliderValue] = useState(0);
   const marcas = useMarcas()
   const [show, setShow] = useState(false);
   const [prepareMarcas, setPrepareMarcas] = useState([]);
@@ -58,10 +58,8 @@ export const FilterSideBar = ({ loader }) => {
   const handleClick = () => {
     setShow(!show);
   };
-  const onClickCleanValues = () => {
-    // removeDcRefs() => pass this to filterDiscount
-    // sliderThumbRef.current.style.left = "calc(0% - 6.99219px)";
-    // filledTrackRef.current.style.width = "0%";
+  const onClickCleanValues = () => {  
+    setSliderValue(0)  
     setPrepareMarcas([]);
     if (priceMinMax.min > 0 && priceMinMax.max < Infinity) resetFilters();
     else {
@@ -132,7 +130,7 @@ export const FilterSideBar = ({ loader }) => {
             prepareMarcas={prepareMarcas}
             setPrepareMarcas={setPrepareMarcas}
           />
-          <FilterDiscounts />
+          <FilterDiscounts sliderValue={sliderValue} setSliderValue={setSliderValue} />
           <Button
             boxShadow="0 1px 5px"
             mt={5}

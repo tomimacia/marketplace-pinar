@@ -19,7 +19,7 @@ export const useHandleFav = () => {
     false
   );
   const { errorToast, successToast } = useCustomToast();
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   const getFavoriteList = useCallback(async () => {
     const usuario = await getSingleDoc("users", user.uid);
