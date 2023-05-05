@@ -28,10 +28,10 @@ import { ProfileImage } from "./ProfileImage";
 
 export const ClientNavigation = () => {
   const [show, setShow] = useState(false);
-  const ctx = useContext(context);
   const { errorToast } = useCustomToast();
   const [user, loading, error] = useAuthState(auth);
   const setAuthModelState = useSetRecoilState(modState);
+  const ctx = useContext(context);
 
   return (
     <Flex justify="flex-end" width={["100%", "100%", "90%", "400px"]}>
@@ -52,16 +52,7 @@ export const ClientNavigation = () => {
       <ModalTest />
 
       {!loading &&
-        (!user ? (
-          <Button
-            size="sm"
-            mr={["10px", "10px", "20px", "20px"]}
-            flexGrow={1}
-            onClick={() => setAuthModelState({ open: true, view: "login" })}
-          >
-            Ingresá
-          </Button>
-        ) : (
+        (user ? (
           <Box
             p={1}
             mr={2}
@@ -76,6 +67,15 @@ export const ClientNavigation = () => {
               fontSize="14px"
             >{`Hola ${user.displayName}!`}</Text>
           </Box>
+        ) : (
+          <Button
+            size="sm"
+            mr={["10px", "10px", "20px", "20px"]}
+            flexGrow={1}
+            onClick={() => setAuthModelState({ open: true, view: "login" })}
+          >
+            Ingresá
+          </Button>
         ))}
 
       {!loading && (

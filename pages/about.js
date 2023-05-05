@@ -2,30 +2,47 @@ import { Text } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 
 const About = () => {
-  
-  
-  
   return (
-    <Layout hasTransition={true} headTitle='Sobre nosotros' pageTitle="Sobre nosotros">
-      <Text 
+    <Layout
+      hasTransition={true}
+      headTitle="Sobre nosotros"
+      pageTitle="Sobre nosotros"
+    >
+      <Text
         p={25}
         fontWeight="bold"
         fontStyle="oblique"
         pt={10}
-        letterSpacing="1px"
-        textAlign="justify"
+        fontSize={[16,18,19,20]}
+        letterSpacing="1px"       
+         
+        
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque eos
-        dolores soluta omnis nobis consequuntur laudantium maiores, eveniet
-        perspiciatis vitae, autem, cum reprehenderit libero inventore.
-        Aspernatur dolores modi labore excepturi. Lorem, ipsum dolor sit amet
-        consectetu Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-        Architecto necessitatibus blanditiis inventore perspiciatis beatae,
-        provident, id dolor ducimus assumenda natus doloribus repudiandae quas?
-        Saepe modi non aut earum quisquam corrupti! Lorem ipsum, dolor sit amet
-        consectetur adipisicing elit. Pariatur rem voluptas consequatur
-        obcaecati harum reprehenderit nesciunt doloribus ex est culpa fugit
-        accusantium nam porro facilis aliquam tempora sequi, assumenda saepe.
+        ¡Bienvenido a Marketplace Pinar! Somos un marketplace en línea con sede
+        en Buenos Aires, zona sur, partido de Almirante Brown. Nuestro objetivo
+        es conectar vendedores certificados con compradores en todo el país,
+        para brindar una experiencia de compra fácil y segura.
+        {<br/>}
+        {<br/>}
+         En Marketplace
+        Pinar, nos enorgullece ofrecer una amplia variedad de productos de
+        calidad, desde ropa y accesorios hasta artículos para el hogar y
+        electrónica. Nos aseguramos de que nuestros vendedores sean de confianza
+        y estén certificados, para garantizar la satisfacción de nuestros
+        clientes. 
+        {<br/>}
+        {<br/>}
+        Nos esforzamos por hacer que la experiencia de compra sea lo
+        más conveniente posible. Con una interfaz fácil de usar, puede encontrar
+        productos de manera rápida y eficiente. Además, nuestro equipo de
+        atención al cliente está siempre disponible para ayudarlo en cualquier
+        problema o duda que pueda tener. 
+        {<br/>}        
+        {<br/>}        
+        En Marketplace Pinar, nuestra pasión
+        por la excelencia nos impulsa a seguir creciendo y mejorando
+        continuamente. ¡Gracias por elegirnos y disfrutar de la experiencia de
+        compra en nuestro marketplace!
       </Text>
     </Layout>
   );
