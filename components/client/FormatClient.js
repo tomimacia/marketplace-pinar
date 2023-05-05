@@ -44,7 +44,7 @@ export const FormatClient = ({ children, title, cartIndex }) => {
 
               <Box
                 mt={[2, 4, 7, 10]}
-                h="100%"
+                minH="100%"
                 p={2}
                 border="1px solid black"
                 borderRadius="15px"

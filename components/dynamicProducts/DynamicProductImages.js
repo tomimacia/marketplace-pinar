@@ -51,7 +51,7 @@ export const DynamicProductImages = ({ images }) => {
         <Image
           pr={1}
           pl={2}
-          objectFit="cover"
+          objectFit="cover"          
           minH="400px"
           h="400px"
           src={images[imgDisplay ? mainImg : tempImg]}

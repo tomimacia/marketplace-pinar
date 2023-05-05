@@ -134,10 +134,10 @@ export default function ProductsDynamic({ prodRef }) {
                   <Flex
                     align="center"
                     w="100%"
-                    m={5}                    
+                    m={5}
                     size={["sm", "sm", "md", "md"]}
                     flexDir="row"
-                    justify='space-around'                    
+                    justify="space-around"
                   >
                     <Button
                       maxW="300px"
@@ -152,39 +152,41 @@ export default function ProductsDynamic({ prodRef }) {
                       Sumar al carrito
                     </Button>
                     {cartList.includes(prodRef.id) && (
-                      <Flex position="relative">
-                        <Icon
-                          as={AiOutlineShoppingCart}
-                          cursor="pointer"
-                          _hover={{ color: "blackAlpha.400" }}
-                          fontSize={34}
-                          top="10px"
-                          right="4px"
-                          bg="whiteAlpha.400"
-                          borderRadius="50px"
-                        />
+                      <Link href="/cart">
+                        <Flex position="relative">
+                          <Icon
+                            as={AiOutlineShoppingCart}
+                            cursor="pointer"
+                            _hover={{ color: "blackAlpha.400" }}
+                            fontSize={34}
+                            top="10px"
+                            right="4px"
+                            bg="whiteAlpha.400"
+                            borderRadius="50px"
+                          />
 
-                        <Box
-                          w={4}
-                          h={5}
-                          left={4}
-                          cursor="pointer"
-                          pos="absolute"
-                          lineHeight="18px"
-                          textAlign="center"
-                          bg="green.500"
-                          borderRadius="50%"
-                          fontWeight="Bold"
-                          fontSize={15}
-                          zIndex={10}
-                        >
-                          <Text>
-                            {cartList.reduce((acc, prod) => {
-                              return prod === prodRef.id ? acc + 1 : acc;
-                            }, 0)}
-                          </Text>
-                        </Box>
-                      </Flex>
+                          <Box
+                            w={4}
+                            h={5}
+                            left={4}
+                            cursor="pointer"
+                            pos="absolute"
+                            lineHeight="18px"
+                            textAlign="center"
+                            bg="green.500"
+                            borderRadius="50%"
+                            fontWeight="Bold"
+                            fontSize={15}
+                            zIndex={10}
+                          >
+                            <Text>
+                              {cartList.reduce((acc, prod) => {
+                                return prod === prodRef.id ? acc + 1 : acc;
+                              }, 0)}
+                            </Text>
+                          </Box>
+                        </Flex>
+                      </Link>
                     )}
                   </Flex>
                 ) : (
