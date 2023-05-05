@@ -134,9 +134,10 @@ export default function ProductsDynamic({ prodRef }) {
                   <Flex
                     align="center"
                     w="100%"
-                    m="0 auto"
+                    m={5}                    
                     size={["sm", "sm", "md", "md"]}
                     flexDir="row"
+                    justify='space-around'                    
                   >
                     <Button
                       maxW="300px"

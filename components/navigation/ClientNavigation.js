@@ -9,7 +9,7 @@ import {
   MenuItem,
   MenuList,
   Text,
-  useColorModeValue
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { AnimatePresence } from "framer-motion";
 import { useContext, useState } from "react";
@@ -35,7 +35,7 @@ export const ClientNavigation = () => {
 
   return (
     <Flex justify="flex-end" width={["100%", "100%", "90%", "400px"]}>
-      <AnimatePresence exitBeforeEnter> 
+      <AnimatePresence exitBeforeEnter>
         {show && <Avatars showClick={() => setShow(false)} />}
       </AnimatePresence>
       {!loading && (
@@ -51,29 +51,32 @@ export const ClientNavigation = () => {
       )}
       <ModalTest />
 
-      {!user && !loading ? (
-        <Button
-          size="sm"
-          mr={["10px", "10px", "20px", "20px"]}
-          flexGrow={1}
-          onClick={() => setAuthModelState({ open: true, view: "login" })}
-        >
-          Ingresá
-        </Button>
-      ) : (
-        <Box
-          p={1}
-          mr={2}
-          align="center"
-          minW="40%"
-          bg={useColorModeValue("teal.400","teal.700")}
-          borderRadius="10px"
-        >
-          <Text userSelect="none" fontWeight="bold" fontSize="14px">{`Hola ${
-            !loading && user.displayName
-          }!`}</Text>
-        </Box>
-      )}
+      {!loading &&
+        (!user ? (
+          <Button
+            size="sm"
+            mr={["10px", "10px", "20px", "20px"]}
+            flexGrow={1}
+            onClick={() => setAuthModelState({ open: true, view: "login" })}
+          >
+            Ingresá
+          </Button>
+        ) : (
+          <Box
+            p={1}
+            mr={2}
+            align="center"
+            minW="40%"
+            bg={useColorModeValue("teal.400", "teal.700")}
+            borderRadius="10px"
+          >
+            <Text
+              userSelect="none"
+              fontWeight="bold"
+              fontSize="14px"
+            >{`Hola ${user.displayName}!`}</Text>
+          </Box>
+        ))}
 
       {!loading && (
         <Menu>

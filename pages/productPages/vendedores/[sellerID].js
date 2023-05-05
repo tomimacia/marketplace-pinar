@@ -36,7 +36,7 @@ export default function ProductsDynamic({ sellerRef, sellerID }) {
     <Box>
       <FormatBlank
         hiddenTitle={sellerRef.sellerName}
-        title={
+        pageTitle={
           <Flex
             fontSize={["20px", "30px", "30px", "35px"]}
             w="100%"
