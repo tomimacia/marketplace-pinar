@@ -9,7 +9,7 @@ export const Pagination = ({
 }) => {
   if(paginasTotales > 1 && condition)
   return (
-    <Flex w="100%">
+    <Flex p={[0,1,2,3]} w="100%">
       <Button
         isDisabled={pagina === 1}
         size="sm"

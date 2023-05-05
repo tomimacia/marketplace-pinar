@@ -8,11 +8,11 @@ import ProductTopComp from "../../components/products/ProductTopComp";
 import ProductsInterfaceAll from "../../components/products/ProductsInterfaceAll";
 import { useGetProducts } from "../../items/customHooks/productsInterfaceHooks/useGetProducts";
 import { useUrlQueryParams } from "../../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
-import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
+import { usePagination } from "../../items/customHooks/usePagination";
 
 const productos = () => {
   const { products, setProducts, loadingProducts } = useGetProducts();
-  const { page, pagesTotal, pageActions } = useHandlePagination(products);
+  const { page, pagesTotal, pageActions } = usePagination(products);
   const router = useRouter();
   useUrlQueryParams(router);  
   return (
@@ -33,6 +33,13 @@ const productos = () => {
           p={2}
           m={2}
         >
+          <Pagination
+            condition={!loadingProducts}
+            pagina={page}
+            paginasTotales={pagesTotal}
+            handleSiguiente={pageActions.setPlusPage}
+            handleAnterior={pageActions.setMinusPage}
+          />
           {!loadingProducts && !products.length && <NoProducts />}
           {loadingProducts ? (
             <Flex mt={10} justify="center">

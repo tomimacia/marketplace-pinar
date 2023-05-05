@@ -12,8 +12,8 @@ const Footer = () => {
     >
       <Text fontSize={['9px','11px','13px','13px']} textAlign='center'>
         Las marcas y logos de marketplacepinar.com marketplacepinar.com/tv
-        marketplacepinar.com/reviews son propiedad de Newton Station SRL <br /> Todos los
-        derechos reservados 2022
+        marketplacepinar.com/reviews son propiedad de MarketPlace Pinar SRL <br /> Todos los
+        derechos reservados 2023
       </Text>
     </VStack>
   );

@@ -5,16 +5,24 @@ import { ProductStructure } from "../../components/products/ProductStructure";
 import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
 import { useFavProducts } from "../../items/customHooks/favoritesHooks/useFavProducts";
 import { useHandleFav } from "../../items/customHooks/favoritesHooks/useHandleFav";
-import { useHandlePagination } from "../../items/customHooks/useHandlePagination";
+import { usePagination } from "../../items/customHooks/usePagination";
 
 const Favoritos = () => {
   const { cartList, actions } = useCartList();
   const { favoriteList, selectedProd, favLoading, handleFavorito } =
     useHandleFav();
   const { products, favProductsLoading } = useFavProducts(favoriteList);
-  const { page, pagesTotal, pageActions } = useHandlePagination(products);
+  const { page, pagesTotal, pageActions } = usePagination(favoriteList);
   return (
     <FormatClient title="Favoritos" cartIndex={cartList.length}>
+      <Pagination
+        condition={products.length > 0 && !favProductsLoading}
+        pagina={page}
+        paginasTotales={pagesTotal}
+        manejarPaginacion={pageActions.handlePagination}
+        handleSiguiente={pageActions.setPlusPage}
+        handleAnterior={pageActions.setMinusPage}
+      />
       {products?.length > 0 ? (
         <Flex justify="center" flexDir="column" p={2} m={2}>
           {products.map((product, i) => {
@@ -48,7 +56,7 @@ const Favoritos = () => {
       )}
 
       <Pagination
-        condition={products.length > 0}
+        condition={products.length > 0 && !favProductsLoading}
         pagina={page}
         paginasTotales={pagesTotal}
         manejarPaginacion={pageActions.handlePagination}

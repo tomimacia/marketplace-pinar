@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const useHandlePagination = (products) => {
+export const usePagination = (products) => {
   const [page, setPage] = useState(1);
   const [pagesTotal, setPagesTotal] = useState(0);
 
@@ -15,7 +15,7 @@ export const useHandlePagination = (products) => {
   useEffect(() => {
     if (products) {
       setPagesTotal(Math.ceil(products.length / 10));
-      if (pagesTotal < 2) setPage(1);
+      if (Math.ceil(products.length / 10) < 2) setPage(1);
     }
   }, [products]);
   const pageActions = { setPlusPage, setMinusPage };

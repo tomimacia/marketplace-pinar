@@ -27,7 +27,7 @@ const FormatBlank = ({
           </Heading>
           
         </Flex>
-        <Box mt={7} bg={useColorModeValue("white","gray.600")}>
+        <Box pt={useColorModeValue(0,7)} mt={useColorModeValue(7,0)} bg={useColorModeValue("white","gray.600")}>
           <Box 
           pt={["35px","40px","45px","50px"]}
           pr={["5px","40px","40px","40px"]}
