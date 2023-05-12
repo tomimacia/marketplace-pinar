@@ -29,7 +29,7 @@ export async function getServerSideProps({ params }) {
 }
 
 export default function ProductsDynamic({ sellerRef, sellerID }) {
-  const [user, loading, error] = useAuthState(auth);
+  const [user] = useAuthState(auth);
   const { products, loadedProducts, prodError } = useSellerID(sellerID);
 
   return (

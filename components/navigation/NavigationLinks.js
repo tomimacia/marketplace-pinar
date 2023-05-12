@@ -13,7 +13,7 @@ export const NavigationLinks = () => {
         <NavItem href="/">Home</NavItem>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <NavItem href="/productPages/productInterface">Productos</NavItem>
+        <NavItem href="/productInterface">Productos</NavItem>
       </BreadcrumbItem>
       <BreadcrumbItem>
         <NavItem href="/about">Nosotros</NavItem>

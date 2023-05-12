@@ -1,14 +1,14 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { BeatLoader } from "react-spinners";
-import { FormatProduct } from "../../components/products/FormatProducts";
-import { NoProducts } from "../../components/products/NoProducts";
-import { Pagination } from "../../components/products/Pagination";
-import ProductTopComp from "../../components/products/ProductTopComp";
-import ProductsInterfaceAll from "../../components/products/ProductsInterfaceAll";
-import { useGetProducts } from "../../items/customHooks/productsInterfaceHooks/useGetProducts";
-import { useUrlQueryParams } from "../../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
-import { usePagination } from "../../items/customHooks/usePagination";
+import { FormatProduct } from "../components/products/FormatProducts";
+import { NoProducts } from "../components/products/NoProducts";
+import { Pagination } from "../components/products/Pagination";
+import ProductTopComp from "../components/products/ProductTopComp";
+import ProductsInterfaceAll from "../components/products/ProductsInterfaceAll";
+import { useGetProducts } from "../items/customHooks/productsInterfaceHooks/useGetProducts";
+import { useUrlQueryParams } from "../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
+import { usePagination } from "../items/customHooks/usePagination";
 
 const productos = () => {
   const { products, setProducts, loadingProducts } = useGetProducts();

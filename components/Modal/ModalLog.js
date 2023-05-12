@@ -19,13 +19,8 @@ import { auth } from "../../firebase/clientApp";
 import { modState } from "../atoms/Modalatom";
 import AuthInputs from "./AuthInputs";
 import OAuthButtons from "./OAuthButtons";
-import { useRouter } from "next/router";
-import { useContext } from "react";
-import { context } from "../../contexts/userContext";
 
-const ModalTest = () => {
-  const ctx = useContext(context)
-  const router = useRouter();
+const ModalTest = () => {  
   const [modalState, setModalState] = useRecoilState(modState);
   const [user, loading, error] = useAuthState(auth);
   const handleClose = () => {
@@ -33,13 +28,7 @@ const ModalTest = () => {
       ...prev,
       open: false,
     }));
-  };
-
-  useEffect(() => {
-    if (user && user.displayName === null)
-      router.push("clientPages/confirmUserDetails");
-  }, [user]);
-
+  };  
   useEffect(() => {
     if (user) handleClose();
   }, [user]);

@@ -36,7 +36,12 @@ export const WelcomeUser = ({ user, display, nombre }) => {
           Vuelve al inicio para comenzar a utilizar tu usuario.
         </Text>
         <Link href="/">
-          <Button size={["sm", "sm", "md", "lg"]}>Volver al inicio</Button>
+          <Button
+            onClick={() => window.location.reload()}
+            size={["sm", "sm", "md", "lg"]}
+          >
+            Volver al inicio
+          </Button>
         </Link>
       </Box>
     </Box>

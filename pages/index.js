@@ -12,7 +12,7 @@ const Index = () => {
     <Layout
       hasTransition={true}
       pageTitle="El Pinar | Marketplace"
-      headTitle="Marketplace El Pinar"
+      headTitle="Marketplace"
     >
       <Box>
         <Image

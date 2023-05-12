@@ -5,11 +5,11 @@ import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
 import { FIREBASE_ERRORS } from "../../firebase/errors";
 import { modState } from "../atoms/Modalatom";
+import { useRouter } from "next/router";
 
 const SignUp = () => {
-  
   const setAuthModelState = useSetRecoilState(modState);
-  
+  const router = useRouter();
   const [error, setError] = useState();
   const [createUserWithEmailAndPassword, user, loading, userError] =
     useCreateUserWithEmailAndPassword(auth);
@@ -18,7 +18,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
-  
+
   const onSubmit = async (e) => {
     e.preventDefault();
     if (error) setError("");
@@ -29,13 +29,21 @@ const SignUp = () => {
       setError("Email o contraseña no coinciden");
       return;
     }
-    await createUserWithEmailAndPassword(signUpForm.email, signUpForm.password);    
-    
+    try {
+      await createUserWithEmailAndPassword(
+        signUpForm.email,
+        signUpForm.password
+      );
+      router.push("clientPages/confirmUserDetails");
+    } catch (e) {
+      console.log(e);
+    }
   };
   const onChange = (e) => {
+    const { name, value } = e.target;
     setsignUpForm((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
   return (
@@ -136,7 +144,7 @@ const SignUp = () => {
       <Text
         display={user ? "flex" : "none"}
         textAlign="center"
-        justifyContent='center'
+        justifyContent="center"
         fontSize="10pt"
         color="green"
       >

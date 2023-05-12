@@ -14,7 +14,7 @@ import { auth } from "../../firebase/clientApp";
 import { modState } from "../atoms/Modalatom";
 import { useCategories } from "../../items/customHooks/useCategories";
 export const ProductsNav = () => {
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const setAuthModelState = useSetRecoilState(modState);
   const {categories} = useCategories()
   

@@ -1,19 +1,36 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Button, Flex, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  IconButton,
+  chakra,
+  shouldForwardProp,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import { isValidMotionProp, motion } from "framer-motion";
 import NavItem from "../../../items/navItem";
 
 const links = [
   ["Home", "/"],
-  ["Productos", "/productPages/productInterface"],
+  ["Productos", "/productInterface"],
   ["Nosotros", "/about"],
   ["Contacto", "/contact"],
+  ["Carrito", "/cart"],
 ];
-
-export const MobileNav = ({display,changeDisplay}) => {
+const ChakraBox = chakra(motion.div, {
+  shouldForwardProp: (prop) =>
+    isValidMotionProp(prop) || shouldForwardProp(prop),
+});
+export const MobileNav = ({ changeDisplay }) => {
   return (
-    <Flex
+    <ChakraBox
+      initial={{ opacity: 0, x: "-100vw" }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: "-100vw" }}
+      transition={{ type: "tween" }}
       w="100vw"
-      bgColor="gray.50"
+      bgColor="transparent"
       zIndex={20}
       height="100vh"
       pos="fixed"
@@ -21,36 +38,38 @@ export const MobileNav = ({display,changeDisplay}) => {
       left="0"
       overflowY="auto"
       flexDir="column"
-      display={display}
     >
-      <Flex justify="flex-end">
-        <IconButton
-          onClick={changeDisplay}
-          mt={2}
-          mr={2}
-          aria-label="Close Menu"
-          size="lg"
-          icon={<CloseIcon />}
-          color="blackAlpha.700"
-        />
-      </Flex>
-      <Flex flexDir="column" align="center" p={5}>
-        {links.map((link) => {
-          return (
-            <Button
+      <Flex>
+        <Box bg={useColorModeValue("white", "gray.700")} w="90%">
+          <Flex justify="flex-end">
+            <IconButton
               onClick={changeDisplay}
-              key={link[0]}
-              w="100vw"
-              color="blackAlpha.700"
-              colorScheme="blue.300"
-              variant="outline"
-              outlineColor="blackAlpha.500"
-            >
-              <NavItem href={link[1]}>{link[0]}</NavItem>
-            </Button>
-          );
-        })}
+              m={1}              
+              aria-label="Close Menu"
+              size="lg"
+              icon={<CloseIcon />}
+              color={useColorModeValue("blackAlpha.700", "white")}
+            />
+          </Flex>
+          <Flex gap={6} flexDir="column" align="center">
+            {links.map((link) => {
+              return (
+                <Button
+                  onClick={changeDisplay}
+                  key={link[0]}
+                  w="100%"
+                  borderRadius={0}
+                  bg="blue.500"
+                  color={useColorModeValue("white", "gray.300")}
+                >
+                  <NavItem href={link[1]}>{link[0]}</NavItem>
+                </Button>
+              );
+            })}
+          </Flex>
+        </Box>
+        <Box w="10%" h="100vh" bg="blackAlpha.300" />
       </Flex>
-    </Flex>
+    </ChakraBox>
   );
 };

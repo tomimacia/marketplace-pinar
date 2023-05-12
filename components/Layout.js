@@ -5,7 +5,7 @@ import Footer from "./navigation/Footer";
 import Navigation from "./navigation/Navigation";
 import { layoutA, layoutB } from "../chakra/bgColors";
 import { memo } from "react";
-
+import HeadLogo from "../public/HeadLogo.png"
 const Layout = memo(({ children, headTitle, pageTitle, hasTransition }) => {
   return (
     <Box
@@ -23,6 +23,7 @@ const Layout = memo(({ children, headTitle, pageTitle, hasTransition }) => {
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href={HeadLogo.src} type="image/x-icon" />
         <title>El Pinar | {headTitle}</title>
       </Head>
       <Navigation />

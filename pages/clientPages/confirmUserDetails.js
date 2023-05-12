@@ -8,7 +8,7 @@ import {
   FormLabel,
   Heading,
   Text,
-  useColorMode
+  useColorMode,
 } from "@chakra-ui/react";
 import { sendEmailVerification, signOut, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
@@ -44,9 +44,9 @@ const confirmUserDetails = () => {
     Telefono: "",
     checkbox: false,
   });
-  
+
   useEffect(() => {
-    if (!user) router.push("/");
+    if (!loading && !user) router.push("/");
   }, []);
 
   useEffect(() => {
@@ -123,7 +123,7 @@ const confirmUserDetails = () => {
           p={[0, 0, 0, 5]}
         >
           <Heading as="h2" size="sm" mb={3}>
-            Bienvenido {user && user.email}!
+            Bienvenido {!loading && user && (user?.displayName || user?.email)}!
           </Heading>
           <Heading as="h3" size="sm" mb={3}>
             Completa los datos para continuar
@@ -149,7 +149,7 @@ const confirmUserDetails = () => {
               placeholder="Ingrese su apellido"
             />
             <FormLabel>Fecha de nacimiento *</FormLabel>
-            <Box maxW='183px' border='1px solid black'>
+            <Box maxW="183px" border="1px solid black">
               <DatePicker
                 onChange={(date) => setSelectedDate(date)}
                 selected={selectedDate}
@@ -161,8 +161,9 @@ const confirmUserDetails = () => {
                 isClosable
               />
             </Box>
-            <ConfirmSelect
+            <ConfirmSelect              
               title="Pais"
+              customTitle="Pais *"
               onChange={onChange}
               placeholder="Seleccionar pais"
               options={[
