@@ -1,8 +1,8 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, IconButton, Image } from "@chakra-ui/react";
+import { Box, Flex, Heading, IconButton, Image, chakra, shouldForwardProp } from "@chakra-ui/react";
 
 import { doc, updateDoc } from "firebase/firestore";
-import { motion } from "framer-motion";
+import { isValidMotionProp, motion } from "framer-motion";
 import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BeatLoader } from "react-spinners";
@@ -15,7 +15,10 @@ export const Avatars = ({ showClick }) => {
   const [user, loading] = useAuthState(auth);
   const { errorToast, successToast } = useCustomToast();
   const allAvatars = [...dogs, ...profiles];
-
+  const ChakraBox = chakra(motion.div, {
+    shouldForwardProp: (prop) =>
+      isValidMotionProp(prop) || shouldForwardProp(prop),
+  });
   const handleImg = async (prop) => {
     if (!loading && user) {
       setLoadingImg(true);
@@ -30,12 +33,11 @@ export const Avatars = ({ showClick }) => {
     }
   };
   return (
-    <Box
-      as={motion.div}
-      initial={{ x: 500, opacity: 0 }}
+    <ChakraBox      
+      initial={{ x: "100vw", opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      exit={{ x: 500, opacity: 1 }}
-      transitionDuration="0.5s"
+      exit={{ x: "100vw", opacity: 0 }}
+      transition={{ type: "spring",stiffness:115 }}
       zIndex={100}
       minH="100%"
       minW="100%"
@@ -99,6 +101,6 @@ export const Avatars = ({ showClick }) => {
           </Flex>
         </Flex>
       </Flex>
-    </Box>
+    </ChakraBox>
   );
 };
