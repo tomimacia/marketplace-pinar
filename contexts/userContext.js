@@ -17,9 +17,9 @@ export const UserProvider = ({ children }) => {
     if (userRef != usuario.data()) setUserRef(usuario.data());
     if (
       (user.displayName === null || !usuario.data()) &&
-      router.pathname !== "/clientPages/confirmUserDetails"
+      router.pathname !== "/clientPages/ConfirmUserDetails"
     )
-      router.push("/clientPages/confirmUserDetails");
+      router.push("/clientPages/ConfirmUserDetails");
   };
   useEffect(() => {
     if (user) {

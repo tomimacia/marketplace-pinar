@@ -34,7 +34,7 @@ const SignUp = () => {
         signUpForm.email,
         signUpForm.password
       );
-      router.push("/clientPages/confirmUserDetails");
+      router.push("/clientPages/ConfirmUserDetails");
     } catch (e) {
       console.log(e);
     }

@@ -20,7 +20,7 @@ const OAuthButtons = () => {
     try {
       await signInWithGoogle();      
       if (modState.view === "signUp") {
-        router.push("/clientPages/confirmUserDetails");
+        router.push("/clientPages/ConfirmUserDetails");
       }
     } catch (e) {
       console.log(e);
