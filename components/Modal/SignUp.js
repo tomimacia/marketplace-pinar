@@ -1,4 +1,4 @@
-import { Button, Flex, Input, Text } from "@chakra-ui/react";
+import { Button, Flex, Input, Text, useColorModeValue } from "@chakra-ui/react";
 import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
@@ -34,7 +34,7 @@ const SignUp = () => {
         signUpForm.email,
         signUpForm.password
       );
-      router.push("clientPages/confirmUserDetails");
+      router.push("/clientPages/confirmUserDetails");
     } catch (e) {
       console.log(e);
     }
@@ -54,6 +54,7 @@ const SignUp = () => {
         placeholder="Email"
         type="email"
         mb={2}
+        color='black'
         onChange={onChange}
         fontSize="10pt"
         _placeholder={{ color: "gray.500" }}
@@ -72,6 +73,7 @@ const SignUp = () => {
       />
       <Input
         required
+        color='black'
         name="confirmEmail"
         placeholder="Confirmar Email"
         type="email"
@@ -94,6 +96,7 @@ const SignUp = () => {
       />
       <Input
         required
+        color='black'
         name="password"
         placeholder="Contraseña"
         type="password"
@@ -116,6 +119,7 @@ const SignUp = () => {
       />
       <Input
         required
+        color='black'
         name="confirmPassword"
         placeholder="Confirmar contraseña"
         type="password"
@@ -159,7 +163,7 @@ const SignUp = () => {
         bg="blue.500"
         color="white"
         _hover={{ bg: "blue.400" }}
-        border="1px solid"
+        border={useColorModeValue("1px solid","none")}
         borderRadius="60px"
         fontSize="10pt"
         fontWeight="700"

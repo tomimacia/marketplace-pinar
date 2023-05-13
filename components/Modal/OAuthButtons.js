@@ -5,22 +5,31 @@ import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import { auth } from "../../firebase/clientApp";
 import { modState } from "../atoms/Modalatom";
-import googleLogo from "../../public/images/googlelogo.png"
+import googleLogo from "../../public/images/googlelogo.png";
+import { useRouter } from "next/router";
 const OAuthButtons = () => {
   const setAuthModelState = useSetRecoilState(modState);
   const [handleError, setError] = useState("");
-
+  const router = useRouter();
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   if (error) {
     setError(error);
   }
 
   const signUpWithGoogle = async () => {
-    signInWithGoogle();
-    setAuthModelState((prev) => ({
-      ...prev,
-      open: false,
-    }));
+    try {
+      await signInWithGoogle();      
+      if (modState.view === "signUp") {
+        router.push("/clientPages/confirmUserDetails");
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setAuthModelState((prev) => ({
+        ...prev,
+        open: false,
+      }));
+    }
   };
   return (
     <Flex direction="column" w="100%" mb={4}>
@@ -42,11 +51,11 @@ const OAuthButtons = () => {
         }}
       >
         <Image
-          mr={[3,4,5,5]}
-          h={["15px", "17px", "20px", "20px"]}          
+          mr={[3, 4, 5, 5]}
+          h={["15px", "17px", "20px", "20px"]}
           src={googleLogo.src}
         />
-        <Text fontSize={['xs','sm','sm','md']}>Continuar con Google</Text>
+        <Text fontSize={["xs", "sm", "sm", "md"]}>Continuar con Google</Text>
       </Button>
 
       {handleError && <Text color="red">{handleError}</Text>}

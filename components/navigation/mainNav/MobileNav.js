@@ -34,8 +34,8 @@ export const MobileNav = ({ changeDisplay }) => {
       zIndex={20}
       height="100vh"
       pos="fixed"
-      top="0"
-      left="0"
+      top={0}
+      left={0}
       overflowY="auto"
       flexDir="column"
     >

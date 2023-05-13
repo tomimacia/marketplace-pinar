@@ -2,17 +2,15 @@ import { Flex, Image, Text, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { ProductPrice } from "../products/ProductPrice";
 export const HomeProduct = ({ product }) => {
-  
-
   return (
     <Flex
-      boxShadow="0 5px 5px"      
+      boxShadow="0 5px 5px black"
       borderRadius="5px"
       minW={["175px", "200px", "225px", "225px"]}
       w={["175px", "200px", "225px", "225px"]}
       h={["140px", "160px", "190px", "190px"]}
       key={product.id}
-    >      
+    >
       <Flex
         flexDir="column"
         w="100%"

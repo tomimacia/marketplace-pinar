@@ -22,7 +22,7 @@ import { prepareSearchValue } from "./helpers/prepareSearchValue";
 
 export const AddProductsForm = () => {
   const [user] = useAuthState(auth); 
-  const ctx = useContext(context);
+  const {userRef} = useContext(context);
   const [formKey, setFormKey] = useState(10);
   const [loading, setLoading] = useState(false);
   const { errorToast, successToast } = useCustomToast();
@@ -55,7 +55,7 @@ export const AddProductsForm = () => {
         Descripcion: descripcionRef.current.value,
         UserID: user.uid,
         SearchValues: prepareSearchValue(tituloRef.current.value),
-        Vendedor: ctx.sellerName,
+        Vendedor: userRef.sellerName,
         Caracteristicas: form.Caracteristicas,
         Otros: form.Otros,
       });

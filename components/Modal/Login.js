@@ -29,6 +29,7 @@ const Login = () => {
     <form onSubmit={onSubmit}>
       <Input
         required
+        color="black"
         name="email"
         placeholder="Email"
         type="email"
@@ -51,6 +52,7 @@ const Login = () => {
       />
       <Input
         required
+        color="black"
         name="password"
         placeholder="Contraseña"
         type="password"

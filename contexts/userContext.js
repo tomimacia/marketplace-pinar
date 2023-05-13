@@ -10,20 +10,28 @@ export const UserProvider = ({ children }) => {
   const [user] = useAuthState(auth);
   const [userRef, setUserRef] = useState(null);
   const router = useRouter();
+  const findUser = async () => {
+    setUserRef("loadingUser");
+    const usuario = await getSingleDoc("users", user.uid);
+
+    if (userRef != usuario.data()) setUserRef(usuario.data());
+    if (
+      (user.displayName === null || !usuario.data()) &&
+      router.pathname !== "/clientPages/confirmUserDetails"
+    )
+      router.push("/clientPages/confirmUserDetails");
+  };
   useEffect(() => {
     if (user) {
-      setUserRef("loadingUser")
-      const findUser = async () => {
-        const usuario = await getSingleDoc("users", user.uid);
-        if (userRef != usuario.data()) setUserRef(usuario.data());
-        if (user.displayName === null || !usuario.data())
-          router.push("clientPages/confirmUserDetails");
-      };
       findUser();
-    }
-  }, [user]);
+    } else setUserRef("offline");
+  }, [user, user?.displayName]);
 
   return (
-    <context.Provider value={userRef || "offline"}>{children}</context.Provider>
+    <context.Provider
+      value={{ userRef: userRef || "offline", updateUser: findUser }}
+    >
+      {children}
+    </context.Provider>
   );
 };

@@ -19,20 +19,26 @@ import { auth } from "../../firebase/clientApp";
 import { modState } from "../atoms/Modalatom";
 import AuthInputs from "./AuthInputs";
 import OAuthButtons from "./OAuthButtons";
+import { useRouter } from "next/router";
 
-const ModalTest = () => {  
+const ModalTest = () => {
   const [modalState, setModalState] = useRecoilState(modState);
   const [user, loading, error] = useAuthState(auth);
+  const router = useRouter();
   const handleClose = () => {
     setModalState((prev) => ({
       ...prev,
       open: false,
     }));
-  };  
+  };
   useEffect(() => {
     if (user) handleClose();
   }, [user]);
-
+  const signOutUser = () => {
+    signOut(auth);
+    router.push("/");
+    handleClose();
+  };
   return (
     <Modal isOpen={modalState.open} onClose={handleClose}>
       <ModalOverlay />
@@ -59,17 +65,16 @@ const ModalTest = () => {
             {modalState.view === "logout" && (
               <Box>
                 <Text>Estas seguro que quieres cerrar sesion?</Text>
-                <Link href="/">
-                  <Button
-                    isLoading={loading}
-                    onClick={() => signOut(auth)}
-                    bg="gray.300"
-                    mt={10}
-                    w="100%"
-                  >
-                    Cerrar Sesion
-                  </Button>
-                </Link>
+
+                <Button
+                  isLoading={loading}
+                  onClick={signOutUser}
+                  bg="gray.300"
+                  mt={10}
+                  w="100%"
+                >
+                  Cerrar Sesion
+                </Button>
               </Box>
             )}
             <AuthInputs />

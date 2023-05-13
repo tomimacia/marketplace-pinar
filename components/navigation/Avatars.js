@@ -1,5 +1,13 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Box, Flex, Heading, IconButton, Image, chakra, shouldForwardProp } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  IconButton,
+  Image,
+  chakra,
+  shouldForwardProp,
+} from "@chakra-ui/react";
 
 import { doc, updateDoc } from "firebase/firestore";
 import { isValidMotionProp, motion } from "framer-motion";
@@ -33,11 +41,11 @@ export const Avatars = ({ showClick }) => {
     }
   };
   return (
-    <ChakraBox      
+    <ChakraBox
       initial={{ x: "100vw", opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: "100vw", opacity: 0 }}
-      transition={{ type: "spring",stiffness:115 }}
+      transition={{ duration: 0.4, type: "tween" }}
       zIndex={100}
       minH="100%"
       minW="100%"

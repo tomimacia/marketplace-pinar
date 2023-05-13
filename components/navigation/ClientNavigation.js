@@ -25,13 +25,14 @@ import { Avatars } from "./Avatars";
 import { ClientNavLink } from "./ClientNavLink";
 import { linkTags, sellerTags } from "./ClientNavTags";
 import { ProfileImage } from "./ProfileImage";
+import { MdReportProblem, MdVerified } from "react-icons/md";
 
 export const ClientNavigation = () => {
   const [show, setShow] = useState(false);
   const { errorToast } = useCustomToast();
   const [user, loading, error] = useAuthState(auth);
   const setAuthModelState = useSetRecoilState(modState);
-  const ctx = useContext(context);
+  const { userRef } = useContext(context);
 
   return (
     <Flex justify="flex-end" width={["100%", "100%", "90%", "400px"]}>
@@ -53,20 +54,26 @@ export const ClientNavigation = () => {
 
       {!loading &&
         (user ? (
-          <Box
-            p={1}
+          <Flex
+            gap={1}
             mr={2}
+            justify="center"
             align="center"
             minW="40%"
             bg={useColorModeValue("teal.400", "teal.700")}
             borderRadius="10px"
           >
-            <Text
-              userSelect="none"
-              fontWeight="bold"
-              fontSize="14px"
-            >{`Hola ${user.displayName}!`}</Text>
-          </Box>
+            <Text userSelect="none" fontWeight="bold" fontSize="14px">
+              {`Hola ${
+                userRef?.Nombre ? userRef.Nombre : user?.displayName || ""
+              }!`}
+            </Text>
+            {user?.emailVerified ? (
+              <MdVerified color="#2cd5a0" title="Email verificado" />
+            ) : (
+              <MdReportProblem color="red" title="Verifica tu email" />
+            )}
+          </Flex>
         ) : (
           <Button
             size="sm"
@@ -98,7 +105,7 @@ export const ClientNavigation = () => {
             <MenuItem minH="48px">
               <ProfileImage
                 showFunction={() => setShow(true)}
-                img={ctx?.Img}
+                img={userRef?.Img}
                 userPhoto={user?.photoURL}
               />
               <Flex cursor="auto" flexDir="column">
@@ -109,14 +116,14 @@ export const ClientNavigation = () => {
             {linkTags(user).map((lnk) => {
               return <ClientNavLink key={lnk[0]} title={lnk[0]} end={lnk[1]} />;
             })}
-            {ctx.isAdmin && (
+            {userRef?.isAdmin && (
               <ClientNavLink
                 title={"Admin"}
                 end={"/clientPages/admin/createAdmin"}
                 isSeller
               />
             )}
-            {ctx.isSeller &&
+            {userRef?.isSeller &&
               sellerTags(loading, user).map((lnk) => {
                 return (
                   <ClientNavLink

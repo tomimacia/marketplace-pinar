@@ -1,45 +1,49 @@
 import { Box, Button, Flex, Input, Select, Text } from "@chakra-ui/react";
 import { doc, updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+import { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "../firebase/clientApp";
 import { useCustomToast } from "./customHooks/useCustomToast";
+import { context } from "../contexts/userContext";
 
 export const UserDataListItem = ({
   isEmail,
   title,
-  children,
+  setInputValue,
+  inputValue,
   onClickBlur,
   blurProp,
-  inputType,
+  children,
   userProp,
 }) => {
   const [user, loading, error] = useAuthState(auth);
   const [displayProp, setDisplayProp] = useState(false);
-  const [inputValue, setInputValue] = useState();
-  const [inputLocalidad, setInputLocalidad] = useState();
-  const [inputCP, setInputCP] = useState();
   const [isValid, setIsValid] = useState(false);
   const { errorToast, successToast } = useCustomToast();
-
+  const { userRef, updateUser } = useContext(context);
   const format = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
-  const onClickAceptar = async (prop) => {
-    if (isValid && userProp !== "direccion") {
-      await updateDoc(doc(firestore, "users", user.uid), {
-        [`${prop}`]: inputValue,
-      });
-      successToast("Actualizado correctamente");
-      window.location.reload();
-    } else if (isValid && userProp === "direccion") {
-      await updateDoc(doc(firestore, "users", user.uid), {
-        ["direccion.codigoPostal"]: inputCP,
-        ["direccion.direccion"]: inputValue,
-        ["direccion.localidad"]: inputLocalidad,
-      });
-      successToast("Actualizado correctamente");
-      window.location.reload();
+  const onClickAceptar = async () => {
+    if (isValid) {
+      try {
+        await updateDoc(doc(firestore, "users", user.uid), {
+          [`${userProp}`]: inputValue,
+        });
+        successToast("Actualizado correctamente");
+        updateUser();
+        setInputValue(null);
+      } catch (e) {
+        errorToast(e);
+      } 
+
+      // } else if (isValid && userProp === "direccion") {
+      //   await updateDoc(doc(firestore, "users", user.uid), {
+      //     ["direccion.codigoPostal"]: inputCP,
+      //     ["direccion.direccion"]: inputValue,
+      //     ["direccion.localidad"]: inputLocalidad,
+      //   });
+      //   successToast("Actualizado correctamente");
+      //   window.location.reload();
     } else {
       errorToast("Ingresa correctamente los datos");
     }
@@ -50,44 +54,34 @@ export const UserDataListItem = ({
       !format.test(inputValue) ? setIsValid(true) : setIsValid(false);
     }
     if (userProp === "pais") {
-      inputValue !== undefined ? setIsValid(true) : setIsValid(false);
+      inputValue !== null ? setIsValid(true) : setIsValid(false);
     }
     if (userProp === "telefono") {
-      inputValue !== undefined ? setIsValid(true) : setIsValid(false);
+      inputValue !== null ? setIsValid(true) : setIsValid(false);
     }
     if (userProp === "fechaDeNacimiento") {
-      inputValue !== new Date() ? setIsValid(true) : setIsValid(false);
+      inputValue !== (new Date() || null) ? setIsValid(true) : setIsValid(false);
     }
     if (userProp === "dni") {
       inputValue > 500000 && inputValue < 100000000
         ? setIsValid(true)
         : setIsValid(false);
     }
-    if (userProp === "direccion") {
-      if (
-        inputValue !== undefined &&
-        inputValue.length > 1 &&
-        inputLocalidad !== undefined &&
-        inputLocalidad.length > 1 &&
-        inputCP !== undefined &&
-        inputCP.length > 1
-      ) {
-        setIsValid(true);
-      } else {
-        setIsValid(false);
-      }
-    }
-  }, [inputValue, inputLocalidad, inputCP]);
-  const paises = [
-    "Argentina",
-    "Uruguay",
-    "Paraguay",
-    "Chile",
-    "Brasil",
-    "Bolivia",
-    "Peru",
-    "Colombia",
-  ];
+    // if (userProp === "direccion") {
+    //   if (
+    //     inputValue !== undefined &&
+    //     inputValue.length > 1 &&
+    //     inputLocalidad !== undefined &&
+    //     inputLocalidad.length > 1 &&
+    //     inputCP !== undefined &&
+    //     inputCP.length > 1
+    //   ) {
+    //     setIsValid(true);
+    //   } else {
+    //     setIsValid(false);
+    //   }
+    // }
+  }, [inputValue]);
 
   return (
     <Flex
@@ -110,7 +104,7 @@ export const UserDataListItem = ({
       >
         <Flex flexWrap="wrap" w="50%">
           <Text m="auto" flexGrow={1} fontSize={["xs", "xs", "md", "md"]}>
-            {title}
+            {title}:
           </Text>
         </Flex>
         <Flex w="50%">
@@ -120,64 +114,9 @@ export const UserDataListItem = ({
             fontSize={["xs", "xs", "md", "md"]}
             width="100%"
           >
-            {children}
+            <Text>{(userRef && userRef[userProp]) || "Sin definir"}</Text>
           </Box>
-          {userProp !== "direccion" && userProp !== "pais" ? (
-            <Input
-              display={displayProp ? "flex" : "none"}
-              borderColor="blackAlpha.500"
-              onChange={(e) => setInputValue(e.target.value)}
-              bg="white"
-              color="black"
-              m="auto"
-              size={["xs", "xs", "sm", "sm"]}
-              type={inputType}
-            />
-          ) : userProp !== "direccion" ? (
-            <Select
-              name="pais"
-              size={["xs", "xs", "sm", "sm"]}
-              onChange={(e) => setInputValue(e.target.value)}
-              display={displayProp ? "flex" : "none"}
-              placeholder="Seleccionar pais"
-            >
-              {paises.map((pais) => {
-                return <option key={pais}>{pais}</option>;
-              })}
-            </Select>
-          ) : (
-            <Flex w={displayProp ? "90%" : "0"} flexDir="column">
-              <Input
-                display={displayProp ? "flex" : "none"}
-                borderColor="blackAlpha.500"
-                onChange={(e) => setInputValue(e.target.value)}
-                bg="white"
-                color="black"
-                size="xs"
-                type={inputType}
-              />
-              <Input
-                mt={1}
-                mb={1}
-                display={displayProp ? "flex" : "none"}
-                borderColor="blackAlpha.500"
-                onChange={(e) => setInputLocalidad(e.target.value)}
-                bg="white"
-                color="black"
-                size="xs"
-                type={inputType}
-              />
-              <Input
-                display={displayProp ? "flex" : "none"}
-                borderColor="blackAlpha.500"
-                onChange={(e) => setInputCP(e.target.value)}
-                bg="white"
-                color="black"
-                size="xs"
-                type={inputType}
-              />
-            </Flex>
-          )}
+          {displayProp && children}
         </Flex>
       </Flex>
       <Flex justify="flex-end">
@@ -192,7 +131,7 @@ export const UserDataListItem = ({
                     boxShadow="0 1px 1px"
                     bg="gray.400"
                     _hover={{ bg: "gray.300" }}
-                    onClick={() => onClickAceptar(userProp)}
+                    onClick={onClickAceptar}
                     mb={1}
                   >
                     Aceptar
@@ -208,6 +147,7 @@ export const UserDataListItem = ({
                     _hover={{ bg: "gray.300" }}
                     onClick={() => {
                       setDisplayProp(false);
+                      setInputValue(null);
                     }}
                   >
                     Cancelar
