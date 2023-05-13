@@ -85,14 +85,30 @@ export default function ProductsDynamic({ sellerRef, sellerID }) {
               Sobre nosotros
             </Heading>
             <Text lineHeight="25px" fontSize={["13px", "15px", "16px", "17px"]}>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Perspiciatis facilis doloremque tenetur, ab explicabo sequi
-              quibusdam, qui reiciendis obcaecati velit asperiores voluptatibus
-              provident, soluta libero? Debitis ullam recusandae nemo
-              aspernatur?
+              Bienvenidos a nuestra tienda en línea, donde podrás encontrar una
+              gran variedad de productos que van desde electrónica, moda, hogar,
+              belleza y mucho más.<br/><br/>Somos un equipo de vendedores
+              comprometidos con brindar la mejor experiencia de compra a
+              nuestros clientes, ofreciendo productos de alta calidad a precios
+              competitivos.<br/><br/>Nuestra misión es satisfacer las necesidades
+              de nuestros clientes, por lo que nos aseguramos de que cada
+              producto que ofrecemos cumpla con altos estándares de calidad.
+              Además, nos esforzamos por proporcionar un servicio al cliente
+              excepcional, para que nuestros clientes se sientan seguros y
+              satisfechos en todo momento.<br/><br/>Nos enorgullece ofrecer una
+              amplia variedad de productos de diferentes marcas y proveedores
+              confiables, lo que nos permite ofrecer una gran selección de
+              productos a precios atractivos. También nos aseguramos de
+              mantenernos actualizados con las últimas tendencias y novedades en
+              el mercado para ofrecer productos innovadores y a la moda.
+              <br />
+              <br />
+              Si tienes alguna pregunta o comentario, no dudes en ponerte en
+              contacto con nosotros. Estamos aquí para ayudarte y esperamos que
+              disfrutes de tu experiencia de compra en nuestra tienda en línea.
             </Text>
           </Flex>
-          <TakeAwayEnvios sellerRef={sellerRef}/>
+          <TakeAwayEnvios sellerRef={sellerRef} />
           <Flex pl={2} pr={2} mt={10} w="100%" flexDir="column">
             <Flex>
               <Heading
