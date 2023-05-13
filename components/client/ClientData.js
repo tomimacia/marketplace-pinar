@@ -1,8 +1,8 @@
 import { Box, Input, Select } from "@chakra-ui/react";
 import { useState } from "react";
 import { UserDataListItem } from "./UserDataListItem";
-import {ConfirmDate} from "../forms/confirmUserDetails/ConfirmDate"
-export const ClientData = ({ userRef }) => {
+import { ConfirmDate } from "../forms/confirmUserDetails/ConfirmDate";
+export const ClientData = () => {
   const [inputValue, setInputValue] = useState(null);
   const [blur, setBlur] = useState(true);
   const clickBlur = () => {
@@ -173,5 +173,3 @@ export const ClientData = ({ userRef }) => {
     </Box>
   );
 };
-
-

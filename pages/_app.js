@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }) {
             top={["140px","105px","105px","105px"]}            
             w="100%"            
             isIndeterminate
-            position="absolute"
+            position="fixed"
             zIndex={100}
           />}
           <Component {...pageProps} />

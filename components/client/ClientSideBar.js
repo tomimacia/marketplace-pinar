@@ -118,7 +118,7 @@ export const ClientSideBar = () => {
           {show && <Text cursor="pointer">Configuracion</Text>}
         </SideBarItem>
 
-        <SideBarItem href="/ayuda" icon={FaHeadset}>
+        <SideBarItem href="/Ayuda" icon={FaHeadset}>
           {show && <Text cursor="pointer">Ayuda</Text>}
         </SideBarItem>
 

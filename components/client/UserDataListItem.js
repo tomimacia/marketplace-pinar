@@ -1,10 +1,11 @@
-import { Box, Button, Flex, Input, Progress, Select, Text } from "@chakra-ui/react";
+import { Button, Flex, Icon, Progress, Text } from "@chakra-ui/react";
 import { doc, updateDoc } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { context } from "../../contexts/userContext";
 import { auth, firestore } from "../../firebase/clientApp";
 import { useCustomToast } from "../../items/customHooks/useCustomToast";
-import { context } from "../../contexts/userContext";
+import { MdCancel, MdCheckCircle } from "react-icons/md";
 
 export const UserDataListItem = ({
   isEmail,
@@ -25,6 +26,9 @@ export const UserDataListItem = ({
   const format = /[0-9`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
   const onClickAceptar = async () => {
+    if (inputValue === userRef[userProp])
+      return errorToast("Ingresa un valor distinto al anterior");
+    if (!inputValue) return errorToast("Ingrea un valor");
     if (isValid) {
       try {
         setLoadingUpdate(true);
@@ -104,7 +108,7 @@ export const UserDataListItem = ({
       brightness={!displayProp && !blurProp ? "60%" : "none"}
     >
       {loadingUpdate ? (
-        <Progress w='100%' size="xs" isIndeterminate />
+        <Progress w="100%" size="xs" isIndeterminate />
       ) : (
         <>
           <Flex
@@ -131,35 +135,35 @@ export const UserDataListItem = ({
             {!isEmail && (
               <Flex>
                 {displayProp && (
-                  <Flex ml={1} flexDir={["column", "column", "row", "row"]}>
+                  <Flex gap={2} ml={2}>
                     <Flex>
-                      <Button
+                      <Icon
+                        as={MdCheckCircle}
                         w="100%"
-                        size={["xs", "xs", "xs", "sm"]}
-                        boxShadow="0 1px 1px"
-                        bg="gray.400"
+                        cursor="pointer"
+                        color="green.600"
+                        borderRadius="50%"
+                        fontSize={35}
+                        title="Aceptar"
                         _hover={{ bg: "gray.300" }}
                         onClick={onClickAceptar}
-                        mb={1}
-                      >
-                        Aceptar
-                      </Button>
+                      />
                     </Flex>
                     <Flex onClick={onClickBlur}>
-                      <Button
-                        ml={[0, 0, 1, 1]}
+                      <Icon
+                        as={MdCancel}
+                        title="Cancelar"
+                        color="red.600"
+                        cursor="pointer"
+                        fontSize={35}
+                        borderRadius="50%"
                         w="100%"
-                        size={["xs", "xs", "xs", "sm"]}
-                        boxShadow="0 1px 1px"
-                        bg="gray.400"
                         _hover={{ bg: "gray.300" }}
                         onClick={() => {
                           setDisplayProp(false);
                           setInputValue(null);
                         }}
-                      >
-                        Cancelar
-                      </Button>
+                      />
                     </Flex>
                   </Flex>
                 )}
@@ -169,7 +173,6 @@ export const UserDataListItem = ({
                       size={["xs", "xs", "sm", "sm"]}
                       boxShadow="0 1px 1px"
                       bg="gray.400"
-                      _hover={blurProp ? { bg: "gray.300" } : { bg: "none" }}
                       onClick={blurProp ? () => setDisplayProp(true) : null}
                     >
                       Modificar

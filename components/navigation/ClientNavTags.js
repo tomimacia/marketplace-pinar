@@ -4,7 +4,7 @@ export const linkTags =(user)=> {
         ["Ajustes", "/clientPages/Configuracion"],
         ["Favoritos", `/clientPages/Favoritos?cd=${user ? user?.uid : "noUser"}`],
         ["Mis Compras", "/clientPages/MisCompras"],
-        ["Ayuda", "/ayuda"],
+        ["Ayuda", "/Ayuda"],
       ];
 }
 export const sellerTags = (loading, user)=>{

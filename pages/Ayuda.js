@@ -52,12 +52,11 @@ const Ayuda = () => {
         >
           {preguntasFrecuentes.map((p, i) => {
             return (
-              <Box>
+              <Box key={i*5}>
                 <ListItem
                   cursor="pointer"
                   fontWeight="bold"
-                  fontSize={20}
-                  key={i * 5}
+                  fontSize={20}                  
                 >
                   {p}
                 </ListItem>

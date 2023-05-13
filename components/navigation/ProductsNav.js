@@ -57,7 +57,7 @@ export const ProductsNav = () => {
           Registrate
         </Button>
       )}
-      <Link href="/ayuda">
+      <Link href="/Ayuda">
         <Button
           display={["none", "none", "flex", "flex"]}
           size="sm"
