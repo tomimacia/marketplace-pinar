@@ -1,7 +1,6 @@
 import { Box, Flex, ListItem, OrderedList, Text } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import Link from "next/link";
-
 const ayuda = () => {
   const preguntasFrecuentes = [
     "¿Cómo puedo registrarme en el marketplace?",
@@ -16,8 +15,8 @@ const ayuda = () => {
     "¿Qué medidas de seguridad toma el marketplace para proteger mis datos y mi privacidad?",
   ];
   const respuestas = [
-    ["En el boton de registrar"],
-    ["Con la barra de busqueda"],
+    [`Tienes un botón de "Registrate" justo debajo de la barra de búsqueda`],
+    ["Puede hacer con la barra de búsqueda en la parte superior de la pantalla, o yendo a la sección productos directamente"],
     [
       "Selecciona los productos deseados, añadiendolos al carro, y dirigite al mismo la esquina superior derecha de la pantalla para confirmar tu compra.",
     ],
@@ -43,13 +42,19 @@ const ayuda = () => {
   ];
   return (
     <Layout headTitle="Ayuda" pageTitle="Ayuda">
-      <Flex  flexDir='column' w='100%' align='center'>
-        <OrderedList bg='whiteAlpha.500' w={["100%","100%","90%","80%"]} p={5} spacing={2}>
+      <Flex flexDir="column" w="100%" align="center">
+        <OrderedList
+          p="45px"
+          borderRadius="10px"
+          bg="white"
+          w={["100%", "100%", "90%", "80%"]}
+          spacing={2}
+        >
           {preguntasFrecuentes.map((p, i) => {
             return (
               <Box>
                 <ListItem
-                  cursor="pointer"                  
+                  cursor="pointer"
                   fontWeight="bold"
                   fontSize={20}
                   key={i * 5}
@@ -63,7 +68,7 @@ const ayuda = () => {
             );
           })}
         </OrderedList>
-        <Flex p={5} align="center">
+        <Flex p={5} >
           <Text fontSize={20} fontWeight="bold">
             Tienes alguna otra consulta?
           </Text>
@@ -73,7 +78,7 @@ const ayuda = () => {
               _hover={{ color: "blackAlpha.400" }}
               fontSize={20}
               cursor="pointer"
-              fontWeight="bold"
+              fontWeight="bold"              
             >
               Contactanos!
             </Text>

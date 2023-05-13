@@ -16,10 +16,10 @@ import { useCategories } from "../../items/customHooks/useCategories";
 export const ProductsNav = () => {
   const [user, loading] = useAuthState(auth);
   const setAuthModelState = useSetRecoilState(modState);
-  const {categories} = useCategories()
-  
+  const { categories } = useCategories();
+
   return (
-    <Flex>
+    <Flex gap={2}>
       <Menu>
         <MenuButton
           _hover={{ bg: "#aaa" }}
@@ -32,10 +32,11 @@ export const ProductsNav = () => {
         <MenuList zIndex={15} width="40vw">
           {categories.map((cat, i) => {
             return (
-              <Link key={"prodNavLink"+cat.id} href={`/productPages/productInterface?Category=${cat.id}`}>
-                <MenuItem
-                  _hover={{ bg: "#aaa", borderRadius: "10px" }}                  
-                >
+              <Link
+                key={"prodNavLink" + cat.id}
+                href={`/productInterface?Category=${cat.id}`}
+              >
+                <MenuItem _hover={{ bg: "#aaa", borderRadius: "10px" }}>
                   {cat.id}
                 </MenuItem>
               </Link>
@@ -44,19 +45,7 @@ export const ProductsNav = () => {
         </MenuList>
       </Menu>
 
-      {!loading && user ? (
-        <Link href="/ofertas">
-          <Button
-            display={["flex", "none", "none", "none"]}
-            size="sm"
-            ml={1}
-            mr={1}
-            _hover={{ bg: "#aaa" }}
-          >
-            Ofertas
-          </Button>
-        </Link>
-      ) : (
+      {!loading && !user && (
         <Button
           display={["flex", "none", "none", "none"]}
           size="sm"
@@ -68,18 +57,6 @@ export const ProductsNav = () => {
           Registrate
         </Button>
       )}
-      <Link href="/ofertas">
-        <Button
-          display={["none", "none", "flex", "flex"]}
-          size="sm"
-          ml={1}
-          mr={1}
-          onClick={""}
-          _hover={{ bg: "#aaa" }}
-        >
-          Ofertas
-        </Button>
-      </Link>
       <Link href="/ayuda">
         <Button
           display={["none", "none", "flex", "flex"]}

@@ -5,7 +5,7 @@ const Configuracion = () => {
   return (
     <Box>
         <FormatClient title='Configuracion'> 
-        <Text>Texo de mi cuenta</Text>        
+        <Text m={3} fontSize={20}>Currently unavailable</Text>        
         </FormatClient>
     </Box>
   );
