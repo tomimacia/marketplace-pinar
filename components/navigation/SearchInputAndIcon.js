@@ -18,7 +18,7 @@ export const SearchInputAndIcon = () => {
     else {
       reset();
       router.push(
-        `/productPages/productInterface?SearchInputValue=${searchInputValue}`
+        `/ProductInterface?SearchInputValue=${searchInputValue}`
       );
     }
   };

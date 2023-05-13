@@ -19,7 +19,7 @@ export const HomeProduct = ({ product }) => {
       >
         {/* Flex del nombre */}
         <Flex minH="25%" maxH="25%">
-          <Link href={`/productPages/productos/${product.id}`}>
+          <Link href={`/productPages/Productos/${product.id}`}>
             <Text
               cursor="pointer"
               fontSize={[12, 13, 14, 14]}
@@ -51,7 +51,7 @@ export const HomeProduct = ({ product }) => {
             minH={["120px", "120px", "120px", "120px"]}
             maxH={["120px", "120px", "120px", "120px"]}
           >
-            <Link href={`/productPages/productos/${product.id}`}>
+            <Link href={`/productPages/Productos/${product.id}`}>
               <Image
                 cursor="pointer"
                 border={[

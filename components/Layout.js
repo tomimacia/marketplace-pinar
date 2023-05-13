@@ -29,7 +29,7 @@ const Layout = memo(({ children, headTitle, pageTitle, hasTransition }) => {
       <Navigation />
       <Flex pt={0} flexDir="column">
         {pageTitle && (
-          <AnimatePresence exitBeforeEnter initial>
+          <AnimatePresence mode='wait' initial={true}>
             <Heading
               flexGrow={1}
               as={motion.h3}

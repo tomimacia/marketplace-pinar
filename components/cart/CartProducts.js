@@ -41,7 +41,7 @@ export const CartProducts = ({
                   ml={["10px", "20px", "35px", "40px"]}
                   mr={["10px", "20px", "35px", "40px"]}
                 >
-                  <Link href={`/productPages/productos/${product.id}`}>
+                  <Link href={`/productPages/Productos/${product.id}`}>
                     <Image
                       cursor="pointer"
                       border={[
@@ -60,7 +60,7 @@ export const CartProducts = ({
                 <Flex justify="space-between" flexDir="column" w="100%">
                   <Flex align="center">
                     <Flex>
-                      <Link href={`/productPages/productos/${product.id}`}>
+                      <Link href={`/productPages/Productos/${product.id}`}>
                         <Heading
                           cursor="pointer"
                           fontSize={[12, 14, 18, 20]}

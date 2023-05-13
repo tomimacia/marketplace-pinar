@@ -1,6 +1,6 @@
 import { Breadcrumb, BreadcrumbItem } from "@chakra-ui/react";
 import React from "react";
-import NavItem from "../../items/navItem";
+import NavItem from "./NavItem";
 
 export const NavigationLinks = () => {
   return (
@@ -13,13 +13,13 @@ export const NavigationLinks = () => {
         <NavItem href="/">Home</NavItem>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <NavItem href="/productInterface">Productos</NavItem>
+        <NavItem href="/ProductInterface">Productos</NavItem>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <NavItem href="/about">Nosotros</NavItem>
+        <NavItem href="/About">Nosotros</NavItem>
       </BreadcrumbItem>
       <BreadcrumbItem>
-        <NavItem href="/contact">Contacto</NavItem>
+        <NavItem href="/Contact">Contacto</NavItem>
       </BreadcrumbItem>
     </Breadcrumb>
   );

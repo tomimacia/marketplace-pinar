@@ -68,9 +68,9 @@ export const ClientSideBar = () => {
           </Flex>
         </Flex>
         <SideBarItem
-          bgProp={route === "/clientPages/miCuenta" ? routeBg : "none"}
+          bgProp={route === "/clientPages/MiCuenta" ? routeBg : "none"}
           icon={FaUserAlt}
-          href="/clientPages/miCuenta"
+          href="/clientPages/MiCuenta"
         >
           {show && (
             <Text cursor="pointer" w="100%">
@@ -79,9 +79,9 @@ export const ClientSideBar = () => {
           )}
         </SideBarItem>
         <SideBarItem
-          bgProp={route === "/clientPages/misCompras" ? routeBg : "none"}
+          bgProp={route === "/clientPages/MisCompras" ? routeBg : "none"}
           icon={FaWallet}
-          href="/clientPages/misCompras"
+          href="/clientPages/MisCompras"
         >
           {show && (
             <Text display cursor="pointer">
@@ -90,9 +90,9 @@ export const ClientSideBar = () => {
           )}
         </SideBarItem>
         <SideBarItem
-          bgProp={route === "/clientPages/favoritos" ? routeBg : "none"}
+          bgProp={route === "/clientPages/Favoritos" ? routeBg : "none"}
           icon={FaHeart}
-          href={`/clientPages/favoritos?cd=${user ? user.uid : "noUser"}`}
+          href={`/clientPages/Favoritos?cd=${user ? user.uid : "noUser"}`}
         >
           {show && (
             <Text mr="20vw" cursor="pointer">
@@ -104,16 +104,16 @@ export const ClientSideBar = () => {
       <Divider mb="10%" />
       <Flex flexGrow={5} flexDir="column">
         <SideBarItem
-          bgProp={route === "/clientPages/notificaciones" ? routeBg : "none"}
+          bgProp={route === "/clientPages/Notificaciones" ? routeBg : "none"}
           icon={FaBell}
-          href="/clientPages/notificaciones"
+          href="/clientPages/Notificaciones"
         >
           {show && <Text cursor="pointer">Notificaciones</Text>}
         </SideBarItem>
         <SideBarItem
-          bgProp={route === "/clientPages/configuracion" ? routeBg : "none"}
+          bgProp={route === "/clientPages/Configuracion" ? routeBg : "none"}
           icon={FiSettings}
-          href="/clientPages/configuracion"
+          href="/clientPages/Configuracion"
         >
           {show && <Text cursor="pointer">Configuracion</Text>}
         </SideBarItem>

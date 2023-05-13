@@ -1,7 +1,7 @@
-import { Box, Flex, ListItem, OrderedList, Text } from "@chakra-ui/react";
+import { Box, Flex, ListItem, OrderedList, Text, useColorModeValue } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 import Link from "next/link";
-const ayuda = () => {
+const Ayuda = () => {
   const preguntasFrecuentes = [
     "¿Cómo puedo registrarme en el marketplace?",
     "¿Cómo puedo encontrar productos o vendedores específicos en el marketplace?",
@@ -46,7 +46,7 @@ const ayuda = () => {
         <OrderedList
           p="45px"
           borderRadius="10px"
-          bg="white"
+          bg={useColorModeValue('white','gray.600')}
           w={["100%", "100%", "90%", "80%"]}
           spacing={2}
         >
@@ -72,7 +72,7 @@ const ayuda = () => {
           <Text fontSize={20} fontWeight="bold">
             Tienes alguna otra consulta?
           </Text>
-          <Link href="contact">
+          <Link href="/Contact">
             <Text
               ml={3}
               _hover={{ color: "blackAlpha.400" }}
@@ -89,4 +89,4 @@ const ayuda = () => {
   );
 };
 
-export default ayuda;
+export default Ayuda;

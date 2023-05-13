@@ -11,6 +11,7 @@ import {
   Stack,
   Text,
   Textarea,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { BsInstagram, BsTwitter, BsWhatsapp } from "react-icons/bs";
 
@@ -48,7 +49,7 @@ const Contact = () => {
           maxW="1500px"
           m={3}
           align="flex-start"
-          bg="white"
+          bg={useColorModeValue("white", "gray.600")}
           fontWeight="bold"
           p={5}
           spacing={7}
@@ -95,7 +96,7 @@ const Contact = () => {
               Enviar
             </Button>
           </FormControl>
-          <Text>Seguinos en nuestras redes sociales!</Text>
+          <Text color="gray.600">Seguinos en nuestras redes sociales!</Text>
           <Flex
             justify="space-between"
             w="100%"
@@ -126,7 +127,12 @@ const Contact = () => {
             </Flex>
 
             <Flex>
-              <Text fontSize="17px">Chatea con nosotros!</Text>
+              <Text
+                fontSize="17px"
+                color={useColorModeValue("gray.600", "white")}
+              >
+                Chatea con nosotros!
+              </Text>
               <Link
                 href="https://wa.me/541161685995"
                 target="_blank"

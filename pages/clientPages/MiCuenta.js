@@ -3,12 +3,13 @@ import { useContext } from "react";
 import { BeatLoader } from "react-spinners";
 import { FormatClient } from "../../components/client/FormatClient";
 import { context } from "../../contexts/userContext";
-import ClientData from "../../items/ClientData";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/clientApp";
+import { ClientData } from "../../components/client/ClientData";
 
 const MiCuenta = () => {
-  
   const { userRef } = useContext(context);
-  
+  const [user, loading, error] = useAuthState(auth);
   return (
     <Box>
       <FormatClient title="Mi Cuenta">
@@ -17,9 +18,9 @@ const MiCuenta = () => {
             <BeatLoader color="#68EBBB" />
           </Flex>
         )}
-        {userRef !== ("loadingUser" || "offline") && userRef?.email ? (
-          <ClientData userRef={userRef} />
-        ) : (
+        {userRef?.email && <ClientData userRef={userRef} />}
+
+        {!loading && !user && (
           <Text
             mt={5}
             align="center"

@@ -4,11 +4,15 @@ import Router from "next/router";
 export const useRouterEvent = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    let startTimeout
     const start = () => {
-      setLoading(true);
+      startTimeout = setTimeout(() => {
+        setLoading(true);        
+      }, 1000);
     };
     const end = () => {
       setLoading(false);
+      clearTimeout(startTimeout);
     };
 
     Router.events.on("routeChangeStart", start);

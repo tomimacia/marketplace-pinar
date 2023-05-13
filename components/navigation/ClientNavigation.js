@@ -55,11 +55,11 @@ export const ClientNavigation = () => {
       {!loading &&
         (user ? (
           <Flex
-            gap={1}
-            mr={2}
+            justifyContent='space-around'
+            mr={2}            
             justify="center"
             align="center"
-            minW="40%"
+            minW='130px'
             bg={useColorModeValue("teal.400", "teal.700")}
             borderRadius="10px"
           >

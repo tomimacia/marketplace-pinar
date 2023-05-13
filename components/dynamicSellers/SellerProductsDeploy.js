@@ -1,4 +1,4 @@
-import { Flex, Icon, Image, Text } from "@chakra-ui/react";
+import { Flex, Icon, Image, Text, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useCartList } from "../../items/customHooks/cartHooks/useCartList";
@@ -6,7 +6,7 @@ import { ProductPrice } from "../products/ProductPrice";
 import { motion } from "framer-motion";
 
 
-export const ProductsDeploy = ({products}) => {
+export const SellerProductsDeploy = ({products}) => {
     const {cartList, actions} = useCartList()
 
   return (
@@ -14,7 +14,7 @@ export const ProductsDeploy = ({products}) => {
       {products.map((product, i) => {
         return (
           <Flex
-            boxShadow="0 5px 5px"
+            boxShadow={useColorModeValue("0 5px 5px","none")}
             mb={10}
             as={motion.div}
             initial={{ opacity: 0 }}
@@ -38,7 +38,7 @@ export const ProductsDeploy = ({products}) => {
                 ml={["10px", "20px", "20px", "10%"]}
                 mr={["10px", "20px", "20px", "10%"]}
               >
-                <Link href={`/productPages/productos/${product.id}`}>
+                <Link href={`/productPages/Productos/${product.id}`}>
                   <Image
                     cursor="pointer"
                     border={[
@@ -66,7 +66,7 @@ export const ProductsDeploy = ({products}) => {
               >
                 {/* Flex del nombre */}
                 <Flex h="50%">
-                  <Link href={`/productPages/productos/${product.id}`}>
+                  <Link href={`/productPages/Productos/${product.id}`}>
                     <Text
                       cursor="pointer"
                       fontSize={[12, 13, 14, 15]}

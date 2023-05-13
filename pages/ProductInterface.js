@@ -10,7 +10,7 @@ import { useGetProducts } from "../items/customHooks/productsInterfaceHooks/useG
 import { useUrlQueryParams } from "../items/customHooks/productsInterfaceHooks/useUrlQueryParams";
 import { usePagination } from "../items/customHooks/usePagination";
 
-const productos = () => {
+const ProductInterface = () => {
   const { products, setProducts, loadingProducts } = useGetProducts();
   const { page, pagesTotal, pageActions } = usePagination(products);
   const router = useRouter();
@@ -61,4 +61,4 @@ const productos = () => {
   );
 };
 
-export default productos;
+export default ProductInterface;

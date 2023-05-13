@@ -10,7 +10,7 @@ export const CartAndColorSwitch = () => {
   return (
     <Flex justify="right">
       <ColorModeSwitch />
-      <Link href="/cart">
+      <Link href="/Cart">
         <Flex>
           <Icon
             as={AiOutlineShoppingCart}

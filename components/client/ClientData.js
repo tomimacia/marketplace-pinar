@@ -1,8 +1,8 @@
+import { Box, Input, Select } from "@chakra-ui/react";
 import { useState } from "react";
-import { Box, Flex, Input, Select } from "@chakra-ui/react";
-import { UserDataListItem } from "./userDataListItem";
-import { ConfirmDate } from "../components/forms/confirmUserDetails/ConfirmDate";
-const ClientData = ({ userRef }) => {
+import { UserDataListItem } from "./UserDataListItem";
+import {ConfirmDate} from "../forms/confirmUserDetails/ConfirmDate"
+export const ClientData = ({ userRef }) => {
   const [inputValue, setInputValue] = useState(null);
   const [blur, setBlur] = useState(true);
   const clickBlur = () => {
@@ -18,7 +18,6 @@ const ClientData = ({ userRef }) => {
     "Peru",
     "Colombia",
   ];
-  console.log(inputValue)
   return (
     <Box>
       <UserDataListItem
@@ -26,11 +25,12 @@ const ClientData = ({ userRef }) => {
         userProp="email"
         isEmail
         title="Email:"
-      ></UserDataListItem>
+      />
       <UserDataListItem
         onClickBlur={clickBlur}
         setInputValue={setInputValue}
         blurProp={blur}
+        inputValue={inputValue}
         title="Nombre"
         userProp="nombre"
       >
@@ -48,6 +48,7 @@ const ClientData = ({ userRef }) => {
         onClickBlur={clickBlur}
         setInputValue={setInputValue}
         blurProp={blur}
+        inputValue={inputValue}
         title="Apellido"
         userProp="apellido"
       >
@@ -65,6 +66,7 @@ const ClientData = ({ userRef }) => {
         onClickBlur={clickBlur}
         setInputValue={setInputValue}
         blurProp={blur}
+        inputValue={inputValue}
         title="Nacionalidad"
         userProp="pais"
       >
@@ -83,6 +85,7 @@ const ClientData = ({ userRef }) => {
         setInputValue={setInputValue}
         onClickBlur={clickBlur}
         blurProp={blur}
+        inputValue={inputValue}
         title="Telefono"
         userProp="telefono"
       >
@@ -101,6 +104,7 @@ const ClientData = ({ userRef }) => {
         setInputValue={setInputValue}
         blurProp={blur}
         inputValue={
+          inputValue &&
           inputValue?.day + "-" + inputValue?.month + "-" + inputValue?.year
         }
         title="Nacimiento"
@@ -112,9 +116,10 @@ const ClientData = ({ userRef }) => {
         />
       </UserDataListItem>
       <UserDataListItem
-        onClickBlur={() => setBlur(!blur)}
+        onClickBlur={clickBlur}
         blurProp={blur}
         setInputValue={setInputValue}
+        inputValue={inputValue}
         title="Dni"
         userProp="dni"
       >
@@ -128,8 +133,10 @@ const ClientData = ({ userRef }) => {
           size={["xs", "xs", "sm", "sm"]}
         />
       </UserDataListItem>
-      <UserDataListItem
-        onClickBlur={() => setBlur(!blur)}
+      {/* To set Adress for shipping */}
+      {/* <UserDataListItem
+        onClickBlur={clickBlur}
+        inputValue={inputValue}
         blurProp={blur}
         title={
           <>
@@ -162,9 +169,9 @@ const ClientData = ({ userRef }) => {
             size="xs"
           />
         </Flex>
-      </UserDataListItem>
+      </UserDataListItem> */}
     </Box>
   );
 };
 
-export default ClientData;
+

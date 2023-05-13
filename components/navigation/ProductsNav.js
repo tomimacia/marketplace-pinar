@@ -34,7 +34,7 @@ export const ProductsNav = () => {
             return (
               <Link
                 key={"prodNavLink" + cat.id}
-                href={`/productInterface?Category=${cat.id}`}
+                href={`/ProductInterface?Category=${cat.id}`}
               >
                 <MenuItem _hover={{ bg: "#aaa", borderRadius: "10px" }}>
                   {cat.id}

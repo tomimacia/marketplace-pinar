@@ -18,7 +18,8 @@ export const ConfirmDate = ({ selectedDate, setSelectedDate }) => {
       borderRadius="10px"
       outline="none"
       fontSize="1rem"
-      p="1rem 1.5rem"
+      p="1rem 1rem"
+      h='10px'
       className="my-custom-input-class" // a styling class
     />
   );

@@ -9,14 +9,14 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { isValidMotionProp, motion } from "framer-motion";
-import NavItem from "../../../items/navItem";
+import NavItem from "../NavItem";
 
 const links = [
   ["Home", "/"],
-  ["Productos", "/productInterface"],
-  ["Nosotros", "/about"],
-  ["Contacto", "/contact"],
-  ["Carrito", "/cart"],
+  ["Productos", "/ProductInterface"],
+  ["Nosotros", "/About"],
+  ["Contacto", "/Contact"],
+  ["Carrito", "/Cart"],
 ];
 const ChakraBox = chakra(motion.div, {
   shouldForwardProp: (prop) =>

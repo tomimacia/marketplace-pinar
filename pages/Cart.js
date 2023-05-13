@@ -6,7 +6,7 @@ import { EmptyCart } from "../components/cart/EmpyCart";
 import { useCartList } from "../items/customHooks/cartHooks/useCartList";
 import { useGetCart } from "../items/customHooks/cartHooks/useGetCart";
 
-const Carrito = () => {
+const Cart = () => {
   const { cartList, actions, quantityTotal } = useCartList();
   const { loading, products, error } = useGetCart(cartList);
 
@@ -47,4 +47,4 @@ const Carrito = () => {
   );
 };
 
-export default Carrito;
+export default Cart;

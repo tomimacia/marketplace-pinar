@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 import Layout from "../components/Layout";
 
 const About = () => {
@@ -9,7 +9,7 @@ const About = () => {
       pageTitle="Sobre nosotros"
     >
       <Box w='100%' align='center'>
-        <Box bg='white' borderRadius='10px' m={3} maxW="1500px">
+        <Box bg={useColorModeValue('white','gray.600')} borderRadius='10px' m={3} maxW="1500px">
           <Text
             p={25}
             fontWeight="bold"
