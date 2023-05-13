@@ -38,7 +38,7 @@ export const ProductStructure = ({
           ml={["10px", "20px", "35px", "40px"]}
           mr={["10px", "20px", "35px", "40px"]}
         >
-          <Link href={`/productPages/Productos/${product.id}`}>
+          <Link href={`/productPages/productos/${product.id}`}>
             <Image
               cursor="pointer"
               border={[
@@ -65,7 +65,7 @@ export const ProductStructure = ({
           flexGrow={1}
         >
           <Flex maxH="50%" flexGrow>
-            <Link href={`/productPages/Productos/${product.id}`}>
+            <Link href={`/productPages/productos/${product.id}`}>
               <Text
                 textOverflow="ellipsis"
                 overflow="hidden"                        

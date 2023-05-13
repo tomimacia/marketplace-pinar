@@ -9,7 +9,7 @@ export const linkTags =(user)=> {
 }
 export const sellerTags = (loading, user)=>{
     return [
-        ["Perfil del vendedor",`/productPages/Vendedores/${!loading && user?.uid}`],
-        ["Agregar Productos", "/clientPages/Admin/AddProducts"],
+        ["Perfil del vendedor",`/productPages/vendedores/${!loading && user?.uid}`],
+        ["Agregar Productos", "/clientPages/admin/AddProducts"],
       ];
 }

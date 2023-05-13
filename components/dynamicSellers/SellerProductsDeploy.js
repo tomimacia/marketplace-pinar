@@ -38,7 +38,7 @@ export const SellerProductsDeploy = ({products}) => {
                 ml={["10px", "20px", "20px", "10%"]}
                 mr={["10px", "20px", "20px", "10%"]}
               >
-                <Link href={`/productPages/Productos/${product.id}`}>
+                <Link href={`/productPages/productos/${product.id}`}>
                   <Image
                     cursor="pointer"
                     border={[
@@ -66,7 +66,7 @@ export const SellerProductsDeploy = ({products}) => {
               >
                 {/* Flex del nombre */}
                 <Flex h="50%">
-                  <Link href={`/productPages/Productos/${product.id}`}>
+                  <Link href={`/productPages/productos/${product.id}`}>
                     <Text
                       cursor="pointer"
                       fontSize={[12, 13, 14, 15]}
